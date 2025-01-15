@@ -1,0 +1,7 @@
+[MAIN]
+disable=
+    E0307, #  __str__ does not return str
+    C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
+ignore-paths=./pygenesis_django/package.py,.*/migrations

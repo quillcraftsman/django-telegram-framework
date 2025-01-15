@@ -1,0 +1,2 @@
+wheel
+Django==5.1.4

@@ -14,7 +14,7 @@
 [![Version](https://img.shields.io/pypi/v/django-telegram-framework.svg)](https://pypi.python.org/pypi/django-telegram-framework/)
 [![Development Status](https://img.shields.io/pypi/status/django-telegram-framework.svg)](https://pypi.python.org/pypi/django-telegram-framework)
 [![Python version](https://img.shields.io/pypi/pyversions/django-telegram-framework.svg)](https://pypi.python.org/pypi/django-telegram-framework/)
-[![License](https://img.shields.io/pypi/l/django-telegram-framework)](https://github.com/quillcraftsman/django-telegram-frameworkblob/main/LICENSE)
+[![License](https://img.shields.io/pypi/l/django-telegram-framework)](https://github.com/quillcraftsman/django-telegram-framework/blob/main/LICENSE)
 [![Wheel](https://img.shields.io/pypi/wheel/django-telegram-framework.svg)](https://pypi.python.org/pypi/django-telegram-framework/)
 
 #### Support

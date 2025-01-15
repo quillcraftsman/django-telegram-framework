@@ -42,7 +42,7 @@ PROJECT_URLS = {
     'Tracker': 'https://github.com/quillcraftsman/django-telegram-framework/issues',
     'Release notes': 'https://github.com/quillcraftsman/django-telegram-framework/releases',
     'Changelog': 'https://github.com/quillcraftsman/django-telegram-framework/releases',
-    'Download': 'https://pypi.org/project/telegram-framework/',
+    'Download': 'https://pypi.org/project/django-telegram-framework/',
 }
 
 with open_local([PACKAGE_NAME, "package.py"]) as fp:

@@ -3,7 +3,7 @@ Django Telegram Framework
 
 Библиотека (Framework) для быстрого создания **Telegram** ботов и интеграции с django
 
-Project on `GitHub <https://github.com/quillcraftsman/django-telegram-framework>`_
+Проект на `GitHub <https://github.com/quillcraftsman/django-telegram-framework>`_
 
 - :ref:`Идея проекта`
 - :ref:`Проект с открытым исходным кодом`
@@ -25,7 +25,7 @@ Project on `GitHub <https://github.com/quillcraftsman/django-telegram-framework>
 Проект с открытым исходным кодом
 --------------------------------
 
-Это проект с открытым исходным кодом с лицензией `Happy Code<https://github.com/quillcraftsman/django-telegram-framework/blob/main/LICENSE>`_.
+Это проект с открытым исходным кодом с лицензией `Happy Code <https://github.com/quillcraftsman/django-telegram-framework/blob/main/LICENSE>`_.
 - Свободное использование
 - создание Forks
 - публикация issues и bugs

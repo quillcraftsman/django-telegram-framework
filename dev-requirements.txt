@@ -2,3 +2,4 @@ yamllint
 pylint
 build
 coverage
+setuptools

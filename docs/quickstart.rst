@@ -1,19 +1,16 @@
-Quickstart
-----------
+Быстрый старт
+-------------
 
-Add package to `INSTALLED_APPS`
+Добавьте пакет в `INSTALLED_APPS` django проекта
 
 .. code-block:: python
 
     INSTALLED_APPS = [
         ...,
-        'pygenesis_django',
+        'telegram_framework',
     ]
 
-Run tests
 
-python manage.py test
+Запустить команду с информацией
 
-Run info command
-
-python manage.py pygenesis_django_info
+python manage.py package_info

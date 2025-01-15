@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PyGenesis Django's documentation!
-============================================
+Документация Django Telegram Framework
+======================================
 
 .. include:: about.rst
 

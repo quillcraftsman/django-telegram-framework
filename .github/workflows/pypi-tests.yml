@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11"]
+        python-version: ["3.12"]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -19,11 +19,11 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Delete local package
       run: |
-        rm -rf ./pygenesis_django
+        rm -rf ./telegram_framework
     - name: Install package from PyPi
       run: |
         python -m pip install --upgrade pip
-        pip install -U pygenesis-django
+        pip install -U django-telegram-framework
     - name: Install Dev Requirements
       run: |
         pip install -r requirements.txt

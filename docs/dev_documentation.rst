@@ -1,8 +1,8 @@
-Developer Documentation
------------------------
+Документация для разработчиков
+------------------------------
 
-Install requirement
-^^^^^^^^^^^^^^^^^^^
+Установка зависимостей
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: shell
 
@@ -13,27 +13,27 @@ Install requirement
 Makefile
 ^^^^^^^^
 
-First check **Makefile**. It contains many useful commands to work with the project:
+Думаю будет полезно проверить **Makefile**. Он содержит основные полезные команды для разработки проекта:
 
 .. include:: ../Makefile
 
-Get started
-^^^^^^^^^^^
+С чего начать
+^^^^^^^^^^^^^
 
-You can start with test and test coverage:
+Вы можете начать с запуска тестов и покрытия (coverage):
 
 .. code-block:: shell
 
     make coverage
     make test
 
-Check lint and test coverage before sending pull-request
+Пожалуйста запустите linter перед отправкой pull-request
 
 .. code-block:: shell
 
     make lint
 
-Build documentation
+Сборка документации
 ^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: shell

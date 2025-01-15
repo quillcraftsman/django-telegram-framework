@@ -9,12 +9,11 @@ class TestInfo(TestCase):
         self.client = Client()
 
     def test_info_text(self):
-        result = ('Just use this GitHub repository as template:'
-                 ' https://github.com/libresource/pygenesis-django and enjoy yourself')
+        result = 'Django Telegram Framework'
         self.assertEqual(result, info())
 
     def test_django_configuration(self):
-        self.assertTrue(apps.is_installed('pygenesis_django'))
+        self.assertTrue(apps.is_installed('telegram_framework'))
         self.assertIn('django.contrib.admin', settings.INSTALLED_APPS)
         self.assertIn('django.contrib.auth', settings.INSTALLED_APPS)
         self.assertIn('django.contrib.contenttypes', settings.INSTALLED_APPS)

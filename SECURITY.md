@@ -1,8 +1,9 @@
-# Security Policy
+# Политика безопасности
 
-## Vulnerability Reporting
-We provide a clear process for reporting security vulnerabilities. 
+## Сообщение о уязвимостях
 
-If you discover a security issue, please **do not** create an issue on GitHub.
-Instead, please email us at [quill@craftsman.lol](mailto:quill@craftsman.lol). 
-We will acknowledge your report, conduct an investigation, and work on a resolution.
+Мы предоставляем понятный процесс для сообщения об уязвимостях безопасности.  
+
+Если вы обнаружили проблему безопасности, пожалуйста, **не создавайте** задачу на GitHub.  
+Вместо этого отправьте нам письмо на [quill@craftsman.lol](mailto:quill@craftsman.lol).  
+Мы подтвердим получение вашего сообщения, проведем расследование и займемся её устранением.  

@@ -34,15 +34,15 @@ def get_value_from_package_info(line, value, old_value):
     return None
 
 
-PACKAGE_NAME = "pygenesis_django"
+PACKAGE_NAME = "telegram_framework"
 
 PROJECT_URLS = {
-    'Documentation': 'https://pygenesis-django.libresource.info',
-    'Source': 'https://github.com/libresource/pygenesis-django',
-    'Tracker': 'https://github.com/libresource/pygenesis-django/issues',
-    'Release notes': 'https://github.com/libresource/pygenesis-django/releases',
-    'Changelog': 'https://github.com/libresource/pygenesis-django/releases',
-    'Download': 'https://pypi.org/project/pygenesis-django/',
+    'Documentation': 'https://quillcraftsman.github.io/django-telegram-framework',
+    'Source': 'https://github.com/quillcraftsman/django-telegram-framework',
+    'Tracker': 'https://github.com/quillcraftsman/django-telegram-framework/issues',
+    'Release notes': 'https://github.com/quillcraftsman/django-telegram-framework/releases',
+    'Changelog': 'https://github.com/quillcraftsman/django-telegram-framework/releases',
+    'Download': 'https://pypi.org/project/telegram-framework/',
 }
 
 with open_local([PACKAGE_NAME, "package.py"]) as fp:
@@ -73,22 +73,29 @@ setup(
     ),
 
     include_package_data=True,
-    license="MIT",
+    license="Happy Code",
     description="Python Django package repository template",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
-    url="https://github.com/libresource/pygenesis-django",
+    url="https://github.com/quillcraftsman/django-telegram-framework",
     author="quillcraftsman",
     author_email="quill@craftsman.lol",
-    keywords=["python", "django", "package", "template-repository"],
-    # install_requires=[
-    #     'Django==5.0.6',
-    # ],
+    keywords=[
+        "django",
+        "telegram",
+        "telegram-bot",
+        "framework",
+        "testing",
+    ],
+    install_requires=[
+        'Django>=5',
+    ],
     python_requires=">=3",
     classifiers=[
         f'Development Status :: {package_status}',
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved",
+        "License :: Public Domain",
         "Programming Language :: Python :: 3",
         'Environment :: Web Environment',
         'Framework :: Django',
@@ -96,6 +103,7 @@ setup(
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Python Modules",
+        'Natural Language :: Russian',
     ],
     project_urls=PROJECT_URLS,
 )

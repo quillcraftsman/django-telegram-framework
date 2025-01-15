@@ -20,9 +20,9 @@ install:
 	pip install dist/*.whl
 
 uninstall:
-	pip uninstall pygenesis -y
+	pip uninstall django-telegram-framework -y
 	rm -rf dist
-	rm -rf pygenesis_django.egg-info
+	rm -rf telegram-framework.egg-info
 
 reinstall:
 	make uninstall
@@ -39,4 +39,4 @@ sphinx-help:
 	make help -f Sphinxfile
 
 package_docs:
-	sphinx-apidoc -o docs/package pygenesis_django/
+	sphinx-apidoc -o docs/package telegram_framework/

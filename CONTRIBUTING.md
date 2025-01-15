@@ -1,40 +1,43 @@
-# Guidance on how to contribute
+# Руководство о том, как внести свой вклад в проект
 
-There are many ways to help:
-- [Using GitHub stars and discussions](#using-github-start-and-discussions)
-- [Using the issue tracker](#using-the-issue-tracker)
-- [Changing the code-base](#changing-the-code-base)
+Есть много способов участия в проекте:
+- [Поставить звезду на GitHub](#поставить-звезду-на-github)
+- [Участие в обсуждении проекта](#участие-в-обсуждении-проекта)
+- [Следить за развитием проекта](#следить-за-развитием-проекта)
+- [Использование issue tracker](#использование-issue-tracker)
+- [Изменение кода проекта](#изменение-кода-проекта)
 
-## Using GitHub stars and discussions
+## Поставить звезду на GitHub
 
-The most simple way to help the project - Press the **Star** button if you like the project.
+Самый простой способ помочь развитию проекта - нажать кнопку **Star**, если вам понравился проект.
 
-Your participation in [discussions][discussions-path] will also be useful.
+## Участие в обсуждении проекта
 
-Press the **Eye** button to watch for changes.
+Ваше участие в [обсуждениях][discussions-path] проекта может быть полезно для всех.
 
-## Using the issue tracker
+## Следить за развитием проекта
 
-Use the [issue tracker][issues-path]
-to suggest feature requests, report bugs, and ask questions.
-This is also a great way to connect with the developers of the project as well
-as others who are interested in this solution.
+Можно нажать кнопку с глазиком (**Eye**) чтобы следить за изменениями проекта
 
-Use the [issue tracker][issues-path]  to find ways to contribute. 
-Find a bug or a feature, mention in
-the issue that you will take on that effort, then follow the _Changing the code-base_
-guidance below.
+## Использование issue tracker
 
-## Changing the code-base
+Используйте [issue tracker][issues-path]
+для описания багов (bugs) и создания новых задач (features).
+Это поможет установить связь с командой разработчиков проекта.
 
-Generally speaking, you should **fork** this repository, make changes in your
-own fork, and then submit a **pull request**. All new code should have associated
-unit tests that validate implemented features and the presence or lack of defects.
-Additionally, the code should follow any stylistic and architectural guidelines
-prescribed by the project. In the absence of such guidelines, mimic the styles
-and patterns in the existing code-base.
+Если вы разработчик используйте [issue tracker][issues-path] для нахождения задач для решения. 
+Если вы нашли задачу (feature) или багу (bug) и хотите внести свой вклад, пожалуйста отметьте себя в issue 
 
-You can check [Developer Documentation](https://pygenesis-django.libresource.info/dev_documentation.html) to easy start with code
+## Изменение кода проекта
 
-[issues-path]: https://github.com/libresource/pygenesis-django/issues
-[discussions-path]: https://github.com/libresource/pygenesis-django/discussions
+Как правило, вам следует сделать **Fork** этого репозитория, внести изменения в своей ветке, а затем отправить **pull request**.  
+Весь новый код должен сопровождаться модульными тестами, которые проверяют реализованные функции и наличие или отсутствие дефектов.  
+
+Кроме того, код должен соответствовать всем установленным проектом стилистическим и архитектурным рекомендациям.  
+Если таких рекомендаций нет, следуйте стилю и шаблонам, использованным в существующем коде.
+
+Вы можете проверить [Документацию для разработчиков](https://quillcraftsman.github.io/django-telegram-framework/dev_documentation.html), чтобы 
+быстрее начать работать с исходным кодом
+
+[issues-path]: https://github.com/quillcraftsman/django-telegram-framework/issues
+[discussions-path]: https://github.com/quillcraftsman/django-telegram-framework/discussions

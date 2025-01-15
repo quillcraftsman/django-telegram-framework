@@ -1,60 +1,57 @@
-PyGenesis Django
-================
+Django Telegram Framework
+=========================
 
-Python Django package repository template
+Библиотека (Framework) для быстрого создания **Telegram** ботов и интеграции с django
 
-Project on `GitHub <https://github.com/libresource/pygenesis-django>`_
+Project on `GitHub <https://github.com/quillcraftsman/django-telegram-framework>`_
 
-- :ref:`Mission`
-- :ref:`Open Source Project`
-- :ref:`Features`
-- :ref:`Requirements`
-- :ref:`Development Status`
+- :ref:`Идея проекта`
+- :ref:`Проект с открытым исходным кодом`
+- :ref:`Функции библиотеки`
+- :ref:`Зависимости`
+- :ref:`Статус разработки`
 
-Mission
--------
-
-PyGenesis is a comprehensive Python Django package template designed to kickstart your projects instantly.
-With a clean and organized structure, it provides a hassle-free starting point for developers.
-Effortlessly begin your Python endeavors, focusing on your code, not the setup. Jumpstart your creativity with PyGenesis Django.
-
-Open Source Project
--------------------
-
-This is the open source project with `MIT license <https://github.com/libresource/pygenesis-django/blob/main/LICENSE>`_.
-Be free to use, fork, clone and contribute.
-
-Features
---------
-
-- This README (Change it for your python project)
-- This template base on `libresource/pygenesis <https://github.com/libresource/pygenesis>`_.
-It contains may useful files for open source project: (`CHECKLIST.md <https://github.com/libresource/pygenesis-django/blob/main/CHECKLIST.md>`_,
-`CONTGIBUTING.md <https://github.com/libresource/pygenesis-django/blob/main/CONTRIBUTING.md>`_,
-`CODE_OF_CONDUCT.md <https://github.com/libresource/pygenesis-django/blob/main/CODE_OF_CONDUCT.md>`_, and much more).
-
-- `setup.py` for build your package
-- `requirements.txt` and `dev-requirements.txt`
-- `Makefile` with main commands to work with the project
-- - run tests
-- - calculate coverage
-- - lint
-- - build and install package
-- - generate autodocumentation
-- - others
-- GitHub workflows
-- - generate documentation
-- - run tests with coverage
-- - run linter
-- - publish your package in PyPi
-
-Requirements
+Идея проекта
 ------------
+
+Создать удобный и надежный framework для быстрого и удобного создания telegram ботов который:
+
+- Имеет чёткую структуру модулей
+- Может использовать разные библиотеки для взаимодействия с telegram (pyTelegramBotAPI, Telethone, python-telegram-bot, aiogram и другие)
+- Позволяет быстро реализовать start-up проект одному разработчику или в небольшой команде
+- Имеет интеграцию с django для соднаия web страниц и использования django admin
+- Быстро подключается к базе данных с помощью Django ORM
+
+Проект с открытым исходным кодом
+--------------------------------
+
+Это проект с открытым исходным кодом с лицензией `Happy Code<https://github.com/quillcraftsman/django-telegram-framework/blob/main/LICENSE>`_.
+- Свободное использование
+- создание Forks
+- публикация issues и bugs
+- contributions
+очень приветствуются
+
+Функции библиотеки
+------------------
+
+- Интеграция telegram бота в django проект (В разработке)
+- Понятная структура и интерфейсы для разработки бота (В разработке)
+- Функции автоматического тестирования бота (В разработке)
+- Совместимость с синхронным pyTelegramBotAPI (В разработке)
+- Совместимость с асинхронным pyTelegramBotAPI (В разработке)
+- DummyBot для тестирования и работы без подключения к telegram (В разработке)
+- Основные функции телеграм бота (В разработке)
+- Все функции телеграм бота (На этапе планирования)
+- Совместимость с aiogram, python-telegram-bot, Telethone (На этапе планирования)
+
+Зависимости
+-----------
 
 .. include:: ../requirements.txt
 
-Development Status
-------------------
+Статус разработки
+-----------------
 
 - |project_name|
 
@@ -62,4 +59,4 @@ Development Status
 
 - |development_status|
 
-`Project on PyPi <https://pypi.org/project/pygenesis-django>`_
+`Проект в PyPi <https://pypi.org/project/pygenesis-django>`_

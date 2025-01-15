@@ -1,20 +1,20 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Запрос нового функционала
+about: Идея нового полезного функционала для этого проекта
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**Новый функционал связан с определенной проблемой? Пожалуйста, опишите её.**
+Понятное и чёткое описание проблемы. Например: сейчас библиотека не позволяет сделать ...
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**Описание решения**
+Каким вы видите решение проблемы? Какие новые функции нужно добавить? Что нужно изменить, улучшить?
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Описание альтернативных решений**
+Перечислите альтернативные варианты решения проблемы если они есть
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**Дополнительная информация**
+Любая полезная информация для реализации нового функционала

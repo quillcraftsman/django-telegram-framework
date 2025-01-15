@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand
-from pygenesis_django.info import info
+from telegram_framework.info import info
 
 
 class Command(BaseCommand):
-    help = "Pygenesis Django package info"
+    help = "Django Telegram Framework package info"
 
     def handle(self, *args, **options):
 

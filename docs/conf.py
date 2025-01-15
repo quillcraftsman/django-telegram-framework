@@ -10,11 +10,11 @@ Configuration file for the Sphinx documentation builder.
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-from pygenesis_django.package import name, version, status  # pylint: disable=wrong-import-position
+from telegram_framework.package import name, version, status  # pylint: disable=wrong-import-position
 
 project = name  # pylint: disable=invalid-name
 author = 'quillcraftsman'  # pylint: disable=invalid-name
-copyright = f'2024, {author}'  # pylint: disable=redefined-builtin
+copyright = f'2025, {author}'  # pylint: disable=redefined-builtin
 release = version  # pylint: disable=invalid-name
 
 # -- General configuration ---------------------------------------------------

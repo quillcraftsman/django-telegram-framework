@@ -1,166 +1,183 @@
-# pygenesis-django
+# Django Telegram Framework
 
-Python Django package repository template
+Библиотека (Framework) для быстрого создания **Telegram** ботов и интеграции с django
 
-You can find **Full Project Documentation** [here][documentation_path]
+[Тут][documentation_path] можно найти **Полную документацию проекта** 
 
 <hr>
 
 #### Workflows
-[![Tests](https://github.com/libresource/pygenesis-django/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/libresource/pygenesis-django/actions/workflows/run-tests.yml)
-[![Pylint](https://github.com/libresource/pygenesis-django/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/libresource/pygenesis-django/actions/workflows/lint.yml)
+[![Tests](https://github.com/quillcraftsman/django-telegram-framework/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/quillcraftsman/django-telegram-framework/actions/workflows/run-tests.yml)
+[![Pylint](https://github.com/quillcraftsman/django-telegram-framework/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/quillcraftsman/django-telegram-framework/actions/workflows/lint.yml)
 
 #### Package
-[![Version](https://img.shields.io/pypi/v/pygenesis-django.svg)](https://pypi.python.org/pypi/pygenesis-django/)
-[![Development Status](https://img.shields.io/pypi/status/pygenesis-django.svg)](https://pypi.python.org/pypi/pygenesis-django)
-[![Python version](https://img.shields.io/pypi/pyversions/pygenesis-django.svg)](https://pypi.python.org/pypi/pygenesis-django/)
-[![License](https://img.shields.io/pypi/l/pygenesis-django)](https://github.com/libresource/pygenesis-djangoblob/main/LICENSE)
-[![Wheel](https://img.shields.io/pypi/wheel/pygenesis-django.svg)](https://pypi.python.org/pypi/pygenesis-django/)
+[![Version](https://img.shields.io/pypi/v/django-telegram-framework.svg)](https://pypi.python.org/pypi/django-telegram-framework/)
+[![Development Status](https://img.shields.io/pypi/status/django-telegram-framework.svg)](https://pypi.python.org/pypi/django-telegram-framework)
+[![Python version](https://img.shields.io/pypi/pyversions/django-telegram-framework.svg)](https://pypi.python.org/pypi/django-telegram-framework/)
+[![License](https://img.shields.io/pypi/l/django-telegram-framework)](https://github.com/quillcraftsman/django-telegram-frameworkblob/main/LICENSE)
+[![Wheel](https://img.shields.io/pypi/wheel/django-telegram-framework.svg)](https://pypi.python.org/pypi/django-telegram-framework/)
 
 #### Support
 [![Documentation](https://img.shields.io/badge/docs-0094FF.svg)][documentation_path]
-[![Discussions](https://img.shields.io/badge/discussions-ff0068.svg)](https://github.com/libresource/pygenesis-django/discussions/)
-[![Issues](https://img.shields.io/badge/issues-11AE13.svg)](https://github.com/libresource/pygenesis-django/issues/)
+[![Discussions](https://img.shields.io/badge/discussions-ff0068.svg)](https://github.com/quillcraftsman/django-telegram-framework/discussions/)
+[![Issues](https://img.shields.io/badge/issues-11AE13.svg)](https://github.com/quillcraftsman/django-telegram-framework/issues/)
 
 #### Downloads
-[![Day Downloads](https://img.shields.io/pypi/dd/pygenesis-django)](https://pepy.tech/project/pygenesis-django)
-[![Week Downloads](https://img.shields.io/pypi/dw/pygenesis-django)](https://pepy.tech/project/pygenesis-django)
-[![Month Downloads](https://img.shields.io/pypi/dm/pygenesis-django)](https://pepy.tech/project/pygenesis-django)
-[![All Downloads](https://img.shields.io/pepy/dt/pygenesis-django)](https://pepy.tech/project/pygenesis-django)
+[![Day Downloads](https://img.shields.io/pypi/dd/django-telegram-framework)](https://pepy.tech/project/django-telegram-framework)
+[![Week Downloads](https://img.shields.io/pypi/dw/django-telegram-framework)](https://pepy.tech/project/django-telegram-framework)
+[![Month Downloads](https://img.shields.io/pypi/dm/django-telegram-framework)](https://pepy.tech/project/django-telegram-framework)
+[![All Downloads](https://img.shields.io/pepy/dt/django-telegram-framework)](https://pepy.tech/project/django-telegram-framework)
 
 #### Languages
-[![Languages](https://img.shields.io/github/languages/count/libresource/pygenesis-django)](https://github.com/libresource/pygenesis-django)
-[![Top Language](https://img.shields.io/github/languages/top/libresource/pygenesis-django)](https://github.com/libresource/pygenesis-django)
+[![Languages](https://img.shields.io/github/languages/count/quillcraftsman/django-telegram-framework)](https://github.com/quillcraftsman/django-telegram-framework)
+[![Top Language](https://img.shields.io/github/languages/top/quillcraftsman/django-telegram-framework)](https://github.com/quillcraftsman/django-telegram-framework)
 
 #### Development
-- [![Release date](https://img.shields.io/github/release-date/libresource/pygenesis-django
-)](https://github.com/libresource/pygenesis-django/releases)
-[![Last Commit](https://img.shields.io/github/last-commit/libresource/pygenesis-django/main
-)](https://github.com/libresource/pygenesis-django)
-- [![Issues](https://img.shields.io/github/issues/libresource/pygenesis-django
-)](https://github.com/libresource/pygenesis-django/issues/)
-[![Closed Issues](https://img.shields.io/github/issues-closed/libresource/pygenesis-django
-)](https://github.com/libresource/pygenesis-django/issues/)
-- [![Pull Requests](https://img.shields.io/github/issues-pr/libresource/pygenesis-django
-)](https://github.com/libresource/pygenesis-django/pulls)
-[![Closed Pull Requests](https://img.shields.io/github/issues-pr-closed-raw/libresource/pygenesis-django
-)](https://github.com/libresource/pygenesis-django/pulls)
-- [![Discussions](https://img.shields.io/github/discussions/libresource/pygenesis-django
-)](https://github.com/libresource/pygenesis-django/discussions/)
+- [![Release date](https://img.shields.io/github/release-date/quillcraftsman/django-telegram-framework
+)](https://github.com/quillcraftsman/django-telegram-framework/releases)
+[![Last Commit](https://img.shields.io/github/last-commit/quillcraftsman/django-telegram-framework/main
+)](https://github.com/quillcraftsman/django-telegram-framework)
+- [![Issues](https://img.shields.io/github/issues/quillcraftsman/django-telegram-framework
+)](https://github.com/quillcraftsman/django-telegram-framework/issues/)
+[![Closed Issues](https://img.shields.io/github/issues-closed/quillcraftsman/django-telegram-framework
+)](https://github.com/quillcraftsman/django-telegram-framework/issues/)
+- [![Pull Requests](https://img.shields.io/github/issues-pr/quillcraftsman/django-telegram-framework
+)](https://github.com/quillcraftsman/django-telegram-framework/pulls)
+[![Closed Pull Requests](https://img.shields.io/github/issues-pr-closed-raw/quillcraftsman/django-telegram-framework
+)](https://github.com/quillcraftsman/django-telegram-framework/pulls)
+- [![Discussions](https://img.shields.io/github/discussions/quillcraftsman/django-telegram-framework
+)](https://github.com/quillcraftsman/django-telegram-framework/discussions/)
 
 [//]: # (#### Repository Stats)
 
-[//]: # ([![Stars]&#40;https://img.shields.io/github/stars/libresource/pygenesis-django)
+[//]: # ([![Stars]&#40;https://img.shields.io/github/stars/quillcraftsman/django-telegram-framework)
 
-[//]: # (&#41;]&#40;https://github.com/libresource/pygenesis-django&#41;)
+[//]: # (&#41;]&#40;https://github.com/quillcraftsman/django-telegram-framework&#41;)
 
-[//]: # ([![Contributors]&#40;https://img.shields.io/github/contributors/libresource/pygenesis-django)
+[//]: # ([![Contributors]&#40;https://img.shields.io/github/contributors/quillcraftsman/django-telegram-framework)
 
-[//]: # (&#41;]&#40;https://github.com/libresource/pygenesis-djangographs/contributors&#41;)
+[//]: # (&#41;]&#40;https://github.com/quillcraftsman/django-telegram-frameworkgraphs/contributors&#41;)
 
-[//]: # ([![Forks]&#40;https://img.shields.io/github/forks/libresource/pygenesis-django)
+[//]: # ([![Forks]&#40;https://img.shields.io/github/forks/quillcraftsman/django-telegram-framework)
 
-[//]: # (&#41;]&#40;https://github.com/libresource/pygenesis-django&#41;)
+[//]: # (&#41;]&#40;https://github.com/quillcraftsman/django-telegram-framework&#41;)
 
 <hr>
 
 ## Menu
 
-- [Mission](#mission)
-- [Open Source Project](#open-source-project)
-- [Features](#features)
-- [Requirements](#requirements)
-- [Development Status](#development-status)
-- [Install](#install)
-- [Quickstart](#quickstart)
-- [Contributing](#contributing)
+- [Идея проекта](#идея-проекта)
+- [Проект с открытым исходным кодом](#проект-с-открытым-исходным-кодом)
+- [Отличие от других Telegram проектов](#отличие-от-других-telegram-проектов)
+- [Функции библиотеки](#функции-библиотеки)
+- [Зависимости](#зависимости)
+- [Статус разработки](#статус-разработки)
+- [Установка](#установка)
+- [Быстрый старт](#быстрый-старт)
+- [Внести свой вклад в проект](#внести-свой-вклад-в-проект)
 
-## Mission
+## Идея проекта
 
-pygenesis-django is a comprehensive Python Django package template designed to kickstart your projects instantly. 
-With a clean and organized structure, it provides a hassle-free starting point for developers. 
-Effortlessly begin your Python endeavors, focusing on your code, not the setup. Jumpstart your creativity with pygenesis-django.
+Создать удобный и надежный framework для быстрого и удобного создания telegram ботов который:
 
-## Open Source Project
+- Имеет чёткую структуру модулей
+- Может использовать разные библиотеки для взаимодействия с telegram (pyTelegramBotAPI, Telethone, python-telegram-bot, aiogram и другие)
+- Позволяет быстро реализовать start-up проект одному разработчику или в небольшой команде
+- Имеет интеграцию с django для соднаия web страниц и использования django admin
+- Быстро подключается к базе данных с помощью Django ORM
 
-This is the open source project with [MIT license](LICENSE). 
-Be free to use, fork, clone and contribute.
+## Проект с открытым исходным кодом
 
-## Features
+Это проект с открытым исходным кодом с лицензией [Happy Code](LICENSE). 
 
-- This README (Change it for your python project)
-- This template base on [libresource/pygenesis](https://github.com/libresource/pygenesis). 
-It contains may useful files for open source project: ([CHECKLIST.md](CHECKLIST.md), [CONTRIBUTING.md](CONTRIBUTING.md), 
-[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md), and much more). 
-- `setup.py` for build your package
-- `requirements.txt` and `dev-requirements.txt`
-- `Makefile` with main commands to work with the project
-  - run tests
-  - calculate coverage
-  - lint
-  - build and install package
-  - generate autodocumentation
-  - others
-- GitHub workflows 
-  - generate documentation
-  - run tests with coverage
-  - run linter
-  - publish your package in PyPi
+- Свободное использование
+- создание Forks
+- публикация issues и bugs
+- contributions
 
-## Requirements
+очень приветствуются
 
-- django, pylint, yamllint, sphinx, sphinx_rtd_theme
-- See more in [Full Documentation](https://pygenesis-django.libresource.info/about.html#requirements)
+## Отличие от других Telegram проектов
+В отличие от библиотек для создания telegram ботов, таких как pyTelegramBotAPI, aiogram, python-telegram-bot и других,
+этот проект (Framework) имеет чёткую структуру, похожую на структуру django проектов. Framework содержит следующие элементы:
 
-## Development Status
+- models - модели данных связанные с базой данных с помощью Django ORM
+- handlers - обработчики событий telegram bot-а (аналогия с django views)
+- bot - связь команд и событий бота с обработчиками (аналогия с django urls)
+- settings - настройки для всего проекта - django settings
+- tests - тесты логики бота с использованием специального Dummy Bot
 
-- Package already available on [PyPi](https://pypi.org/project/pygenesis-django/)
-- See more in [Full Documentation](https://pygenesis-django.libresource.info/about.html#development-status)
+Под капотом Framework может использовать разные библиотеки в синхронном и асинхронном исполнении. Можно переключать одни библиотеки на другие.
+Без соединения с telegram (например в DEV) режиме, можно использовать Dummy Bot для разработки и тестирования.
 
-## Install
+Интеграция с django позволяет:
+- Добавить web site
+- Использовать django админку
+- Использовать django ORM
+
+## Функции библиотеки
+
+- Интеграция telegram бота в django проект (В разработке)
+- Понятная структура и интерфейсы для разработки бота (В разработке)
+- Функции автоматического тестирования бота (В разработке)
+- Совместимость с синхронным pyTelegramBotAPI (В разработке)
+- Совместимость с асинхронным pyTelegramBotAPI (В разработке)
+- DummyBot для тестирования и работы без подключения к telegram (В разработке)
+- Основные функции телеграм бота (В разработке)
+- Все функции телеграм бота (На этапе планирования)
+- Совместимость с aiogram, python-telegram-bot, Telethone (На этапе планирования)
+
+## Зависимости
+
+- django > 5
+- pyTelegramBotAPi
+- Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#requirements)
+
+## Статус разработки
+
+Разработка только началась
+
+- Пакет уже доступен в [PyPi](https://pypi.org/project/django-telegram-framework/)
+- Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#development-status)
+
+## Установка
 
 ### with pip
 
 ```commandline
-pip install pygenesis-django
+pip install django-telegram-framework
 ```
 
-See more in [Full Documentation](https://pygenesis-django.libresource.info/install.html)
+Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/install.html)
 
-## Quickstart
+## Быстрый старт
 
-Add package to `INSTALLED_APPS`
+Добавить пакет в `INSTALLED_APPS` django проекта
 
 ```python
 INSTALLED_APPS = [
     ...,
-    'pygenesis_django',
+    'telegram_framework',
 ]
 ```
 
-Run tests
+Запустить команду с информацией
 
 ```commandline
-python manage.py test
+python manage.py package_info
 ```
 
-Run info command
+### Больше примеров в [Полной документации][documentation_path]
 
-```commandline
-python manage.py pygenesis_django_info
-```
+## Внести свой вклад в проект
 
-### More examples in [Full Documentation][documentation_path]
+Без проблем! Для быстрого старта можно ознакомиться с:
+- [Полной документацией][documentation_path]
+- [Как внести свой вклад](CONTRIBUTING.md)
+- [Документацией для разработчиков](https://quillcraftsman.github.io/django-telegram-framework/dev_documentation.html)
+- [Нормами поведения](CODE_OF_CONDUCT.md)
+- [Политикой безопасности](SECURITY.md)
+- [Структурой управления проектом](GOVERNANCE.md)
+- [Файлом поддержки](SUPPORT.md)
 
-## Contributing
-
-You are welcome! To easy start please check:
-- [Full Documentation][documentation_path]
-- [Contributing](CONTRIBUTING.md)
-- [Developer Documentation](https://pygenesis-django.libresource.info/dev_documentation.html)
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Security Policy](SECURITY.md)
-- [Governance](GOVERNANCE.md)
-- [Support](SUPPORT.md)
-
-[documentation_path]: https://pygenesis-django.libresource.info
+[documentation_path]: https://quillcraftsman.github.io/django-telegram-framework

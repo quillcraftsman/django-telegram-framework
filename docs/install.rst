@@ -1,17 +1,17 @@
-Install
--------
+Установка
+---------
 
-Using pip
-^^^^^^^^^
+С помощью pip
+^^^^^^^^^^^^^
 
 .. code-block:: bash
 
-   pip install pygenesis-django
+   pip install django-telegram-framework
 
-From release page
-^^^^^^^^^^^^^^^^^
+Из release на GitHub
+^^^^^^^^^^^^^^^^^^^^
 
-Download source code from `GitHub Releases page <https://github.com/libresource/pygenesis-django/releases>`_
+Скачайте исходный код с `GitHub Releases page <https://github.com/libresource/pygenesis-django/releases>`_
 
 Clone from GitHub
 ^^^^^^^^^^^^^^^^^

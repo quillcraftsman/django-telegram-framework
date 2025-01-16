@@ -2,9 +2,9 @@
 Tests
 """
 from dataclasses import dataclass
-from django.test import TestCase
+from django.test import SimpleTestCase
 from telegram_framework.chat import Chat, add_bot, get_last_message, add_message
-
+from telegram_framework.messages import Message
 
 
 @dataclass(frozen=True)
@@ -15,7 +15,7 @@ class EmptyBot:
         return self.id == other.id
 
 
-class TestChat(TestCase):
+class TestChat(SimpleTestCase):
     """
     TestInfo TestCase
     """
@@ -42,9 +42,20 @@ class TestChat(TestCase):
         Test add_message: success
         """
         self.assertEqual(0, len(self.chat.messages))
-        message = 'Text message'
+        message = Message(text='some text', sender='some sender')
         chat = add_message(self.chat, message)
         self.assertEqual(1, len(chat.messages))
+
+    def test_add_message_in_chat(self):
+        """
+        Test add_message: success: Message.chat is not None
+        """
+        message = Message(text='some text', sender='some sender')
+        self.assertIsNone(message.chat)
+        chat = add_message(self.chat, message)
+        chat_message = get_last_message(chat)
+        self.assertEqual(message, chat_message)
+        self.assertEqual(chat, chat_message.chat)
 
     def test_get_last_message_empty(self):
         """
@@ -57,7 +68,7 @@ class TestChat(TestCase):
         """
         Test get_last_message: success
         """
-        message = 'Text message'
+        message = Message(text='some text', sender='some sender')
         chat = add_message(self.chat, message)
         last_message = get_last_message(chat)
         self.assertEqual(message, last_message)

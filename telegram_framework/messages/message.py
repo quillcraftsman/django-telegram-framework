@@ -5,4 +5,6 @@ from .message_default import MessageDefault
 
 @dataclass(frozen=True)
 class Message(MessageDefault, MessageBase):
-    pass
+
+    def __eq__(self, other):
+        return self.text == other.text and self.sender == other.sender

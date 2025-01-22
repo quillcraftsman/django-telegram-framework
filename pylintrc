@@ -4,5 +4,6 @@ disable=
     C0114, # missing-module-docstring
     C0115, # missing-class-docstring
     C0116, # missing-function-docstring
+    R0401, # complex cyclic import
 
 ignore-paths=./telegram_framework/package.py,.*/migrations

@@ -26,20 +26,19 @@ def register_call_handler(bot: DummyBot, handler: Callable, call_data):
     return update(bot, call_handlers=call_handlers)
 
 
-# def handle(bot: DummyBot)
-# def find_handler(bot: DummyBot, message) -> Callable:
-#     result = None
-#     print('MESSAGE TEXT', message.text)
-#     if message.text.startswith('/'):
-#         # нашли команду
-#         command_name = message.text.replace('/', '')
-#         result = bot.commands.get(command_name, None)
-#     return result
-#
-# def get_bot(api_token):
-#     return DummyBot(api_token=api_token)
-#
-#
-# def start(bot: DummyBot):
-#     print('STARTED')
-#     print(bot)
+def find_handler(bot: DummyBot, message):
+    text = message.text
+    if text.startswith('/'):
+        # this is command
+        command_name = text.replace('/', '')
+        return bot.command_handlers.get(command_name, None)
+    # this is message
+    return bot.message_handlers[0] if bot.message_handlers else None
+
+
+def get_bot(token):
+    return DummyBot(token=token)
+
+
+def start(bot: DummyBot):  # pylint: disable=unused-argument
+    pass

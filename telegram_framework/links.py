@@ -1,5 +1,5 @@
 from typing import Callable
-from .dummy.bot import (
+from telegram_framework import (
     # register_call_handler,
     register_message_handler,
     register_command_handler,

@@ -7,4 +7,10 @@ def send_reply(reply: Reply):
 
 
 def send_message(chat: Chat, message: Message):
-    return add_message(chat, message)
+    chat = add_message(chat, message)
+    return chat
+    # last_message = get_last_message(chat)
+    # for bot in chat.bots:
+    #     if last_message:
+    #         if last_message.sender != bot:
+    #             chat = handle_message(bot, last_message

@@ -1,2 +1,4 @@
 wheel
 Django>=5
+pyTelegramBotAPI==4.26.0
+python-dotenv==1.0.1

@@ -3,8 +3,6 @@ from django.conf import settings
 
 bot_type = settings.TELEGRAM_BOT_TYPE
 
-print('BOT TYPE SETTINGS', bot_type)
-
 if bot_type == 'Dummy':
     from .dummy.bot import (
         get_bot, find_handler,
@@ -14,7 +12,7 @@ if bot_type == 'Dummy':
         register_message_handler
     )
     from .dummy import actions
-elif bot_type == 'pyTelegramBotAPI':
+elif bot_type == 'pyTelegramBotAPI':  # pragma: no cover
     from .py_telegram_bot_api.bot import (
         get_bot, find_handler,
         handle_message,

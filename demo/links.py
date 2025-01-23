@@ -1,7 +1,8 @@
 from telegram_framework import links
-from .actions import send_hello_message
+from . import actions
 
 
 bot_links = [
-    links.on_command(send_hello_message, 'hello'),
+    links.on_command(actions.send_hello_message, 'hello'),
+    links.on_command(actions.send_hello_as_reply, 'reply_me'),
 ]

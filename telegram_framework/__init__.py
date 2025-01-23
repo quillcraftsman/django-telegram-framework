@@ -3,6 +3,8 @@ from django.conf import settings
 
 bot_type = settings.TELEGRAM_BOT_TYPE
 
+print('BOT TYPE SETTINGS', bot_type)
+
 if bot_type == 'Dummy':
     from .dummy.bot import (
         get_bot, find_handler,

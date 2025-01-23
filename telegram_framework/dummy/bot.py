@@ -42,3 +42,12 @@ def get_bot(token):
 
 def start(bot: DummyBot):  # pylint: disable=unused-argument
     pass
+
+
+def handle_message(bot, message):
+    # if message.sender == bot:
+    #     return message.chat
+    handler = find_handler(bot, message)
+    if not handler:
+        return message.chat
+    return handler(bot, message)

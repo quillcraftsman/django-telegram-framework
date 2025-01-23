@@ -28,3 +28,10 @@ def on_message(handler: Callable):
 #         return register_call_handler(bot, handler, call_data)
 #
 #     return call_handler
+
+
+def add_links(bot, links):
+    for link in links:
+        bot = link(bot)
+
+    return bot

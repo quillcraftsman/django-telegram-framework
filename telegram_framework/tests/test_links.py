@@ -31,3 +31,16 @@ class TestLinks(SimpleTestCase):
         handler = find_handler(bot, message)
         self.assertEqual(self.some_handler, handler)
         self.assertEqual(1, len(bot.message_handlers))
+
+    def test_add_links(self):
+        """
+        Test add_links: success
+        """
+        bot_links = [
+            links.on_command(self.some_handler, 'one'),
+            links.on_command(self.some_handler, 'two')
+        ]
+        bot = links.add_links(self.bot, bot_links)
+        self.assertEqual(2, len(bot.command_handlers))
+        for link in bot.command_handlers.values():
+            self.assertEqual(self.some_handler, link)

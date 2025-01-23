@@ -70,5 +70,8 @@ class TestChat(SimpleTestCase):
         """
         message = Message(text='some text', sender='some sender')
         chat = add_message(self.chat, message)
+        self.assertEqual(1, len(chat.messages))
         last_message = get_last_message(chat)
         self.assertEqual(message, last_message)
+        self.assertEqual(last_message.chat, chat)
+        self.assertEqual(len(last_message.chat.messages), len(chat.messages))

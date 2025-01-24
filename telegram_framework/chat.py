@@ -38,6 +38,6 @@ def get_last_message(chat: Chat) -> Any:
     last_chat_message = update(last_message, chat=chat)
     return last_chat_message
 
-def get_messages(chat: Chat):
-    chat_messages = [update(message, chat=chat) for message in chat.messages]
-    return chat_messages
+# def get_messages(chat: Chat):
+#     chat_messages = [update(message, chat=chat) for message in chat.messages]
+#     return chat_messages

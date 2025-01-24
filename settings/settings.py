@@ -10,11 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os.path
-from os import getenv
 from pathlib import Path
-from dotenv import load_dotenv
 
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -128,6 +125,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # DTF
-TELEGRAM_BOT_TOKEN = getenv('TELEGRAM_BOT_TOKEN', '0')
-TELEGRAM_BOT_TYPE = getenv('TELEGRAM_BOT_TYPE', 'Dummy')
+TELEGRAM_BOT_TOKEN = '0'
+TELEGRAM_BOT_TYPE = 'Dummy'
 ROOT_BOT_LINKS = os.path.join(BASE_DIR, 'demo', 'links.py')

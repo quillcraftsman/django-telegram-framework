@@ -1,5 +1,5 @@
 from django.test import SimpleTestCase
-from telegram_framework import links, get_bot, find_handler
+from telegram_framework import links, bots
 from telegram_framework.messages import Message
 
 class TestLinks(SimpleTestCase):
@@ -9,7 +9,7 @@ class TestLinks(SimpleTestCase):
             pass
 
         self.some_handler = some_handler
-        self.bot = get_bot('some_token')
+        self.bot = bots.get_bot('some_token')
 
     def test_mock_handler(self):
         self.some_handler('some_bot')
@@ -19,7 +19,7 @@ class TestLinks(SimpleTestCase):
         on_command_function = links.on_command(self.some_handler, 'some_command')
         bot = on_command_function(self.bot)
         message = Message(text='/some_command', sender='some_sender')
-        handler = find_handler(bot, message)
+        handler = bots.find_handler(bot, message)
         self.assertEqual(self.some_handler, handler)
         self.assertEqual(1, len(bot.command_handlers))
 
@@ -28,7 +28,7 @@ class TestLinks(SimpleTestCase):
         on_message_function = links.on_message(self.some_handler)
         bot = on_message_function(self.bot)
         message = Message(text='some_text', sender='some_sender')
-        handler = find_handler(bot, message)
+        handler = bots.find_handler(bot, message)
         self.assertEqual(self.some_handler, handler)
         self.assertEqual(1, len(bot.message_handlers))
 

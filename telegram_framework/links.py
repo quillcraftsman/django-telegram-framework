@@ -1,15 +1,11 @@
 from typing import Callable
-from telegram_framework import (
-    # register_call_handler,
-    register_message_handler,
-    register_command_handler,
-)
+from telegram_framework import bots
 
 
 def on_command(handler: Callable, name: str):
 
     def command_handler(bot):
-        return register_command_handler(bot, handler, name)
+        return bots.register_command_handler(bot, handler, name)
 
     return command_handler
 
@@ -17,7 +13,7 @@ def on_command(handler: Callable, name: str):
 def on_message(handler: Callable):
 
     def message_handler(bot):
-        return register_message_handler(bot, handler)
+        return bots.register_message_handler(bot, handler)
 
     return message_handler
 

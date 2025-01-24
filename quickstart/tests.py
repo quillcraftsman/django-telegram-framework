@@ -1,5 +1,5 @@
 from django.test import SimpleTestCase
-from telegram_framework import get_bot, actions, messages
+from telegram_framework import bots, actions, messages
 from telegram_framework import chats
 from telegram_framework.links import add_links
 from quickstart.bot import bot_links
@@ -11,11 +11,11 @@ class TestCommands(SimpleTestCase):
         # Создайте чат для тестовых сообщений
         chat = chats.Chat()
         # Создайте тестового пользователя
-        self.client = get_bot('client')
+        self.client = bots.get_bot('client')
         # Добавьте его в чат
         chat = chats.add_bot(chat, self.client)
         # Создайте пользователя - бота
-        bot = get_bot('bot')
+        bot = bots.get_bot('bot')
         # Свяжите бота с его обработчиками
         bot = add_links(bot, bot_links)
         # Добавьте его в чат

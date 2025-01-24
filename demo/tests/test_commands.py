@@ -1,5 +1,5 @@
 from django.test import SimpleTestCase
-from telegram_framework import get_bot
+from telegram_framework import bots
 from telegram_framework import actions
 from telegram_framework import chats
 from telegram_framework.links import add_links
@@ -12,9 +12,9 @@ class TestCommands(SimpleTestCase):
 
     def setUp(self):
         chat = chats.Chat()
-        self.client = get_bot('client')
+        self.client = bots.get_bot('client')
         chat = chats.add_bot(chat, self.client)
-        bot = get_bot('bot')
+        bot = bots.get_bot('bot')
         bot = add_links(bot, bot_links)
         self.chat = chats.add_bot(chat, bot)
         self.assertEqual(0, len(self.chat.messages))

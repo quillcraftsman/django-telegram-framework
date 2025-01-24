@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Any
 from telegram_framework.functions import update
-from telegram_framework import handle_message
+from telegram_framework import bots
 
 
 @dataclass(frozen=True)
@@ -27,7 +27,7 @@ def add_message(chat: Chat, message: Any) -> Chat:
         last_message = get_last_message(chat)
         if last_message:
             if last_message.sender != bot:
-                chat = handle_message(bot, last_message)
+                chat = bots.handle_message(bot, last_message)
     return chat
 
 

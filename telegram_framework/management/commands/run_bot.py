@@ -12,7 +12,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         bot_links = options['bot_links']
-        token = settings.TELEGRAM_BOT_TOKEN
+
+        try:
+            token = settings.TELEGRAM_BOT_TOKEN
+        except AttributeError:
+            token = '0'
+
         bot = bots.get_bot(token)
         links_module = importlib.import_module(bot_links)
         links.add_links(bot, links_module.bot_links)

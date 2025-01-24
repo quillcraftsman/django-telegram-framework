@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 try:
     BOT_TYPE = settings.TELEGRAM_BOT_TYPE
-except ImproperlyConfigured:  # pragma: no cover
+except (ImproperlyConfigured, AttributeError):  # pragma: no cover
     BOT_TYPE = 'Dummy'
 
 if BOT_TYPE == 'Dummy':

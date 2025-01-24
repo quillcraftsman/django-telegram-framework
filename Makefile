@@ -44,6 +44,12 @@ package_docs:
 run_bot:
 	python manage.py run_bot --settings=settings.prod_settings
 
+run_demo_bot:
+	python manage.py run_bot --bot_links=demo.links --settings=settings.prod_settings
+
+run_quickstart_bot:
+	python manage.py run_bot --bot_links=quickstart.bot --settings=settings.prod_settings
+
 server:
 	python manage.py runserver
 

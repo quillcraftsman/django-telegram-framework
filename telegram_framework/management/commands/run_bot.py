@@ -1,8 +1,7 @@
 import importlib
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from telegram_framework import get_bot, start
-from telegram_framework.links import add_links
+from telegram_framework import bots, links
 
 
 class Command(BaseCommand):
@@ -13,8 +12,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         bot_links = options['bot_links']
-        token = settings.TELEGRAM_BOT_TOKEN
-        bot = get_bot(token)
+
+        try:
+            token = settings.TELEGRAM_BOT_TOKEN
+        except AttributeError:
+            token = '0'
+
+        bot = bots.get_bot(token)
         links_module = importlib.import_module(bot_links)
-        add_links(bot, links_module.bot_links)
-        start(bot)
+        links.add_links(bot, links_module.bot_links)
+        bots.start(bot)

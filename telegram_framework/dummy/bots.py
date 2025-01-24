@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Callable
-from telegram_framework.functions import update
+from telegram_framework import functions
 
 
 @dataclass(frozen=True)
@@ -13,17 +13,17 @@ class DummyBot:
 
 def register_command_handler(bot: DummyBot, handler: Callable, name: str):
     command_handlers = bot.command_handlers | {name: handler}
-    return update(bot, command_handlers=command_handlers)
-#
-#
+    return functions.update(bot, command_handlers=command_handlers)
+
+
 def register_message_handler(bot: DummyBot, handler: Callable):
     message_handlers = bot.message_handlers + [handler]
-    return update(bot, message_handlers=message_handlers)
+    return functions.update(bot, message_handlers=message_handlers)
 
-#
+
 def register_call_handler(bot: DummyBot, handler: Callable, call_data):
     call_handlers = bot.call_handlers | {call_data: handler}
-    return update(bot, call_handlers=call_handlers)
+    return functions.update(bot, call_handlers=call_handlers)
 
 
 def find_handler(bot: DummyBot, message):
@@ -45,8 +45,6 @@ def start(bot: DummyBot):  # pylint: disable=unused-argument
 
 
 def handle_message(bot, message):
-    # if message.sender == bot:
-    #     return message.chat
     handler = find_handler(bot, message)
     if not handler:
         return message.chat

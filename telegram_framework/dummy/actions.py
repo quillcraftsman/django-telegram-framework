@@ -1,16 +1,10 @@
-from telegram_framework.chat import add_message, Chat
-from telegram_framework.messages import Message, Reply
+from telegram_framework import chats, messages
 
 
-def send_reply(reply: Reply):
-    return add_message(reply.message.chat, reply)
+def send_reply(reply: messages.Reply):
+    return chats.add_message(reply.chat, reply)
 
 
-def send_message(chat: Chat, message: Message):
-    chat = add_message(chat, message)
+def send_message(chat: chats.Chat, message: messages.Message):
+    chat = chats.add_message(chat, message)
     return chat
-    # last_message = get_last_message(chat)
-    # for bot in chat.bots:
-    #     if last_message:
-    #         if last_message.sender != bot:
-    #             chat = handle_message(bot, last_message

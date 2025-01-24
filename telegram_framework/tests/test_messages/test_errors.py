@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.test import SimpleTestCase
-from telegram_framework.messages import Message
+from telegram_framework import messages
 from telegram_framework.messages.errors import (
     MessageNotInChatError,
 )
@@ -12,7 +12,7 @@ class TestErrors(SimpleTestCase):
         """
         Test MessageNotInChatError str
         """
-        message = Message(
+        message = messages.Message(
             'some text',
             sender='some sender',
             timestamp=datetime(
@@ -26,6 +26,6 @@ class TestErrors(SimpleTestCase):
         )
         expected_text = ("Нельзя ответить на сообщение Message(text='some text', "
                          "sender='some sender', "
-                         "timestamp=datetime.datetime(2025, 1, 1, 12, 0), chat=None), "
+                         "timestamp=datetime.datetime(2025, 1, 1, 12, 0)), "
                          "потому что оно не находиться в чате")
         self.assertEqual(expected_text, str(MessageNotInChatError(message)))

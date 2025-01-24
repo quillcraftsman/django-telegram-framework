@@ -12,10 +12,10 @@ telegram\_framework.py\_telegram\_bot\_api.actions module
    :undoc-members:
    :show-inheritance:
 
-telegram\_framework.py\_telegram\_bot\_api.bot module
------------------------------------------------------
+telegram\_framework.py\_telegram\_bot\_api.bots module
+------------------------------------------------------
 
-.. automodule:: telegram_framework.py_telegram_bot_api.bot
+.. automodule:: telegram_framework.py_telegram_bot_api.bots
    :members:
    :undoc-members:
    :show-inheritance:

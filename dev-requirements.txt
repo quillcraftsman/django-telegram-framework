@@ -3,3 +3,4 @@ pylint
 build
 coverage
 setuptools
+django-dry-tests

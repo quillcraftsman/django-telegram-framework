@@ -43,3 +43,12 @@ package_docs:
 
 run_bot:
 	python manage.py run_bot --settings=settings.prod_settings
+
+server:
+	python manage.py runserver
+
+makemigrations:
+	python manage.py makemigrations
+
+migrate:
+	python manage.py migrate

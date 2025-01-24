@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Telegram Framework{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<div class="menu">
+  <a href="{% url 'demo:index' %}" class="menu-item {% if request.resolver_match.url_name == 'index' %}menu-item-active{% endif %}">Главная</a>
+  <a href="{% url 'demo:start' %}" class="menu-item {% if request.resolver_match.url_name == 'start' %}menu-item-active{% endif %}" >/start</a>
+  <a href="{% url 'demo:help' %}" class="menu-item {% if request.resolver_match.url_name == 'help' %}menu-item-active{% endif %}">/help</a>
+  <a href="{% url 'demo:links' %}" class="menu-item {% if request.resolver_match.url_name == 'links' %}menu-item-active{% endif %}">/links</a>
+</div>
+
+<div class="container">
+  {% block content %}
+  {% endblock %}
+</div>
+
+</body>
+</html>

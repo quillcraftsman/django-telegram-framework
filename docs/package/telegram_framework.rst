@@ -7,8 +7,12 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   telegram_framework.dummy
    telegram_framework.management
+   telegram_framework.messages
    telegram_framework.migrations
+   telegram_framework.py_telegram_bot_api
+   telegram_framework.tests
 
 Submodules
 ----------
@@ -29,10 +33,26 @@ telegram\_framework.apps module
    :undoc-members:
    :show-inheritance:
 
-telegram\_framework.info module
+telegram\_framework.chat module
 -------------------------------
 
-.. automodule:: telegram_framework.info
+.. automodule:: telegram_framework.chat
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+telegram\_framework.functions module
+------------------------------------
+
+.. automodule:: telegram_framework.functions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+telegram\_framework.links module
+--------------------------------
+
+.. automodule:: telegram_framework.links
    :members:
    :undoc-members:
    :show-inheritance:
@@ -49,22 +69,6 @@ telegram\_framework.package module
 ----------------------------------
 
 .. automodule:: telegram_framework.package
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-telegram\_framework.tests module
---------------------------------
-
-.. automodule:: telegram_framework.tests
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-telegram\_framework.views module
---------------------------------
-
-.. automodule:: telegram_framework.views
    :members:
    :undoc-members:
    :show-inheritance:

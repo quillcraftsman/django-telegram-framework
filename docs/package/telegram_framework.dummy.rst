@@ -12,10 +12,10 @@ telegram\_framework.dummy.actions module
    :undoc-members:
    :show-inheritance:
 
-telegram\_framework.dummy.bot module
-------------------------------------
+telegram\_framework.dummy.bots module
+-------------------------------------
 
-.. automodule:: telegram_framework.dummy.bot
+.. automodule:: telegram_framework.dummy.bots
    :members:
    :undoc-members:
    :show-inheritance:

@@ -33,10 +33,10 @@ telegram\_framework.apps module
    :undoc-members:
    :show-inheritance:
 
-telegram\_framework.chat module
--------------------------------
+telegram\_framework.chats module
+--------------------------------
 
-.. automodule:: telegram_framework.chat
+.. automodule:: telegram_framework.chats
    :members:
    :undoc-members:
    :show-inheritance:

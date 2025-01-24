@@ -4,6 +4,22 @@ telegram\_framework.messages package
 Submodules
 ----------
 
+telegram\_framework.messages.chat\_message module
+-------------------------------------------------
+
+.. automodule:: telegram_framework.messages.chat_message
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+telegram\_framework.messages.chat\_message\_base module
+-------------------------------------------------------
+
+.. automodule:: telegram_framework.messages.chat_message_base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 telegram\_framework.messages.errors module
 ------------------------------------------
 

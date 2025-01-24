@@ -5,6 +5,7 @@ from telegram_framework.chat import Chat, add_bot, get_last_message
 from telegram_framework.links import add_links
 from telegram_framework import messages
 from demo.links import bot_links
+from demo.models import create_info_text
 
 
 class TestCommands(SimpleTestCase):
@@ -22,16 +23,12 @@ class TestCommands(SimpleTestCase):
         """
         Test /start: success
         """
-        message = messages.Message('/start', sender=self.client)
+        command_text = '/start'
+        message = messages.Message(command_text, sender=self.client)
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = get_last_message(chat)
-        expected_text = ('Привет. Я Demo Telegram Bot. '
-                         'Я создан на основе Django Telegram Framework. '
-                         'Я могу познакомить'
-                         'тебя с основными функциями библиотеки. '
-                         'Например сейчас ты отправил команду /start и видишь'
-                         'это сообщение')
+        expected_text = create_info_text(command_text)
         self.assertEqual(expected_text, last_message.text)
 
 
@@ -39,16 +36,12 @@ class TestCommands(SimpleTestCase):
         """
         Test /help: success
         """
-        message = messages.Message('/help', sender=self.client)
+        command_text = '/help'
+        message = messages.Message(command_text, sender=self.client)
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = get_last_message(chat)
-        expected_text = ('Привет. Я Demo Telegram Bot. '
-                         'Я создан на основе Django Telegram Framework. '
-                         'Я могу познакомить'
-                         'тебя с основными функциями библиотеки. '
-                         'Например сейчас ты отправил команду /help и видишь'
-                         'это сообщение')
+        expected_text = create_info_text(command_text)
         self.assertEqual(expected_text, last_message.text)
 
 

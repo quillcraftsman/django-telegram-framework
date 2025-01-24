@@ -1,14 +1,9 @@
 from telegram_framework import actions
 from telegram_framework.messages import Message, create_reply
-
+from .models import create_info_text
 
 def send_bot_info(bot, message):
-    text = (f'Привет. Я Demo Telegram Bot. '
-            f'Я создан на основе Django Telegram Framework. '
-            f'Я могу познакомить'
-             f'тебя с основными функциями библиотеки. '
-            f'Например сейчас ты отправил команду {message.text} и видишь'
-             f'это сообщение')
+    text = create_info_text(message.text)
     info_message = Message(
         text, sender=bot
     )

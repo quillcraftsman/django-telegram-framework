@@ -3,8 +3,8 @@ test:
 
 coverage:
 	coverage run --source='.' manage.py test
-	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package.py,*/management/*
-	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package.py,*/management/* --fail-under=100
+	coverage html
+	coverage report --fail-under=100
 
 yamllint:
 	yamllint -d relaxed .
@@ -40,3 +40,6 @@ sphinx-help:
 
 package_docs:
 	sphinx-apidoc -o docs/package telegram_framework/
+
+run_bot:
+	python manage.py run_bot --settings=settings.prod_settings

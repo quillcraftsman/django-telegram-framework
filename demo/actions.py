@@ -1,12 +1,21 @@
 from telegram_framework import actions
-from telegram_framework.messages import Message, Reply
+from telegram_framework.messages import Message, create_reply
 
 
-def send_hello_message(bot, message):
-    hello_message = Message('hello', sender=bot)
-    return actions.send_message(message.chat, hello_message)
+def send_bot_info(bot, message):
+    text = (f'Привет. Я Demo Telegram Bot. '
+            f'Я создан на основе Django Telegram Framework. '
+            f'Я могу познакомить'
+             f'тебя с основными функциями библиотеки. '
+            f'Например сейчас ты отправил команду {message.text} и видишь'
+             f'это сообщение')
+    info_message = Message(
+        text, sender=bot
+    )
+    return actions.send_message(message.chat, info_message)
 
 
-def send_hello_as_reply(bot, message):
-    hello_reply = Reply('hello', sender=bot, message=message)
-    return actions.send_reply(hello_reply)
+def echo_answer(bot, message):
+    text = f'На любое неизвестное сообщение я умею присылать его в ответ: {message.text}'
+    echo_reply = create_reply(message, text, bot)
+    return actions.send_reply(echo_reply)

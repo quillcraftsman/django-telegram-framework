@@ -1,0 +1,9 @@
+[run]
+omit =
+    settings/prod_settings.py
+    settings/asgi.py
+    settings/wsgi.py
+    manage.py
+    setup.py
+    package.py
+    */management/*

@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'demo'
+app_name = 'demo'  # pylint: disable=invalid-name
 
 urlpatterns = [
     path('', views.index_view, name='index'),

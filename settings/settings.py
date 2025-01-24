@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'telegram_framework',
     'demo',
+    'quickstart',
 ]
 
 MIDDLEWARE = [
@@ -128,4 +129,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # DTF
 TELEGRAM_BOT_TOKEN = '0'
 TELEGRAM_BOT_TYPE = 'Dummy'
-ROOT_BOT_LINKS = os.path.join(BASE_DIR, 'demo', 'links.py')

@@ -74,6 +74,7 @@
 - [Статус разработки](#статус-разработки)
 - [Установка](#установка)
 - [Быстрый старт](#быстрый-старт)
+- [Тестирование](#тестирование)
 - [Внести свой вклад в проект](#внести-свой-вклад-в-проект)
 
 ## Идея проекта
@@ -102,8 +103,8 @@
 этот проект (Framework) имеет чёткую структуру, похожую на структуру django проектов. Framework содержит следующие элементы:
 
 - models - модели данных связанные с базой данных с помощью Django ORM
-- handlers - обработчики событий telegram bot-а (аналогия с django views)
-- bot - связь команд и событий бота с обработчиками (аналогия с django urls)
+- actions - обработчики событий telegram bot-а (аналогия с django views)
+- links - связь команд и событий бота с обработчиками (аналогия с django urls)
 - settings - настройки для всего проекта - django settings
 - tests - тесты логики бота с использованием специального Dummy Bot
 
@@ -117,25 +118,24 @@
 
 ## Функции библиотеки
 
-- Интеграция telegram бота в django проект (В разработке)
-- Понятная структура и интерфейсы для разработки бота (В разработке)
-- Функции автоматического тестирования бота (В разработке)
-- Совместимость с синхронным pyTelegramBotAPI (В разработке)
+- Интеграция telegram бота в django проект
+- Понятная структура и интерфейсы для разработки бота
+- Функции автоматического тестирования бота
+- Совместимость с синхронным pyTelegramBotAPI
 - Совместимость с асинхронным pyTelegramBotAPI (В разработке)
-- DummyBot для тестирования и работы без подключения к telegram (В разработке)
-- Основные функции телеграм бота (В разработке)
-- Все функции телеграм бота (На этапе планирования)
+- DummyBot для тестирования и работы без подключения к telegram
+- Функции телеграм бота (Будут добавляться по мере надобности, пожалуйста напишите, если вам нужна новая функция)
 - Совместимость с aiogram, python-telegram-bot, Telethone (На этапе планирования)
 
 ## Зависимости
 
 - django > 5
-- pyTelegramBotAPi
+- pyTelegramBotAPi (Нужно установить отдельно)
 - Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#requirements)
 
 ## Статус разработки
 
-Разработка только началась
+Написана и проверена 1-ая сырая версия библиотеки с небольшим набором функций
 
 - Пакет уже доступен в [PyPi](https://pypi.org/project/django-telegram-framework/)
 - Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#development-status)
@@ -152,22 +152,154 @@ pip install django-telegram-framework
 
 ## Быстрый старт
 
-Добавить пакет в `INSTALLED_APPS` django проекта
-
-```python
-INSTALLED_APPS = [
-    ...,
-    'telegram_framework',
-]
-```
-
-Запустить команду с информацией
+1. Создать django проект
+2. Создать django приложение
 
 ```commandline
-python manage.py package_info
+python manage.py startapp quickstart
+```
+
+3. В приложении создать файл `bot.py`
+4. Пример кода в файле `bot.py`
+
+```python
+from telegram_framework import (
+    messages,
+    actions,
+    links,
+)
+# ОПИШИТЕ ОБРАБОТЧИКИ СОБЫТИЙ БОТА
+
+def send_greetings(bot, message):
+    # Используйте специальный тип для сообщений
+    greetings_message = messages.Message('Приветствую тебя. Я Quickstart Telegram Bot', sender=bot)
+    # Отправьте сообщение в телеграмм
+    return actions.send_message(message.chat, greetings_message)
+
+def reply_to_message(bot, message):
+    # Используйте специальную функцию для создания ответа
+    reply = messages.create_reply(message, 'Тебе отвечает Bot', sender=bot)
+    # Отправьте ответ в телеграмм
+    return actions.send_reply(reply)
+
+
+# СВЯЖИТЕ ОБРАБОТЧИКИ С ДЕЙСТВИЯМИ ПОЛЬЗОВАТЕЛЯ В TELEGRAM
+
+bot_links = [
+    links.on_command(send_greetings, 'start'),
+    links.on_command(send_greetings, 'help'),
+    links.on_message(reply_to_message),
+]
+
+```
+
+5. В `settings.py` проекта добавить следующие настройки:
+
+```python
+TELEGRAM_BOT_TOKEN = '7777777777:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+TELEGRAM_BOT_TYPE = 'pyTelegramBotAPI'
+ROOT_BOT_LINKS = 'quickstart.bot'
+```
+
+6. Установить `pyTelegramBotAPI`
+
+```commandline
+pip install pyTelegramBotAPI
+```
+
+7. Запустить Бота
+
+```commandline
+python manage.py run_bot
 ```
 
 ### Больше примеров в [Полной документации][documentation_path]
+
+## Тестирование
+
+Django Telegram Framework позволяет удобно тестировать код бота без подключения к telegram.
+Для этого используется специальный `DummyBot`
+
+1. В `settings.py` проекта внесите следующие изменения:
+
+```python
+TELEGRAM_BOT_TOKEN = '0'
+TELEGRAM_BOT_TYPE = 'Dummy'
+```
+
+2. Пример написания тестов для бота из `quickstart` приложения
+
+```python
+from django.test import SimpleTestCase
+from telegram_framework import get_bot, actions, messages
+from telegram_framework.chat import Chat, add_bot, get_last_message
+from telegram_framework.links import add_links
+from quickstart.bot import bot_links
+
+
+class TestCommands(SimpleTestCase):
+
+    def setUp(self):
+        # Создайте чат для тестовых сообщений
+        chat = Chat()
+        # Создайте тестового пользователя
+        self.client = get_bot('client')
+        # Добавьте его в чат
+        chat = add_bot(chat, self.client)
+        # Создайте пользователя - бота
+        bot = get_bot('bot')
+        # Свяжите бота с его обработчиками
+        bot = add_links(bot, bot_links)
+        # Добавьте его в чат
+        self.chat = add_bot(chat, bot)
+        # В чате пока нет сообщений
+        self.assertEqual(0, len(self.chat.messages))
+
+    def test_start(self):
+        """
+        Test /start: success
+        """
+        command_text = '/start'
+        # Для создания сообщения используйте специальный тип
+        # Его будет отправлять клиент sender=self.client
+        message = messages.Message(command_text, sender=self.client)
+        # Отправьте его в чат
+        chat = actions.send_message(self.chat, message)
+        # Бот должен реагировать на сообщения
+        # Поэтому в чате будет 2 сообщения
+        self.assertEqual(2, len(chat.messages))
+        # Получите последнее сообщение для проверки
+        last_message = get_last_message(chat)
+        expected_text = 'Приветствую тебя. Я Quickstart Telegram Bot'
+        # Оно должно содержать приветствие
+        self.assertEqual(expected_text, last_message.text)
+
+
+    def test_any_text_message(self):
+        """
+        Test send any text message: success
+        """
+        # Используйте специальный тип для создания сообщения
+        # Его отправит client (sender=self.client)
+        message = messages.Message('quickstart message', sender=self.client)
+        # Отправляем сообщение
+        chat = actions.send_message(self.chat, message)
+        # Бот должен реагировать на сообщение,
+        # Поэтому в чате будет 2 сообщения
+        self.assertEqual(2, len(chat.messages))
+        # Получаем последнее сообщение
+        last_message = get_last_message(chat)
+        expected_text = 'Тебе отвечает Bot'
+        # Оно должно содержать ответ бота
+        self.assertEqual(expected_text, last_message.text)
+
+```
+
+3. Запустить django тесты
+
+```commandline
+python manage.py test
+```
 
 ## Внести свой вклад в проект
 

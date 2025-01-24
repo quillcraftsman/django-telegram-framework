@@ -6,5 +6,6 @@ disable=
     C0116, # missing-function-docstring
     R0401, # complex cyclic import
     R0903, # too-few-public-methods
+    R0801, # similar lines
 
 ignore-paths=./telegram_framework/package.py,.*/migrations

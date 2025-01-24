@@ -1,6 +1,6 @@
 from django.test import SimpleTestCase
 from telegram_framework.dummy import bots
-from telegram_framework.messages import Message
+from telegram_framework import messages
 
 
 class TestDummyBot(SimpleTestCase):
@@ -54,7 +54,7 @@ class TestDummyBot(SimpleTestCase):
         Test find_handler: success: command found
         """
         bot = bots.register_command_handler(self.bot, self.some_handler, 'some_handler')
-        message = Message(text='/some_handler', sender='some_sender')
+        message = messages.Message(text='/some_handler', sender='some_sender')
         handler = bots.find_handler(bot, message)
         self.assertEqual(handler, self.some_handler)
 
@@ -62,7 +62,7 @@ class TestDummyBot(SimpleTestCase):
         """
         Test find_handler: success: no command
         """
-        message = Message(text='/some_handler', sender='some_sender')
+        message = messages.Message(text='/some_handler', sender='some_sender')
         handler = bots.find_handler(self.bot, message)
         self.assertIsNone(handler)
 
@@ -71,7 +71,7 @@ class TestDummyBot(SimpleTestCase):
         Test find_handler: success: message
         """
         bot = bots.register_message_handler(self.bot, self.some_handler)
-        message = Message(text='some message', sender='some_sender')
+        message = messages.Message(text='some message', sender='some_sender')
         handler = bots.find_handler(bot, message)
         self.assertEqual(self.some_handler, handler)
 
@@ -79,7 +79,7 @@ class TestDummyBot(SimpleTestCase):
         """
         Test find_handler: success: no message
         """
-        message = Message(text='some message', sender='some_sender')
+        message = messages.Message(text='some message', sender='some_sender')
         handler = bots.find_handler(self.bot, message)
         self.assertIsNone(handler)
 

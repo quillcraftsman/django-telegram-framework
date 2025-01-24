@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from .message_base import MessageBase
-from .message import Message
+from .chat_message_base import ChatMessageBase
+
 
 @dataclass(frozen=True)
-class ReplyBase(MessageBase):
-    message: Message
+class ReplyBase(ChatMessageBase):
+    message: ChatMessageBase

@@ -3,7 +3,7 @@ from typing import Any
 from .errors import MessageNotInChatError
 from .message_default import MessageDefault
 from .reply_base import ReplyBase
-from .message import Message
+from .chat_message_base import ChatMessageBase
 
 
 @dataclass(frozen=True)
@@ -18,7 +18,13 @@ class Reply(MessageDefault, ReplyBase):
 
 
 
-def create_reply(message: Message, text:str, sender: Any) -> Reply:
-    if not message.chat:
+def create_reply(message: ChatMessageBase, text:str, sender: Any) -> Reply:
+    if not isinstance(message, ChatMessageBase):
         raise MessageNotInChatError(message)
-    return Reply(text, sender, message, chat=message.chat)
+
+    return Reply(
+        text=text,
+        sender=sender,
+        message=message,
+        chat=message.chat,
+    )

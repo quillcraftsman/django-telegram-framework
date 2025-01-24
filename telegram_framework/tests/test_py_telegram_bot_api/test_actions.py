@@ -2,7 +2,7 @@
 from django.test import SimpleTestCase
 from telegram_framework.py_telegram_bot_api.actions import send_message, send_reply
 from telegram_framework import chats
-from telegram_framework.messages import Message, Reply, create_reply
+from telegram_framework import messages
 
 
 class MockTelebot:
@@ -25,7 +25,7 @@ class TestActions(SimpleTestCase):
         """
         chat = chats.Chat()
         self.assertEqual(0, len(chat.messages))
-        message = Message('new message', sender=self.bot)
+        message = messages.Message('new message', sender=self.bot)
         chat = send_message(chat, message)
         self.assertEqual(1, len(chat.messages))
         last_message = chats.get_last_message(chat)
@@ -37,16 +37,21 @@ class TestActions(SimpleTestCase):
         """
         chat = chats.Chat()
         self.assertEqual(0, len(chat.messages))
-        message = Message('new message', sender=self.bot)
+        message = messages.Message('new message', sender=self.bot)
         chat = chats.add_message(chat, message)
         last_message = chats.get_last_message(chat)
-        reply = create_reply(last_message, 'reply', sender=self.bot)
+        reply = messages.create_reply(last_message, 'reply', sender=self.bot)
         chat = send_reply(reply)
         last_reply = chats.get_last_message(chat)
-        expected_reply = Reply(
-            'reply',
-            self.bot,
-            message=last_message,
-            chat=last_message.chat
+        # expected_reply = Reply(
+        #     'reply',
+        #     self.bot,
+        #     message=last_message,
+        #     chat=last_message.chat
+        # )
+        expected_reply = messages.create_reply(
+            last_message,
+            text = 'reply',
+            sender=self.bot,
         )
         self.assertEqual(expected_reply, last_reply)

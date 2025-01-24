@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import Any
 from telegram_framework.functions import update
 from telegram_framework import bots
+from telegram_framework import messages
 
 
 @dataclass(frozen=True)
@@ -20,7 +21,9 @@ def add_bot(chat: Chat, bot: Any) -> Chat:
 
 
 def add_message(chat: Chat, message: Any) -> Chat:
-    chat_message = update(message, chat=chat)
+    chat_message = message
+    if not isinstance(chat_message, messages.ChatMessageBase):
+        chat_message = messages.create_chat_message(chat_message, chat)
     new_messages = chat.messages + [chat_message]
     chat = update(chat, messages=new_messages)
     for bot in chat.bots:
@@ -37,6 +40,7 @@ def get_last_message(chat: Chat) -> Any:
     last_message = chat.messages[-1]
     last_chat_message = update(last_message, chat=chat)
     return last_chat_message
+    #return last_message
 
 # def get_messages(chat: Chat):
 #     chat_messages = [update(message, chat=chat) for message in chat.messages]

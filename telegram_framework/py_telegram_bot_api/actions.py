@@ -1,8 +1,7 @@
-from telegram_framework import chats
-from telegram_framework.messages import Message, Reply
+from telegram_framework import chats, messages
 
 
-def send_reply(reply: Reply):
+def send_reply(reply: messages.Reply):
     message = reply.message
     text = reply.text
     chat = message.chat
@@ -12,7 +11,7 @@ def send_reply(reply: Reply):
     return chats.add_message(chat, reply)
 
 
-def send_message(chat: chats.Chat, message: Message):
+def send_message(chat: chats.Chat, message: messages.Message):
     bot = message.sender
     text = message.text
     bot.send_message(

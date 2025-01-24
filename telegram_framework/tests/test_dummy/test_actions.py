@@ -1,7 +1,6 @@
 from django.test import SimpleTestCase
 from telegram_framework.dummy.actions import send_message, send_reply
-from telegram_framework import chats
-from telegram_framework.messages import Message, Reply, create_reply
+from telegram_framework import chats, messages
 
 
 class TestActions(SimpleTestCase):
@@ -12,7 +11,7 @@ class TestActions(SimpleTestCase):
         """
         chat = chats.Chat()
         self.assertEqual(0, len(chat.messages))
-        message = Message('new message', sender='some sender')
+        message = messages.Message('new message', sender='some sender')
         chat = send_message(chat, message)
         self.assertEqual(1, len(chat.messages))
         last_message = chats.get_last_message(chat)
@@ -24,13 +23,13 @@ class TestActions(SimpleTestCase):
         """
         chat = chats.Chat()
         self.assertEqual(0, len(chat.messages))
-        message = Message('new message', sender='some sender')
+        message = messages.Message('new message', sender='some sender')
         chat = chats.add_message(chat, message)
         last_message = chats.get_last_message(chat)
-        reply = create_reply(last_message, 'reply', sender='other sender')
+        reply = messages.create_reply(last_message, 'reply', sender='other sender')
         chat = send_reply(reply)
         last_reply = chats.get_last_message(chat)
-        expected_reply = Reply(
+        expected_reply = messages.Reply(
             'reply',
             'other sender',
             message=last_message,

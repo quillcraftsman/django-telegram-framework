@@ -2,6 +2,8 @@
 
 Библиотека (Framework) для быстрого создания **Telegram** ботов и интеграции с django
 
+<img src="logo_2_1_1280_640.png" alt="Django Telegram Framework logo" width="36%">
+
 [Тут][documentation_path] можно найти **Полную документацию проекта** 
 
 <hr>

@@ -1,0 +1,10 @@
+services:
+  demo_bot:
+    build:
+      context: .
+    image: findsimilar/dtf-demo-bot
+    env_file:
+      - .env
+    command: bash -c "
+      make run_demo_bot
+      "

@@ -24,5 +24,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push to DockerHub
         run: |
+          mv .env.example .env
           docker compose build
           docker compose push

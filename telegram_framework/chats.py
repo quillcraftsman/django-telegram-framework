@@ -22,7 +22,7 @@ def add_bot(chat: Chat, bot: Any) -> Chat:
 
 def add_message(chat: Chat, message: Any) -> Chat:
     chat_message = message
-    if not isinstance(chat_message, messages.ChatMessageBase):
+    if not messages.is_chat_message(chat_message):
         chat_message = messages.create_chat_message(chat_message, chat)
     new_messages = chat.messages + [chat_message]
     chat = update(chat, messages=new_messages)

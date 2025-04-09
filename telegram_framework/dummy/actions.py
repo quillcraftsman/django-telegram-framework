@@ -8,3 +8,7 @@ def send_reply(reply: messages.Reply):
 def send_message(chat: chats.Chat, message: messages.Message):
     chat = chats.add_message(chat, message)
     return chat
+
+
+def send_html_message(chat: chats.Chat, message: messages.Message):
+    return send_message(chat, message)

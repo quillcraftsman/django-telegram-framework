@@ -11,12 +11,21 @@ def send_reply(reply: messages.Reply):
     return chats.add_message(chat, reply)
 
 
-def send_message(chat: chats.Chat, message: messages.Message):
+def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):
     bot = message.sender
     text = message.text
     bot.send_message(
         chat.id,
         text,
+        parse_mode=parse_mode,
     )
     chat = chats.Chat(id=chat.id)
     return chats.add_message(chat, message)
+
+
+def send_message(chat: chats.Chat, message: messages.Message):
+    return _send_message(chat, message)
+
+
+def send_html_message(chat: chats.Chat, message: messages.Message):
+    return _send_message(chat, message, parse_mode='HTML')

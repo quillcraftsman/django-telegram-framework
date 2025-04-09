@@ -1,4 +1,4 @@
-from telegram_framework import chats, messages
+from telegram_framework import chats, messages, media
 
 
 def send_reply(reply: messages.Reply):
@@ -9,6 +9,24 @@ def send_reply(reply: messages.Reply):
     bot.reply_to(message, text)
     chat = chats.Chat(id=chat.id)
     return chats.add_message(chat, reply)
+
+
+def _get_parse_mode(message):
+    parse_mode = message.format_type if message.format_type != 'text' else None
+    return parse_mode
+
+
+def send_image(chat: chats.Chat, image: media.Image):
+    bot = image.sender
+    with open(image.file_path, "rb") as f:
+        parse_mode = None
+        caption_text = None
+        if image.caption:
+            parse_mode = _get_parse_mode(image.caption)
+            caption_text = image.caption.text
+        bot.send_photo(chat_id=chat.id, photo=f, caption=caption_text, parse_mode=parse_mode)
+    chat = chats.Chat(id=chat.id)
+    return chats.add_message(chat, image.caption)
 
 
 def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):
@@ -24,8 +42,5 @@ def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):
 
 
 def send_message(chat: chats.Chat, message: messages.Message):
-    return _send_message(chat, message)
-
-
-def send_html_message(chat: chats.Chat, message: messages.Message):
-    return _send_message(chat, message, parse_mode='HTML')
+    parse_mode = _get_parse_mode(message)
+    return _send_message(chat, message, parse_mode)

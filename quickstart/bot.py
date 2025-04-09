@@ -7,7 +7,10 @@ from telegram_framework import (
 
 def send_greetings(bot, message):
     # Используйте специальный тип для сообщений
-    greetings_message = messages.Message('Приветствую тебя. Я Quickstart Telegram Bot', sender=bot)
+    greetings_message = messages.create_message(
+        'Приветствую тебя. Я Quickstart Telegram Bot',
+        sender=bot
+    )
     # Отправьте сообщение в телеграмм
     return actions.send_message(message.chat, greetings_message)
 

@@ -45,6 +45,19 @@ class TestCommands(SimpleTestCase):
         self.assertEqual(expected_text, last_message.text)
 
 
+    def test_render_template_example(self):
+        """
+        Test /render_template: success
+        """
+        command_text = '/render_template'
+        message = messages.Message(command_text, sender=self.client)
+        chat = actions.send_message(self.chat, message)
+        self.assertEqual(2, len(chat.messages))
+        last_message = chats.get_last_message(chat)
+        expected_text = '<b>Это</b> <i>сообщение</i> было создано по шаблону'
+        self.assertEqual(expected_text, last_message.text)
+
+
     def test_any_text_message(self):
         """
         Test send any text message: success

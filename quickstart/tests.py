@@ -28,7 +28,7 @@ class TestCommands(SimpleTestCase):
         command_text = '/start'
         # Для создания сообщения используйте специальный тип
         # Его будет отправлять клиент sender=self.client
-        message = messages.Message(command_text, sender=self.client)
+        message = messages.create_message(command_text, sender=self.client)
         # Отправьте его в чат
         chat = actions.send_message(self.chat, message)
         # Бот должен реагировать на сообщения
@@ -47,7 +47,7 @@ class TestCommands(SimpleTestCase):
         """
         # Используйте специальный тип для создания сообщения
         # Его отправит client (sender=self.client)
-        message = messages.Message('quickstart message', sender=self.client)
+        message = messages.create_message('quickstart message', sender=self.client)
         # Отправляем сообщение
         chat = actions.send_message(self.chat, message)
         # Бот должен реагировать на сообщение,

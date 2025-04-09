@@ -24,7 +24,7 @@ class TestCommands(SimpleTestCase):
         Test /start: success
         """
         command_text = '/start'
-        message = messages.Message(command_text, sender=self.client)
+        message = messages.create_message(command_text, sender=self.client)
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = chats.get_last_message(chat)
@@ -37,7 +37,7 @@ class TestCommands(SimpleTestCase):
         Test /help: success
         """
         command_text = '/help'
-        message = messages.Message(command_text, sender=self.client)
+        message = messages.create_message(command_text, sender=self.client)
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = chats.get_last_message(chat)
@@ -50,7 +50,7 @@ class TestCommands(SimpleTestCase):
         Test /render_template: success
         """
         command_text = '/render_template'
-        message = messages.Message(command_text, sender=self.client)
+        message = messages.create_message(command_text, sender=self.client)
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = chats.get_last_message(chat)
@@ -63,9 +63,23 @@ class TestCommands(SimpleTestCase):
         Test send any text message: success
         """
         text = 'any message'
-        message = messages.Message('any message', sender=self.client)
+        message = messages.create_message('any message', sender=self.client)
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = chats.get_last_message(chat)
         expected_text = f'На любое неизвестное сообщение я умею присылать его в ответ: {text}'
+        self.assertEqual(expected_text, last_message.text)
+
+
+    def test_load_picture_example(self):
+        """
+        Test /get_logo: success
+        """
+        command_text = '/get_logo'
+        message = messages.create_message(command_text, sender=self.client)
+        chat = actions.send_message(self.chat, message)
+        self.assertEqual(2, len(chat.messages))
+        last_message = chats.get_last_message(chat)
+        # Fix IT
+        expected_text = '<b>DTF</b> LOGO'
         self.assertEqual(expected_text, last_message.text)

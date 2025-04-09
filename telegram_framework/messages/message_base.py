@@ -3,6 +3,11 @@ from typing import Any
 
 
 @dataclass(frozen=True)
-class MessageBase:
-    text: str
+class MessageToSend:
     sender: Any
+
+
+@dataclass(frozen=True)
+class MessageBase(MessageToSend):
+    text: str
+    # sender: Any

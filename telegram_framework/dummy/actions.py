@@ -1,4 +1,4 @@
-from telegram_framework import chats, messages
+from telegram_framework import chats, messages, media
 
 
 def send_reply(reply: messages.Reply):
@@ -10,5 +10,6 @@ def send_message(chat: chats.Chat, message: messages.Message):
     return chat
 
 
-def send_html_message(chat: chats.Chat, message: messages.Message):
-    return send_message(chat, message)
+def send_image(chat: chats.Chat, image: media.Image):
+    chat = chats.add_message(chat, image.caption)
+    return chat

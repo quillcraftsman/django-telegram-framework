@@ -14,10 +14,27 @@ def send_bot_info(bot, message):
     return actions.send_message(message.chat, info_message)
 
 
-def echo_answer(bot, message):
-    text = f'На любое неизвестное сообщение я умею присылать его в ответ: {message.text}'
-    echo_reply = messages.create_reply(message, text, bot)
-    return actions.send_reply(echo_reply)
+# START send_text_message_example
+def send_text_message_example(bot, message):
+    text = 'Пример отправки обычного текстового сообщения'
+    text_message = messages.create_message(
+        text=text,
+        sender=bot,
+    )
+    return actions.send_message(message.chat, text_message)
+# END send_text_message_example
+
+
+# START send_html_message_example
+def send_html_message_example(bot, message):
+    text = '<b>Пример</b> <i>отправки</i> <s>текстового</s> HTML сообщения'
+    text_message = messages.create_message(
+        text=text,
+        sender=bot,
+        format_type='HTML',
+    )
+    return actions.send_message(message.chat, text_message)
+# END send_html_message_example
 
 
 def render_template_example(bot, message):
@@ -32,6 +49,15 @@ def render_template_example(bot, message):
         response_text, sender=bot, format_type='HTML'
     )
     return actions.send_message(message.chat, response_message)
+
+
+def echo_answer(bot, message):
+    text = f'На любое неизвестное сообщение я умею присылать его в ответ: {message.text}'
+    echo_reply = messages.create_reply(message, text, bot)
+    return actions.send_reply(echo_reply)
+
+
+
 
 
 def load_picture_example(bot, message):

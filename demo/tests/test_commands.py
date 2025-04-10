@@ -82,3 +82,33 @@ class TestCommands(SimpleTestCase):
         last_message = chats.get_last_message(chat)
         self.assertIsInstance(last_message, messages.Image)
         self.assertEqual(last_message.caption.text, '<b>DTF</b> LOGO')
+
+
+    # START test_send_text_message_example
+    def test_send_text_message_example(self):
+        """
+        Test /text_message: success
+        """
+        command_text = '/text_message'
+        message = messages.create_message(command_text, sender=self.client)
+        chat = actions.send_message(self.chat, message)
+        self.assertEqual(2, len(chat.messages))
+        last_message = chats.get_last_message(chat)
+        expected_text = 'Пример отправки обычного текстового сообщения'
+        self.assertEqual(expected_text, last_message.text)
+    # END test_send_text_message_example
+
+
+    # START test_send_html_message_example
+    def test_send_html_message_example(self):
+        """
+        Test /html_message: success
+        """
+        command_text = '/html_message'
+        message = messages.create_message(command_text, sender=self.client)
+        chat = actions.send_message(self.chat, message)
+        self.assertEqual(2, len(chat.messages))
+        last_message = chats.get_last_message(chat)
+        expected_text = '<b>Пример</b> <i>отправки</i> <s>текстового</s> HTML сообщения'
+        self.assertEqual(expected_text, last_message.text)
+    # END test_send_html_message_example

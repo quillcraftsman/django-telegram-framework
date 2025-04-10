@@ -1,4 +1,4 @@
-from telegram_framework import chats, messages, media
+from telegram_framework import chats, messages
 
 
 def send_reply(reply: messages.Reply):
@@ -16,7 +16,7 @@ def _get_parse_mode(message):
     return parse_mode
 
 
-def send_image(chat: chats.Chat, image: media.Image):
+def send_image(chat: chats.Chat, image: messages.Image):
     bot = image.sender
     with open(image.file_path, "rb") as f:
         parse_mode = None

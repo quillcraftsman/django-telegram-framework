@@ -1,8 +1,9 @@
+from typing import Any
 from dataclasses import dataclass, field
 from datetime import datetime
 
 
 @dataclass(frozen=True)
-class MessageDefault:
+class CoreMessageDefault:
     timestamp: datetime = field(default_factory=datetime.now)
-    format_type: str = 'text'  # 'HTML'
+    chat: Any = None

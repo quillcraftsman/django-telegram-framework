@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import Any
-from .errors import MessageNotInChatError
-from .message_default import MessageDefault
+from telegram_framework.messages.errors import MessageNotInChatError
+from telegram_framework.messages.text_message import MessageDefault
+from telegram_framework.messages.chat_message import is_chat_message
 from .reply_base import ReplyBase
-from .chat_message_base import is_chat_message
+
 
 
 @dataclass(frozen=True)

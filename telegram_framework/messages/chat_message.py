@@ -1,16 +1,13 @@
-from dataclasses import dataclass
-from .chat_message_base import ChatMessageBase
-from .message_default import MessageDefault
-from .message import Message
-
-@dataclass(frozen=True)
-class ChatMessage(MessageDefault, ChatMessageBase):
-    pass
+from telegram_framework.messages.text_message import Message
 
 
 def create_chat_message(message: Message, chat):
-    return ChatMessage(
+    return Message(
         text=message.text,
         sender=message.sender,
         chat=chat,
     )
+
+
+def is_chat_message(message):
+    return hasattr(message, 'chat') and message.chat is not None

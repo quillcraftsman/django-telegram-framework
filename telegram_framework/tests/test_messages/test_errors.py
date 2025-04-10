@@ -26,6 +26,7 @@ class TestErrors(SimpleTestCase):
         )
         expected_text = ("Нельзя ответить на сообщение Message(sender='some sender', "
                          "text='some text', "
-                         "timestamp=datetime.datetime(2025, 1, 1, 12, 0), format_type='text'), "
+                         "timestamp=datetime.datetime(2025, 1, 1, 12, 0), "
+                         "chat=None, format_type='text'), "
                          "потому что оно не находиться в чате")
         self.assertEqual(expected_text, str(MessageNotInChatError(message)))

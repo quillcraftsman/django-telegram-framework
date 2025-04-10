@@ -3,7 +3,7 @@ from pathlib import Path
 from django.test import SimpleTestCase
 from telegram_framework.py_telegram_bot_api import actions
 from telegram_framework import chats
-from telegram_framework import messages, media
+from telegram_framework import messages
 
 
 class MockTelebot:
@@ -32,7 +32,7 @@ class TestActions(SimpleTestCase):
         caption_message = messages.create_message('Image caption', sender=self.bot)
         current_dir = Path(__file__).parent
         image_file_path = current_dir / "data" / "empty.jpg"
-        message = media.create_image(
+        message = messages.create_image(
             sender=self.bot,
             file_path=image_file_path,
             caption=caption_message

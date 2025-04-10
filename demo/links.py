@@ -8,6 +8,11 @@ bot_links = [
     links.on_command(actions.send_text_message_example, 'text_message'),
     links.on_command(actions.send_html_message_example, 'html_message'),
     links.on_command(actions.render_template_example, 'render_template'),
-    links.on_command(actions.load_picture_example, 'get_logo'),
-    links.on_message(actions.echo_answer),
+    links.on_command(actions.send_picture_example, 'send_picture'),
+    links.on_command(actions.send_picture_with_caption_example, 'send_picture_with_caption'),
+    links.on_command(
+        actions.send_picture_with_html_caption_example,
+        'send_picture_with_html_caption'
+    ),
+    links.on_message(actions.echo_answer_example),
 ]

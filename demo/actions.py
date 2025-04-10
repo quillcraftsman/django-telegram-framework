@@ -37,6 +37,7 @@ def send_html_message_example(bot, message):
 # END send_html_message_example
 
 
+# START render_template_example
 def render_template_example(bot, message):
     reply_template = 'demo/bot/reply.html'
     context = {
@@ -49,19 +50,42 @@ def render_template_example(bot, message):
         response_text, sender=bot, format_type='HTML'
     )
     return actions.send_message(message.chat, response_message)
+# END render_template_example
 
 
-def echo_answer(bot, message):
+# START echo_answer_example
+def echo_answer_example(bot, message):
     text = f'На любое неизвестное сообщение я умею присылать его в ответ: {message.text}'
     echo_reply = messages.create_reply(message, text, bot)
     return actions.send_reply(echo_reply)
+# END echo_answer_example
 
 
-
-
-
-def load_picture_example(bot, message):
+# START send_picture_example
+def send_picture_example(bot, message):
     file_path = Path(settings.BASE_DIR) / 'static' / 'logo_1280_640.png'
-    caption = messages.create_message('<b>DTF</b> LOGO', bot, format_type='HTML')
+    image = messages.create_image(bot, file_path)
+    return actions.send_image(message.chat, image)
+# END send_picture_example
+
+
+# START send_picture_with_caption_example
+def send_picture_with_caption_example(bot, message):
+    file_path = Path(settings.BASE_DIR) / 'static' / 'logo_1280_640.png'
+    caption = messages.create_message('Это логотипы DTF', bot)
     image = messages.create_image(bot, file_path, caption)
     return actions.send_image(message.chat, image)
+# END send_picture_with_caption_example
+
+
+# START send_picture_with_html_caption_example
+def send_picture_with_html_caption_example(bot, message):
+    file_path = Path(settings.BASE_DIR) / 'static' / 'logo_1280_640.png'
+    caption = messages.create_message(
+        'Это логотипы <b>DTF</b>',
+        bot,
+        format_type='HTML'
+    )
+    image = messages.create_image(bot, file_path, caption)
+    return actions.send_image(message.chat, image)
+# END send_picture_with_html_caption_example

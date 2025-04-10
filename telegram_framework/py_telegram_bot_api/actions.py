@@ -26,7 +26,7 @@ def send_image(chat: chats.Chat, image: messages.Image):
             caption_text = image.caption.text
         bot.send_photo(chat_id=chat.id, photo=f, caption=caption_text, parse_mode=parse_mode)
     chat = chats.Chat(id=chat.id)
-    return chats.add_message(chat, image.caption)
+    return chats.add_message(chat, image)
 
 
 def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):

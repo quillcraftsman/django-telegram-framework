@@ -80,6 +80,5 @@ class TestCommands(SimpleTestCase):
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = chats.get_last_message(chat)
-        # Fix IT
-        expected_text = '<b>DTF</b> LOGO'
-        self.assertEqual(expected_text, last_message.text)
+        self.assertIsInstance(last_message, messages.Image)
+        self.assertEqual(last_message.caption.text, '<b>DTF</b> LOGO')

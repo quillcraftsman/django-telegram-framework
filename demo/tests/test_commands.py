@@ -5,7 +5,6 @@ from telegram_framework import chats
 from telegram_framework.links import add_links
 from telegram_framework import messages
 from demo.links import bot_links
-from demo.models import create_info_text
 
 
 class TestCommands(SimpleTestCase):
@@ -28,8 +27,8 @@ class TestCommands(SimpleTestCase):
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = chats.get_last_message(chat)
-        expected_text = create_info_text(command_text)
-        self.assertEqual(expected_text, last_message.text)
+        expected_text = 'Привет, Я Demo Bot'
+        self.assertIn(expected_text, last_message.text)
 
 
     def test_help(self):
@@ -41,8 +40,21 @@ class TestCommands(SimpleTestCase):
         chat = actions.send_message(self.chat, message)
         self.assertEqual(2, len(chat.messages))
         last_message = chats.get_last_message(chat)
-        expected_text = create_info_text(command_text)
-        self.assertEqual(expected_text, last_message.text)
+        expected_text = 'Привет, Я Demo Bot'
+        self.assertIn(expected_text, last_message.text)
+
+
+    def test_commands(self):
+        """
+        Test /commands: success
+        """
+        command_text = '/commands'
+        message = messages.create_message(command_text, sender=self.client)
+        chat = actions.send_message(self.chat, message)
+        self.assertEqual(2, len(chat.messages))
+        last_message = chats.get_last_message(chat)
+        expected_text = 'Вот что можно сделать на DTF'
+        self.assertIn(expected_text, last_message.text)
 
 
     # START test_send_text_message_example

@@ -2,8 +2,9 @@ from dataclasses import dataclass
 from typing import Any
 from telegram_framework.messages.errors import MessageNotInChatError
 from telegram_framework.messages.text_message import MessageDefault
-from .reply_base import ReplyBase
 from telegram_framework.messages.chat_message_base import is_chat_message
+from .reply_base import ReplyBase
+
 
 
 @dataclass(frozen=True)

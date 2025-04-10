@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from typing import Any
+from telegram_framework.messages import Message
 from .image_base import ImageBase
 from .image_default import ImageDefault
-from telegram_framework.messages import Message
+
 
 
 @dataclass(frozen=True)

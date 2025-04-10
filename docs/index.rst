@@ -15,6 +15,7 @@
    install
    quickstart
    testing
+   examples
    dev_documentation
    faq
    package/modules

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Any
-from .message_base import MessageBase
+from telegram_framework.messages.text_message import MessageBase
 
 @dataclass(frozen=True)
 class ChatMessageBase(MessageBase):

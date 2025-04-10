@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from .chat_message_base import ChatMessageBase
-from .message_default import MessageDefault
-from .message import Message
+from telegram_framework.messages.text_message import MessageDefault, Message
+
 
 @dataclass(frozen=True)
 class ChatMessage(MessageDefault, ChatMessageBase):

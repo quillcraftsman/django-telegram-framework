@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from .chat_message_base import ChatMessageBase
+from telegram_framework.messages.chat_message_base import ChatMessageBase
 
 
 @dataclass(frozen=True)

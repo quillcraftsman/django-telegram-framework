@@ -3,6 +3,5 @@ from datetime import datetime
 
 
 @dataclass(frozen=True)
-class MessageDefault:
+class CoreMessageDefault:
     timestamp: datetime = field(default_factory=datetime.now)
-    format_type: str = 'text'  # 'HTML'

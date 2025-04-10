@@ -8,7 +8,11 @@ from .image_default import ImageDefault
 
 @dataclass(frozen=True)
 class Image(ImageDefault, ImageBase):
-    pass
+
+    def __eq__(self, other):
+        return (self.file_path == other.file_path
+                and self.sender == other.sender
+                and self.caption == other.caption)
 
 
 def create_image(sender: Any, file_path: str, caption: Message = None):

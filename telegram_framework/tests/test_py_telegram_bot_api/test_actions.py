@@ -40,8 +40,9 @@ class TestActions(SimpleTestCase):
         chat = actions.send_image(chat, message)
         self.assertEqual(1, len(chat.messages))
         last_message = chats.get_last_message(chat)
-        # Fix IT
-        self.assertEqual(caption_message, last_message)
+        self.assertIsInstance(last_message, messages.Image)
+        self.assertEqual(last_message.caption.text, 'Image caption')
+        self.assertEqual(last_message, message)
 
 
     def test_send_message(self):

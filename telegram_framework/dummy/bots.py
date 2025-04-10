@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Callable
 from telegram_framework import functions
+from telegram_framework.messages import Message, Image
 
 
 @dataclass(frozen=True)
@@ -27,7 +28,11 @@ def register_call_handler(bot: DummyBot, handler: Callable, call_data):
 
 
 def find_handler(bot: DummyBot, message):
-    text = message.text
+    text = ''
+    if isinstance(message, Message):
+        text = message.text
+    elif isinstance(message, Image) and message.caption is not None:
+        text = message.caption.text
     if text.startswith('/'):
         # this is command
         command_name = text.replace('/', '')

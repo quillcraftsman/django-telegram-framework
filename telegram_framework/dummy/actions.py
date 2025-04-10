@@ -11,5 +11,5 @@ def send_message(chat: chats.Chat, message: messages.Message):
 
 
 def send_image(chat: chats.Chat, image: messages.Image):
-    chat = chats.add_message(chat, image.caption)
+    chat = chats.add_message(chat, image)
     return chat

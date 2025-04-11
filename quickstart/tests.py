@@ -1,5 +1,5 @@
-from django.test import SimpleTestCase
 from telegram_framework import bots, actions, messages, chats, links
+from telegram_framework.test import SimpleTestCase
 from quickstart.bot import bot_links
 
 
@@ -33,12 +33,10 @@ class TestCommands(SimpleTestCase):
         chat = actions.send_message(self.chat, message)
         # Бот должен реагировать на сообщения
         # Поэтому в чате будет 2 сообщения
-        self.assertEqual(2, len(chat.messages))
+        self.assertChatMessagesCount(chat, 2)
         # Получите последнее сообщение для проверки
-        last_message = chats.get_last_message(chat)
-        expected_text = 'Приветствую тебя. Я Quickstart Telegram Bot'
         # Оно должно содержать приветствие
-        self.assertEqual(expected_text, last_message.text)
+        self.assertChatLastMessageTextEqual(chat, 'Приветствую тебя. Я Quickstart Telegram Bot')
 
 
     def test_any_text_message(self):
@@ -52,9 +50,6 @@ class TestCommands(SimpleTestCase):
         chat = actions.send_message(self.chat, message)
         # Бот должен реагировать на сообщение,
         # Поэтому в чате будет 2 сообщения
-        self.assertEqual(2, len(chat.messages))
-        # Получаем последнее сообщение
-        last_message = chats.get_last_message(chat)
-        expected_text = 'Тебе отвечает Bot'
-        # Оно должно содержать ответ бота
-        self.assertEqual(expected_text, last_message.text)
+        self.assertChatMessagesCount(chat, 2)
+        # Последнее сообщение должно содержать ответ бота
+        self.assertChatLastMessageTextEqual(chat, 'Тебе отвечает Bot')

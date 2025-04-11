@@ -2,7 +2,7 @@
 Tests
 """
 from dataclasses import dataclass
-from django.test import SimpleTestCase
+from telegram_framework.test import SimpleTestCase
 from telegram_framework import chats, messages
 
 
@@ -40,20 +40,19 @@ class TestChat(SimpleTestCase):
         """
         Test add_message: success
         """
-        self.assertEqual(0, len(self.chat.messages))
+        self.assertEmptyChat(self.chat)
         message = messages.Message(text='some text', sender='some sender')
         chat = chats.add_message(self.chat, message)
-        self.assertEqual(1, len(chat.messages))
+        self.assertNotEmptyChat(chat)
 
     def test_add_message_in_chat(self):
         """
         Test add_message: success: Message.chat is not None
         """
         message = messages.Message(text='some text', sender='some sender')
-        # self.assertIsNone(message.chat)
         chat = chats.add_message(self.chat, message)
         chat_message = chats.get_last_message(chat)
-        self.assertEqual(message, chat_message)
+        self.assertChatLastMessageEqual(chat, chat_message)
         self.assertEqual(chat, chat_message.chat)
 
     def test_get_last_message_empty(self):

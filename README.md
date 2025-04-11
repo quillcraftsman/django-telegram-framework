@@ -86,7 +86,7 @@
 - Имеет чёткую структуру модулей
 - Может использовать разные библиотеки для взаимодействия с telegram (pyTelegramBotAPI, Telethone, python-telegram-bot, aiogram и другие)
 - Позволяет быстро реализовать start-up проект одному разработчику или в небольшой команде
-- Имеет интеграцию с django для соднаия web страниц и использования django admin
+- Имеет интеграцию с django для создания web страниц и использования django admin
 - Быстро подключается к базе данных с помощью Django ORM
 
 ## Проект с открытым исходным кодом
@@ -137,7 +137,7 @@
 
 ## Статус разработки
 
-Написана и проверена 1-ая сырая версия библиотеки с небольшим набором функций
+Написана и проверена 2-ая сырая версия библиотеки с небольшим набором функций
 
 - Пакет уже доступен в [PyPi](https://pypi.org/project/django-telegram-framework/)
 - Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#development-status)
@@ -153,6 +153,16 @@ pip install django-telegram-framework
 Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/install.html)
 
 ## Быстрый старт
+
+0. Добавить `telegram_framework` в `INSTALLED_APPS`
+
+```python
+INSTALLED_APPS = [
+    '...',
+    'telegram_framework',
+    '...',
+]
+```
 
 1. Создать django проект
 2. Создать django приложение
@@ -174,7 +184,10 @@ from telegram_framework import (
 
 def send_greetings(bot, message):
     # Используйте специальный тип для сообщений
-    greetings_message = messages.Message('Приветствую тебя. Я Quickstart Telegram Bot', sender=bot)
+    greetings_message = messages.create_message(
+        'Приветствую тебя. Я Quickstart Telegram Bot',
+        sender=bot
+    )
     # Отправьте сообщение в телеграмм
     return actions.send_message(message.chat, greetings_message)
 
@@ -232,8 +245,8 @@ TELEGRAM_BOT_TYPE = 'Dummy'
 2. Пример написания тестов для бота из `quickstart` приложения
 
 ```python
-from django.test import SimpleTestCase
 from telegram_framework import bots, actions, messages, chats, links
+from telegram_framework.test import SimpleTestCase
 from quickstart.bot import bot_links
 
 
@@ -262,17 +275,15 @@ class TestCommands(SimpleTestCase):
         command_text = '/start'
         # Для создания сообщения используйте специальный тип
         # Его будет отправлять клиент sender=self.client
-        message = messages.Message(command_text, sender=self.client)
+        message = messages.create_message(command_text, sender=self.client)
         # Отправьте его в чат
         chat = actions.send_message(self.chat, message)
         # Бот должен реагировать на сообщения
         # Поэтому в чате будет 2 сообщения
-        self.assertEqual(2, len(chat.messages))
+        self.assertChatMessagesCount(chat, 2)
         # Получите последнее сообщение для проверки
-        last_message = chats.get_last_message(chat)
-        expected_text = 'Приветствую тебя. Я Quickstart Telegram Bot'
         # Оно должно содержать приветствие
-        self.assertEqual(expected_text, last_message.text)
+        self.assertChatLastMessageTextEqual(chat, 'Приветствую тебя. Я Quickstart Telegram Bot')
 
 
     def test_any_text_message(self):
@@ -281,19 +292,14 @@ class TestCommands(SimpleTestCase):
         """
         # Используйте специальный тип для создания сообщения
         # Его отправит client (sender=self.client)
-        message = messages.Message('quickstart message', sender=self.client)
+        message = messages.create_message('quickstart message', sender=self.client)
         # Отправляем сообщение
         chat = actions.send_message(self.chat, message)
         # Бот должен реагировать на сообщение,
         # Поэтому в чате будет 2 сообщения
-        self.assertEqual(2, len(chat.messages))
-        # Получаем последнее сообщение
-        last_message = chats.get_last_message(chat)
-        expected_text = 'Тебе отвечает Bot'
-        # Оно должно содержать ответ бота
-        self.assertEqual(expected_text, last_message.text)
-
-
+        self.assertChatMessagesCount(chat, 2)
+        # Последнее сообщение должно содержать ответ бота
+        self.assertChatLastMessageTextEqual(chat, 'Тебе отвечает Bot')
 ```
 
 3. Запустить django тесты

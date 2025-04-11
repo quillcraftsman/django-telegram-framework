@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from django.template.loader import render_to_string
 from .message_base import MessageBase
 from .message_default import MessageDefault
 
@@ -12,3 +13,8 @@ class Message(MessageDefault, MessageBase):
 
 def create_message(text, sender, format_type='text'):
     return Message(text=text, sender=sender, format_type=format_type)
+
+
+def create_template_message(sender, template, context=None, format_type='HTML'):
+    text = render_to_string(template, context)
+    return create_message(text, sender, format_type)

@@ -58,15 +58,15 @@ def send_html_message_example(bot, message):
 
 # START render_template_example
 def render_template_example(bot, message):
-    reply_template = 'demo/bot/reply.html'
     context = {
         'this': 'Это',
         'message': 'сообщение',
         'make': 'было создано по шаблону'
     }
-    response_text = render_to_string(reply_template, context)
-    response_message = messages.create_message(
-        response_text, sender=bot, format_type='HTML'
+    response_message = messages.create_template_message(
+        sender=bot,
+        template='demo/bot/reply.html',
+        context=context,
     )
     return actions.send_message(message.chat, response_message)
 # END render_template_example

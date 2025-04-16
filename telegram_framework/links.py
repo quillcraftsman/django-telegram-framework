@@ -37,3 +37,14 @@ def add_links(bot, links):
 def get_root_links(module_name):
     links_module = importlib.import_module(module_name)
     return links_module.bot_links
+
+
+def include(links: list, module_name) -> list:
+    additional_links = get_root_links(module_name)
+    return links + additional_links
+
+
+def include_all(links: list, modules_list: list) -> list:
+    for module in modules_list:
+        links = include(links, module)
+    return links

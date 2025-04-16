@@ -1,4 +1,5 @@
 from typing import Callable
+import importlib
 from telegram_framework import bots
 
 
@@ -31,3 +32,8 @@ def add_links(bot, links):
         bot = link(bot)
 
     return bot
+
+
+def get_root_links(module_name):
+    links_module = importlib.import_module(module_name)
+    return links_module.bot_links

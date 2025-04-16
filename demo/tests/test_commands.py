@@ -1,31 +1,16 @@
-from telegram_framework import bots
-from telegram_framework import actions
 from telegram_framework import chats
-from telegram_framework.links import add_links
 from telegram_framework import messages
 from telegram_framework.test import SimpleTestCase
-from demo.links import bot_links
 
 
 class TestCommands(SimpleTestCase):
-
-    def setUp(self):
-        chat = chats.Chat()
-        self.client = bots.get_bot('client')
-        chat = chats.add_bot(chat, self.client)
-        bot = bots.get_bot('bot')
-        bot = add_links(bot, bot_links)
-        self.chat = chats.add_bot(chat, bot)
-        self.assertEmptyChat(self.chat)
+    ROOT_BOT_LINKS = 'demo.links'
 
     def test_start(self):
         """
         Test /start: success
         """
-        command_text = '/start'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/start', self.chat)
         last_message = chats.get_last_message(chat)
         expected_text = 'Привет, Я Demo Bot'
         self.assertIn(expected_text, last_message.text)
@@ -35,10 +20,7 @@ class TestCommands(SimpleTestCase):
         """
         Test /help: success
         """
-        command_text = '/help'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/help', self.chat)
         last_message = chats.get_last_message(chat)
         expected_text = 'Привет, Я Demo Bot'
         self.assertIn(expected_text, last_message.text)
@@ -48,10 +30,7 @@ class TestCommands(SimpleTestCase):
         """
         Test /commands: success
         """
-        command_text = '/commands'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/commands', self.chat)
         last_message = chats.get_last_message(chat)
         expected_text = 'Вот что можно сделать на DTF'
         self.assertIn(expected_text, last_message.text)
@@ -62,10 +41,7 @@ class TestCommands(SimpleTestCase):
         """
         Test /text_message: success
         """
-        command_text = '/text_message'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/text_message', self.chat)
         self.assertChatLastMessageTextEqual(
             chat,
             'Пример отправки обычного текстового сообщения',
@@ -78,10 +54,7 @@ class TestCommands(SimpleTestCase):
         """
         Test /html_message: success
         """
-        command_text = '/html_message'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/html_message', self.chat)
         self.assertChatLastMessageTextEqual(
             chat,
             '<b>Пример</b> <i>отправки</i> <s>текстового</s> HTML сообщения',
@@ -93,10 +66,7 @@ class TestCommands(SimpleTestCase):
         """
         Test /render_template: success
         """
-        command_text = '/render_template'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/render_template', self.chat)
         self.assertChatLastMessageTextEqual(
             chat,
             '<b>Это</b> <i>сообщение</i> было создано по шаблону',
@@ -109,9 +79,7 @@ class TestCommands(SimpleTestCase):
         Test send any text message: success
         """
         text = 'any message'
-        message = messages.create_message('any message', sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertTextMessageWasHandled(text, self.chat)
         self.assertChatLastMessageTextEqual(
             chat,
              f'На любое неизвестное сообщение я умею присылать его в ответ: {text}',
@@ -123,10 +91,7 @@ class TestCommands(SimpleTestCase):
         """
         Test /send_picture: success
         """
-        command_text = '/send_picture'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/send_picture', self.chat)
         last_message = chats.get_last_message(chat)
         self.assertIsInstance(last_message, messages.Image)
         self.assertIn('logo_1280_640.png', str(last_message.file_path))
@@ -137,10 +102,7 @@ class TestCommands(SimpleTestCase):
         """
         Test /send_picture_with_caption: success
         """
-        command_text = '/send_picture_with_caption'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/send_picture_with_caption', self.chat)
         last_message = chats.get_last_message(chat)
         self.assertIsNotNone(last_message.caption)
         self.assertEqual('Это логотипы DTF', last_message.caption.text)
@@ -151,10 +113,7 @@ class TestCommands(SimpleTestCase):
         """
         Test /send_picture_with_caption: success
         """
-        command_text = '/send_picture_with_html_caption'
-        message = messages.create_message(command_text, sender=self.client)
-        chat = actions.send_message(self.chat, message)
-        self.assertChatMessagesCount(chat, 2)
+        chat = self.assertCommandWasHandled('/send_picture_with_html_caption', self.chat)
         last_message = chats.get_last_message(chat)
         self.assertIsNotNone(last_message.caption)
         self.assertEqual('Это логотипы <b>DTF</b>', last_message.caption.text)

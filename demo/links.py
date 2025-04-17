@@ -1,15 +1,16 @@
 from telegram_framework import links, commands
 from . import actions
 
+bot_links = links.include([], 'telegram_framework.commands.links')
 
-bot_links = [
+bot_links += [
     links.on_command(actions.send_bot_info, 'start', 'Начать общение с ботом'),
     links.on_command(actions.send_bot_info, 'help', 'Получить информацию о боте'),
-    links.on_command(
-        commands.get_commands,
-        'commands',
-        'Список примеров (что можно сделать с помощью DTF)'
-    ),
+    # links.on_command(
+    #     commands.get_commands,
+    #     'commands',
+    #     'Список примеров (что можно сделать с помощью DTF)'
+    # ),
     links.on_command(
         actions.send_text_message_example,
         'text_message',

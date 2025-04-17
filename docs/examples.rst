@@ -3,7 +3,6 @@
 
 Все примеры использования от простых к сложным
 
-Проект на `GitHub <https://github.com/quillcraftsman/django-telegram-framework>`_
 
 - :ref:`text_message`
 - :ref:`html_message`

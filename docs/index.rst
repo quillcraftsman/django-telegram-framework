@@ -16,6 +16,7 @@
    quickstart
    testing
    examples
+   crud
    dev_documentation
    faq
    package/modules

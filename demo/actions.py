@@ -117,3 +117,15 @@ list_action_example = use.list_action(
     template_name='demo/bot/list.html',
 )
 # END list_action_example
+
+
+# START template_action_example
+template_action_example = use.template_action(
+    'demo/bot/reply.html',
+    context={
+        'this': 'Это',
+        'message': 'сообщение',
+        'make': 'было создано по шаблону'
+    }
+)
+# END template_action_example

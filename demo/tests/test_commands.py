@@ -127,3 +127,15 @@ class TestCommands(SimpleTestCase):
         chat = self.assertCommandWasHandled('/list_action', self.chat)
         self.assertIn('list_action', chats.get_last_message(chat).text)
     # END test_list_action_example
+
+    # START test_template_action_example
+    def test_template_action_example(self):
+        """
+        Test /template_action: success
+        """
+        chat = self.assertCommandWasHandled('/template_action', self.chat)
+        self.assertChatLastMessageTextEqual(
+            chat,
+            '<b>Это</b> <i>сообщение</i> было создано по шаблону',
+        )
+    # END test_template_action_example

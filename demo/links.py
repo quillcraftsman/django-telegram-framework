@@ -17,5 +17,6 @@ bot_links = [
     ),
     # FBV (use)
     links.on_command(actions.list_action_example, 'list_action'),
+    links.on_command(actions.template_action_example, 'template_action'),
     links.on_message(actions.echo_answer_example),
 ]

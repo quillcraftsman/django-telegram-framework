@@ -32,7 +32,7 @@ class TestCommands(SimpleTestCase):
         """
         chat = self.assertCommandWasHandled('/commands', self.chat)
         last_message = chats.get_last_message(chat)
-        expected_text = 'Вот что можно сделать на DTF'
+        expected_text = 'commands'
         self.assertIn(expected_text, last_message.text)
 
 

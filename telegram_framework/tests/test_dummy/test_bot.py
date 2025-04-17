@@ -85,3 +85,12 @@ class TestDummyBot(SimpleTestCase):
 
     def test_start(self):
         bots.start(self.bot)
+
+    def test_get_commands_list(self):
+        """
+        Test get_commands_list: success
+        """
+        self.assertEqual([], bots.get_commands_list(self.bot))
+        handler_name = 'some_handler'
+        bot = bots.register_command_handler(self.bot, self.some_handler, handler_name)
+        self.assertEqual([(handler_name, self.some_handler)], bots.get_commands_list(bot))

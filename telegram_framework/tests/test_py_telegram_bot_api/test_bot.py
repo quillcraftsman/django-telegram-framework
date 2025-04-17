@@ -88,3 +88,15 @@ class TestTeleBot(SimpleTestCase):
         bot = MockedBot()
         bots.start(bot)
         self.assertEqual(1, bot.infinity_polling_call_count)
+
+    def test_get_commands_list(self):
+        """
+        Test get_commands_list: success
+        """
+        self.assertEqual([], bots.get_commands_list(self.bot))
+        handler_name = 'some_handler'
+        bot = bots.register_command_handler(self.bot, self.some_handler, handler_name)
+        commands_list = bots.get_commands_list(bot)
+        self.assertEqual(1, len(commands_list))
+        name, _ = commands_list[0]
+        self.assertEqual(handler_name, name)

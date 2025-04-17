@@ -54,3 +54,8 @@ def handle_message(bot, message):
     if not handler:
         return message.chat
     return handler(bot, message)
+
+
+def get_commands_list(bot: DummyBot):
+    commands = list(bot.command_handlers.items())
+    return commands

@@ -14,26 +14,6 @@ def send_bot_info(bot, message):
     return actions.send_message(message.chat, info_message)
 
 
-def commands_info(bot, message):
-
-    commands = {
-        '/help': 'Информация обо мне',
-        '/commands': 'Список примеров (что можно сделать с помощью DTF)',
-        '/text_message': 'Отправка текстового сообщения',
-        '/html_message': 'Отправка html сообщения',
-        '/render_template': 'Форматирование по шаблону',
-        '/send_picture': 'Отправка картинки',
-        '/send_picture_with_caption': 'Отправка картинки с заголовком',
-        '/send_picture_with_html_caption': 'Отправка картинки с HTML заголовком',
-        'любое сообщение': 'Ответ на это сообщение',
-    }
-    text = render_to_string('demo/bot/commands.html', {'commands': commands})
-    commands_message = messages.create_message(
-        text, sender=bot, format_type='HTML'
-    )
-    return actions.send_message(message.chat, commands_message)
-
-
 # START send_text_message_example
 def send_text_message_example(bot, message):
     text = 'Пример отправки обычного текстового сообщения'

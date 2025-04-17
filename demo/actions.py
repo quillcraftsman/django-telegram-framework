@@ -1,8 +1,9 @@
 from pathlib import Path
 from django.template.loader import render_to_string
 from django.conf import settings
-from telegram_framework import actions
-from telegram_framework import messages
+from telegram_framework import actions, messages, use
+
+from demo.models import Faq
 
 
 def send_bot_info(bot, message):
@@ -108,3 +109,11 @@ def send_picture_with_html_caption_example(bot, message):
     image = messages.create_image(bot, file_path, caption)
     return actions.send_image(message.chat, image)
 # END send_picture_with_html_caption_example
+
+
+# START list_action_example
+list_action_example = use.list_action(
+    Faq,
+    template_name='demo/bot/list.html',
+)
+# END list_action_example

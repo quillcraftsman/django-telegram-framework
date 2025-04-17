@@ -15,5 +15,7 @@ bot_links = [
         actions.send_picture_with_html_caption_example,
         'send_picture_with_html_caption'
     ),
+    # FBV (use)
+    links.on_command(actions.list_action_example, 'list_action'),
     links.on_message(actions.echo_answer_example),
 ]

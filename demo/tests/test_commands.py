@@ -118,3 +118,12 @@ class TestCommands(SimpleTestCase):
         self.assertIsNotNone(last_message.caption)
         self.assertEqual('Это логотипы <b>DTF</b>', last_message.caption.text)
     # END test_send_picture_with_html_caption_example
+
+    # START test_list_action_example
+    def test_list_action_example(self):
+        """
+        Test /list_action: success
+        """
+        chat = self.assertCommandWasHandled('/list_action', self.chat)
+        self.assertIn('list_action', chats.get_last_message(chat).text)
+    # END test_list_action_example

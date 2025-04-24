@@ -27,7 +27,7 @@ def on_message(handler: Callable):
 # def on_call(handler, call_data):
 #
 #     def call_handler(bot):
-#         return register_call_handler(bot, handler, call_data)
+#         return bots.register_call_handler(bot, handler, call_data)
 #
 #     return call_handler
 

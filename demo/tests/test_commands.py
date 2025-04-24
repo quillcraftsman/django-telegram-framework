@@ -139,3 +139,18 @@ class TestCommands(SimpleTestCase):
             '<b>Это</b> <i>сообщение</i> было создано по шаблону',
         )
     # END test_template_action_example
+
+
+    # START test_message_with_inline_keyboard_example
+    def test_message_with_inline_keyboard_example(self):
+        """
+        Test /message_with_inline_keyboard: success
+        """
+        chat = self.assertCommandWasHandled('/message_with_inline_keyboard', self.chat)
+        self.assertChatLastMessageTextEqual(
+            chat,
+            'Пример сообщения с кнопкой',
+        )
+        keyboard = self.assertChatLastMessageKeyboardLen(chat, 1)
+        self.assertEqual('Нажми меня', keyboard.buttons[0].text)
+    # END test_message_with_inline_keyboard_example

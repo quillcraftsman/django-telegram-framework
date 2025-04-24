@@ -27,6 +27,10 @@ bot_links += [
         actions.send_picture_with_html_caption_example,
         'send_picture_with_html_caption', 'Отправка картинки с HTML заголовком'
     ),
+    links.on_command(
+        actions.message_with_inline_keyboard_example,
+        'message_with_inline_keyboard', 'Сообщение с кнопкой'
+    ),
     # FBV (use)
     links.on_command(actions.list_action_example, 'list_action', 'Пример FBA CRUD List'),
     links.on_command(
@@ -35,4 +39,5 @@ bot_links += [
         'Пример FBA действия с шаблоном'
     ),
     links.on_message(actions.echo_answer_example),
+    # links.on_call(actions.put_button_handler, 'put_on_me'),
 ]

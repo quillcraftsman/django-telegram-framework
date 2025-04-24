@@ -57,3 +57,16 @@ class TelegramFrameworkMixin:
         msg = f'Message "{text}" was not handled'
         self.assertChatMessagesCount(chat, 2, msg)
         return chat
+
+    def assertKeyboardInChatLastMessage(self, chat):
+        last_message = chats.get_last_message(chat)
+        self.assertKeyboardInMessage(last_message)
+        return last_message.keyboard
+
+    def assertKeyboardInMessage(self, message):
+        self.assertIsNotNone(message.keyboard)
+
+    def assertChatLastMessageKeyboardLen(self, chat, value):
+        keyboard = self.assertKeyboardInChatLastMessage(chat)
+        self.assertEqual(len(keyboard), value)
+        return keyboard

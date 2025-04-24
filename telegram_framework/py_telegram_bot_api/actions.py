@@ -1,3 +1,4 @@
+from telebot import types
 from telegram_framework import chats, messages
 
 
@@ -29,13 +30,24 @@ def send_image(chat: chats.Chat, image: messages.Image):
     return chats.add_message(chat, image)
 
 
+def _make_reply_markup(keyboard):
+    markup = types.InlineKeyboardMarkup()
+    for button in keyboard.buttons:
+        markup.add(
+            types.InlineKeyboardButton(button.text, callback_data=button.data)
+        )
+    return markup
+
+
 def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):
     bot = message.sender
     text = message.text
+    reply_markup = _make_reply_markup(message.keyboard) if message.keyboard else None
     bot.send_message(
         chat.id,
         text,
         parse_mode=parse_mode,
+        reply_markup=reply_markup,
     )
     chat = chats.Chat(id=chat.id)
     return chats.add_message(chat, message)

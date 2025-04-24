@@ -7,3 +7,4 @@ from datetime import datetime
 class CoreMessageDefault:
     timestamp: datetime = field(default_factory=datetime.now)
     chat: Any = None
+    keyboard: Any = None

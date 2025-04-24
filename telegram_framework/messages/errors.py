@@ -4,4 +4,4 @@ class MessageNotInChatError(Exception):
         self.message = message
 
     def __str__(self):
-        return f'Нельзя ответить на сообщение {self.message}, потому что оно не находиться в чате'
+        return f'Нельзя ответить на сообщение "{self.message}", потому что оно не находиться в чате'

@@ -39,5 +39,5 @@ bot_links += [
         'Пример FBA действия с шаблоном'
     ),
     links.on_message(actions.echo_answer_example),
-    # links.on_call(actions.put_button_handler, 'put_on_me'),
+    links.on_call(actions.put_button_handler, 'put_on_me'),
 ]

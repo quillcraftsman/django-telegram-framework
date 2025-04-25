@@ -153,4 +153,12 @@ class TestCommands(SimpleTestCase):
         )
         keyboard = self.assertChatLastMessageKeyboardLen(chat, 1)
         self.assertEqual('Нажми меня', keyboard.buttons[0].text)
+
+
+    def test_put_button_handler(self):
+        """
+        Test button "put_on_me": success
+        """
+        chat = self.assertCallWasHandled('put_on_me', self.chat)
+        self.assertChatLastMessageTextEqual(chat, 'Вы нажали кнопку, а я обработал нажатие')
     # END test_message_with_inline_keyboard_example

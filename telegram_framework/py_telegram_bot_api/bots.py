@@ -1,31 +1,22 @@
-import functools
 from typing import Callable
 from telebot import TeleBot
-
-
-def prepare_handler(handler_function, bot):
-
-    @functools.wraps(handler_function)
-    def inner(*args, **kwargs):
-        return handler_function(bot, *args, **kwargs)
-
-    return inner
+from . import adapters
 
 
 def register_command_handler(bot: TeleBot, handler: Callable, name: str):
-    handler = prepare_handler(handler, bot)
+    handler = adapters.prepare_handler(handler, bot)
     bot.register_message_handler(handler, commands=[name])
     return bot
 
 
 def register_message_handler(bot: TeleBot, handler: Callable):
-    handler = prepare_handler(handler, bot)
+    handler = adapters.prepare_handler(handler, bot)
     bot.register_message_handler(handler, func=lambda m: True)
     return bot
 
 
 def register_call_handler(bot: TeleBot, handler: Callable, call_data):
-    handler = prepare_handler(handler, bot)
+    handler = adapters.prepare_call_handler(handler, bot)
     bot.register_callback_query_handler(
         handler,
         func=lambda call_obj: call_obj.data == call_data,

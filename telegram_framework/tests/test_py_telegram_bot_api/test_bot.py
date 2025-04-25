@@ -66,15 +66,6 @@ class TestTeleBot(SimpleTestCase):
         chat = bots.handle_message(self.bot, message)
         self.assertEqual(chat, message.chat)
 
-    def test_prepare_handler(self):
-
-        def handler_function(bot):  # pylint: disable=unused-argument
-            return 'result'
-
-        prepared_function = bots.prepare_handler(handler_function, self.bot)
-        result = prepared_function()
-        self.assertEqual('result', result)
-
     def test_start(self):
 
         class MockedBot:

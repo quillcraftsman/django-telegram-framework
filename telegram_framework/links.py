@@ -24,12 +24,12 @@ def on_message(handler: Callable):
     return message_handler
 
 
-# def on_call(handler, call_data):
-#
-#     def call_handler(bot):
-#         return bots.register_call_handler(bot, handler, call_data)
-#
-#     return call_handler
+def on_call(handler, call_data):
+
+    def call_handler(bot):
+        return bots.register_call_handler(bot, handler, call_data)
+
+    return call_handler
 
 
 def add_links(bot, links):

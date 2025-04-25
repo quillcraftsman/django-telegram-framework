@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Callable
 from telegram_framework import functions
-from telegram_framework.messages import Message, Image
+from telegram_framework.messages import Message, Image, Call
 
 
 @dataclass(frozen=True)
@@ -28,6 +28,8 @@ def register_call_handler(bot: DummyBot, handler: Callable, call_data):
 
 
 def find_handler(bot: DummyBot, message):
+    if isinstance(message, Call):
+        return bot.call_handlers.get(message.data, None)
     text = ''
     if isinstance(message, Message):
         text = message.text

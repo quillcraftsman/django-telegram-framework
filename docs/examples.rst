@@ -11,6 +11,8 @@
 - :ref:`send_picture`
 - :ref:`send_picture_with_caption`
 - :ref:`send_picture_with_html_caption`
+- :ref:`message_with_inline_keyboard_example`
+
 
 .. _text_message:
 Отправка текстового сообщения
@@ -130,3 +132,21 @@
    :language: python
    :start-after: START test_send_picture_with_html_caption_example
    :end-before: END test_send_picture_with_html_caption_example
+
+
+.. _message_with_inline_keyboard_example:
+Встроенная кнопка
+-----------------
+
+.. literalinclude:: ../demo/actions.py
+   :language: python
+   :start-after: START message_with_inline_keyboard_example
+   :end-before: END message_with_inline_keyboard_example
+
+Пример теста
+~~~~~~~~~~~~
+
+.. literalinclude:: ../demo/tests/test_commands.py
+   :language: python
+   :start-after: START test_message_with_inline_keyboard_example
+   :end-before: END test_message_with_inline_keyboard_example

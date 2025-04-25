@@ -26,6 +26,15 @@ class TestCommands(SimpleTestCase):
         self.assertIn(expected_text, last_message.text)
 
 
+    def test_bot_father_commands(self):
+        """
+        Test /bot_father_commands: success
+        """
+        chat = self.assertCommandWasHandled('/bot_father_commands', self.chat)
+        last_message = chats.get_last_message(chat)
+        expected_text = 'commands'
+        self.assertIn(expected_text, last_message.text)
+
     def test_commands(self):
         """
         Test /commands: success

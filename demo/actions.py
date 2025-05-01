@@ -60,6 +60,22 @@ def echo_answer_example(bot, message):
 # END echo_answer_example
 
 
+# START fixed_text_answer_example
+def fixed_text_answer_example(bot, message):
+    text = f'На сообщение {message.text}, я даю фиксированный ответ: Пожалуйста'
+    reply = messages.create_reply(message, text, bot)
+    return actions.send_reply(reply)
+# END fixed_text_answer_example
+
+
+# START contains_text_answer_example
+def contains_text_answer_example(bot, message):
+    text = 'На сообщение содержащее "Привет", я говорю "И тебе привет"'
+    reply = messages.create_reply(message, text, bot)
+    return actions.send_reply(reply)
+# END contains_text_answer_example
+
+
 # START send_picture_example
 def send_picture_example(bot, message):
     file_path = Path(settings.BASE_DIR) / 'static' / 'logo_1280_640.png'

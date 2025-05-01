@@ -38,6 +38,11 @@ bot_links += [
         'template_action',
         'Пример FBA действия с шаблоном'
     ),
+    links.on_text(actions.fixed_text_answer_example, 'Спасибо бот'),
+    links.on_message(
+        actions.contains_text_answer_example,
+        lambda message: 'Привет' in message.text
+    ),
     links.on_message(actions.echo_answer_example),
     links.on_call(actions.put_button_handler, 'put_on_me'),
 ]

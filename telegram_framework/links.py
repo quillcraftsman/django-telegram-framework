@@ -16,12 +16,20 @@ def on_command(handler: Callable, name: str, description_text=None):
     return command_handler
 
 
-def on_message(handler: Callable):
+def on_message(handler: Callable, filter_function: Callable = lambda message: True):
 
     def message_handler(bot):
-        return bots.register_message_handler(bot, handler)
+        return bots.register_message_handler(bot, handler, filter_function)
 
     return message_handler
+
+
+def on_text(handler: Callable, text: str):
+
+    def text_handler(bot):
+        return bots.register_text_handler(bot, handler, text)
+
+    return text_handler
 
 
 def on_call(handler, call_data):

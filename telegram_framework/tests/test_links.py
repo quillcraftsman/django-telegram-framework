@@ -20,7 +20,7 @@ class TestLinks(SimpleTestCase):
         bot = on_command_function(self.bot)
         message = messages.Message(text='/some_command', sender='some_sender')
         handler = bots.find_handler(bot, message)
-        self.assertEqual(self.some_handler, handler)
+        self.assertEqual(self.some_handler, handler.function)
         self.assertEqual(1, len(bot.command_handlers))
 
     def test_on_message(self):
@@ -29,7 +29,15 @@ class TestLinks(SimpleTestCase):
         bot = on_message_function(self.bot)
         message = messages.Message(text='some_text', sender='some_sender')
         handler = bots.find_handler(bot, message)
-        self.assertEqual(self.some_handler, handler)
+        self.assertEqual(self.some_handler, handler.function)
+        self.assertEqual(1, len(bot.message_handlers))
+
+    def test_on_text(self):
+        on_text_function = links.on_text(self.some_handler, 'text')
+        bot = on_text_function(self.bot)
+        message = messages.Message(text='text', sender='some_sender')
+        handler = bots.find_handler(bot, message)
+        self.assertEqual(self.some_handler, handler.function)
         self.assertEqual(1, len(bot.message_handlers))
 
     def test_add_links(self):
@@ -43,4 +51,4 @@ class TestLinks(SimpleTestCase):
         bot = links.add_links(self.bot, bot_links)
         self.assertEqual(2, len(bot.command_handlers))
         for link in bot.command_handlers.values():
-            self.assertEqual(self.some_handler, link)
+            self.assertEqual(self.some_handler, link.function)

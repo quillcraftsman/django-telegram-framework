@@ -1,6 +1,6 @@
 # pylint: disable=duplicate-code
 from pathlib import Path
-from django.test import SimpleTestCase
+from telegram_framework.test import SimpleTestCase
 from telegram_framework.py_telegram_bot_api import actions
 from telegram_framework import chats
 from telegram_framework import messages, keyboards
@@ -61,6 +61,27 @@ class TestActions(SimpleTestCase):
         last_message = chats.get_last_message(chat)
         self.assertEqual(message, last_message)
 
+    def test_send_message_with_reply_keyboard(self):
+        """
+        Test send_message: success
+        """
+        chat = chats.Chat()
+        message = messages.create_message('new message', sender=self.bot)
+        keyboard = keyboards.reply.Keyboard(
+            'Test keyboard',
+            buttons=[keyboards.reply.Button('Some button')],
+        )
+        message = messages.add_keyboard(message, keyboard)
+        self.assertKeyboardNotInChat(chat)
+        chat = actions.send_message(chat, message)
+        self.assertKeyboardInChat(chat)
+
+        message = messages.create_message('new message', sender=self.bot)
+        keyboard = keyboards.reply.EmptyKeyboard(
+        )
+        message = messages.add_keyboard(message, keyboard)
+        chat = actions.send_message(chat, message)
+        self.assertKeyboardNotInChat(chat)
 
     def test_send_reply(self):
         """

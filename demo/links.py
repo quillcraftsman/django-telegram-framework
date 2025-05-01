@@ -43,6 +43,12 @@ bot_links += [
         actions.contains_text_answer_example,
         lambda message: 'Привет' in message.text
     ),
+    links.on_command(
+        actions.message_with_reply_keyboard_example,
+        'message_with_reply_keyboard',
+        'Сообщение с клавиатурой',
+    ),
+    links.on_text(actions.put_keyboard_handler, 'Нажми меня 🔍'),
     links.on_message(actions.echo_answer_example),
     links.on_call(actions.put_button_handler, 'put_on_me'),
 ]

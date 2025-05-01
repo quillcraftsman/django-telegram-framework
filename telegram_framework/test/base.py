@@ -5,6 +5,7 @@ from telegram_framework import (
     actions,
     bots,
     links,
+    keyboards,
 )
 
 
@@ -74,7 +75,22 @@ class TelegramFrameworkMixin:
     def assertKeyboardInMessage(self, message):
         self.assertIsNotNone(message.keyboard)
 
+    def assertKeyboardInChat(self, chat):
+        self.assertIsNotNone(chat.keyboard)
+        return chat.keyboard
+
+    def assertKeyboardNotInChat(self, chat):
+        kayboard = chat.keyboard
+        keyboard_is_none = kayboard is None
+        keyboard_is_empty = isinstance(kayboard, keyboards.reply.EmptyKeyboard)
+        self.assertTrue(keyboard_is_none or keyboard_is_empty, f'Keyboard {chat.keyboard} in chat')
+
     def assertChatLastMessageKeyboardLen(self, chat, value):
         keyboard = self.assertKeyboardInChatLastMessage(chat)
+        self.assertEqual(len(keyboard), value)
+        return keyboard
+
+    def assertChatKeyboardLen(self, chat, value):
+        keyboard = self.assertKeyboardInChat(chat)
         self.assertEqual(len(keyboard), value)
         return keyboard

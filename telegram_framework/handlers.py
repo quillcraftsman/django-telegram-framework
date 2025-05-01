@@ -6,12 +6,10 @@ from typing import Callable
 class Handler:
     function: Callable
     filter: Callable = lambda message: True
-    description: str = None
 
 
-def create_handler(function, filter_function = lambda message: True, description=None):
+def create_handler(function, filter_function = lambda message: True):
     return Handler(
         function=function,
         filter=filter_function,
-        description=description if description else function.__name__
     )

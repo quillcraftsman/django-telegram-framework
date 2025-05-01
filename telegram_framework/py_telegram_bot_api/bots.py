@@ -9,10 +9,17 @@ def register_command_handler(bot: TeleBot, handler: Callable, name: str):
     return bot
 
 
-def register_message_handler(bot: TeleBot, handler: Callable):
+def register_message_handler(
+        bot: TeleBot, handler: Callable,
+        filter_function: Callable = lambda message: True
+    ):
     handler = adapters.prepare_handler(handler, bot)
-    bot.register_message_handler(handler, func=lambda m: True)
+    bot.register_message_handler(handler, func=filter_function)
     return bot
+
+
+def register_text_handler(bot: TeleBot, handler: Callable, text: str):
+    return register_message_handler(bot, handler, lambda message: message.text == text)
 
 
 def register_call_handler(bot: TeleBot, handler: Callable, call_data):

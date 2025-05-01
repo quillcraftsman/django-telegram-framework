@@ -23,15 +23,38 @@ class TestDummyBot(SimpleTestCase):
         self.assertEqual(0, len(self.bot.command_handlers))
         bot = bots.register_command_handler(self.bot, self.some_handler, 'some_handler')
         self.assertEqual(1, len(bot.command_handlers))
-        self.assertEqual(self.some_handler, bot.command_handlers['some_handler'])
+        self.assertEqual(self.some_handler, bot.command_handlers['some_handler'].function)
 
     def test_register_message_handler(self):
         """
-        Test register_message_handler
+        Test register_message_handler: success
         """
         bot = bots.register_message_handler(self.bot, self.some_handler)
         self.assertEqual(1, len(bot.message_handlers))
-        self.assertEqual(self.some_handler, bot.message_handlers[0])
+        registered_handler = bot.message_handlers[0]
+        self.assertEqual(self.some_handler, registered_handler.function)
+        self.assertIsNotNone(registered_handler.filter)
+
+    def test_register_message_handler_filter(self):
+        """
+        Test register_message_handler with filter: success
+        """
+        def filter_function(message):  # pylint:disable=unused-argument
+            return False
+
+        bot = bots.register_message_handler(self.bot, self.some_handler, filter_function)
+        self.assertEqual(1, len(bot.message_handlers))
+        registered_handler = bot.message_handlers[0]
+        self.assertEqual(self.some_handler, registered_handler.function)
+        self.assertEqual(filter_function, registered_handler.filter)
+        self.assertFalse(registered_handler.filter(None))
+
+    def test_register_text_handler(self):
+        """
+        Test register_text_handler: success
+        """
+        bot = bots.register_text_handler(self.bot, self.some_handler, 'fixed text')
+        self.assertEqual(1, len(bot.message_handlers))
 
     def test_register_call_handler(self):
         """
@@ -40,7 +63,7 @@ class TestDummyBot(SimpleTestCase):
         self.assertEqual(0, len(self.bot.call_handlers))
         bot = bots.register_call_handler(self.bot, self.some_handler, 'some_handler')
         self.assertEqual(1, len(bot.call_handlers))
-        self.assertEqual(self.some_handler, bot.call_handlers['some_handler'])
+        self.assertEqual(self.some_handler, bot.call_handlers['some_handler'].function)
 
     def test_get_bot(self):
         """
@@ -56,7 +79,7 @@ class TestDummyBot(SimpleTestCase):
         bot = bots.register_command_handler(self.bot, self.some_handler, 'some_handler')
         message = messages.Message(text='/some_handler', sender='some_sender')
         handler = bots.find_handler(bot, message)
-        self.assertEqual(handler, self.some_handler)
+        self.assertEqual(self.some_handler, handler.function)
 
     def test_find_handler_command_none(self):
         """
@@ -73,7 +96,7 @@ class TestDummyBot(SimpleTestCase):
         bot = bots.register_message_handler(self.bot, self.some_handler)
         message = messages.Message(text='some message', sender='some_sender')
         handler = bots.find_handler(bot, message)
-        self.assertEqual(self.some_handler, handler)
+        self.assertEqual(self.some_handler, handler.function)
 
     def test_find_handler_message_none(self):
         """

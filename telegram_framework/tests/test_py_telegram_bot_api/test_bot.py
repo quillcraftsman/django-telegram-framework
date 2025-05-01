@@ -31,6 +31,13 @@ class TestTeleBot(SimpleTestCase):
         bot = bots.register_message_handler(self.bot, self.some_handler)
         self.assertEqual(1, len(bot.message_handlers))
 
+    def test_register_text_handler(self):
+        """
+        Test register_text_handler
+        """
+        bot = bots.register_text_handler(self.bot, self.some_handler, 'text')
+        self.assertEqual(1, len(bot.message_handlers))
+
     def test_register_call_handler(self):
         """
         Test register_call_handler: success

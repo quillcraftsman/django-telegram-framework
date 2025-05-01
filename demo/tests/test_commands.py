@@ -95,6 +95,32 @@ class TestCommands(SimpleTestCase):
         )
     # END test_echo_answer_example
 
+    # START test_fixed_text_answer_example
+    def test_fixed_text_answer_example(self):
+        """
+        Test send "Спасибо бот": success
+        """
+        text = 'Спасибо бот'
+        chat = self.assertTextMessageWasHandled(text, self.chat)
+        self.assertChatLastMessageTextEqual(
+            chat,
+             f'На сообщение {text}, я даю фиксированный ответ: Пожалуйста',
+        )
+    # END test_fixed_text_answer_example
+
+    # START test_contains_text_answer_example
+    def test_contains_text_answer_example(self):
+        """
+        Test send "Спасибо бот": success
+        """
+        text = 'Привет бот'
+        chat = self.assertTextMessageWasHandled(text, self.chat)
+        self.assertChatLastMessageTextEqual(
+            chat,
+             'На сообщение содержащее "Привет", я говорю "И тебе привет"',
+        )
+    # END test_contains_text_answer_example
+
     # START test_send_picture_example
     def test_send_picture_example(self):
         """

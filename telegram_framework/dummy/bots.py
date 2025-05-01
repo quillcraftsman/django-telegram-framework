@@ -1,31 +1,41 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Callable
-from telegram_framework import functions
+from telegram_framework import functions, handlers
 from telegram_framework.messages import Message, Image, Call
 
 
 @dataclass(frozen=True)
 class DummyBot:
     token: str
-    command_handlers: Dict[str, Callable] = field(default_factory=dict)
-    message_handlers: List[Callable] = field(default_factory=list)
-    call_handlers: Dict[str, Callable] = field(default_factory=dict)
+    command_handlers: Dict[str, handlers.Handler] = field(default_factory=dict)
+    message_handlers: List[handlers.Handler] = field(default_factory=list)
+    call_handlers: Dict[str, handlers.Handler] = field(default_factory=dict)
 
 
 def register_command_handler(bot: DummyBot, handler: Callable, name: str):
+    handler = handlers.create_handler(handler)
     command_handlers = bot.command_handlers | {name: handler}
     return functions.update(bot, command_handlers=command_handlers)
 
-
-def register_message_handler(bot: DummyBot, handler: Callable):
+def register_message_handler(
+        bot: DummyBot,
+        handler: Callable,
+        filter_function: Callable = lambda message: True
+    ):
+    handler = handlers.create_handler(handler, filter_function)
     message_handlers = bot.message_handlers + [handler]
     return functions.update(bot, message_handlers=message_handlers)
 
+def register_text_handler(bot: DummyBot, handler: Callable, text: str):
+    # handler = handlers.create_handler(handler, lambda message: message.text == text)
+    # message_handlers = bot.message_handlers + [handler]
+    # return functions.update(bot, message_handlers=message_handlers)
+    return register_message_handler(bot, handler, lambda message: message.text == text)
 
 def register_call_handler(bot: DummyBot, handler: Callable, call_data):
+    handler = handlers.create_handler(handler)
     call_handlers = bot.call_handlers | {call_data: handler}
     return functions.update(bot, call_handlers=call_handlers)
-
 
 def find_handler(bot: DummyBot, message):
     if isinstance(message, Call):
@@ -40,8 +50,11 @@ def find_handler(bot: DummyBot, message):
         command_name = text.replace('/', '')
         return bot.command_handlers.get(command_name, None)
     # this is message
-    return bot.message_handlers[0] if bot.message_handlers else None
-
+    for handler in bot.message_handlers:
+        filter_function = handler.filter
+        if filter_function(message):
+            return handler
+    return None
 
 def get_bot(token):
     return DummyBot(token=token)
@@ -55,9 +68,10 @@ def handle_message(bot, message):
     handler = find_handler(bot, message)
     if not handler:
         return message.chat
-    return handler(bot, message)
+    return handler.function(bot, message)
 
 
 def get_commands_list(bot: DummyBot):
-    commands = list(bot.command_handlers.items())
+    # commands = list(bot.command_handlers.items())
+    commands = [(name, handler.function) for name, handler in bot.command_handlers.items()]
     return commands

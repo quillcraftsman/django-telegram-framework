@@ -1,5 +1,5 @@
 from telebot import types
-from telegram_framework import chats, messages
+from telegram_framework import chats, messages,  keyboards
 
 
 def send_reply(reply: messages.Reply):
@@ -31,13 +31,22 @@ def send_image(chat: chats.Chat, image: messages.Image):
 
 
 def _make_reply_markup(keyboard):
-    markup = types.InlineKeyboardMarkup()
-    for button in keyboard.buttons:
-        markup.add(
-            types.InlineKeyboardButton(button.text, callback_data=button.data)
-        )
+    markup = None
+    if isinstance(keyboard, keyboards.inline.Keyboard):
+        markup = types.InlineKeyboardMarkup()
+        for button in keyboard.buttons:
+            markup.add(
+                types.InlineKeyboardButton(button.text, callback_data=button.data)
+            )
+    elif isinstance(keyboard, keyboards.reply.Keyboard):
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        for button in keyboard.buttons:
+            markup.row(
+                types.KeyboardButton(button.text),
+            )
+    elif isinstance(keyboard, keyboards.reply.EmptyKeyboard):
+        markup = types.ReplyKeyboardRemove()
     return markup
-
 
 def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):
     bot = message.sender

@@ -10,9 +10,14 @@ class Chat:
     id: int = 0
     messages: list = field(default_factory=list)
     bots: list = field(default_factory=list)
+    keyboard: Any = None
 
     def __eq__(self, other):
         return self.id == other.id
+
+
+def add_keyboard(chat:Chat, keyboard: Any):
+    return update(chat, keyboard=keyboard)
 
 
 def add_bot(chat: Chat, bot: Any) -> Chat:
@@ -21,6 +26,7 @@ def add_bot(chat: Chat, bot: Any) -> Chat:
 
 
 def add_message(chat: Chat, message: Any) -> Chat:
+    chat = add_keyboard(chat, message.keyboard)
     chat_message = message
     if not messages.is_chat_message(chat_message):
         chat_message = messages.create_chat_message(chat_message, chat)

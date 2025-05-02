@@ -56,7 +56,7 @@ class TelegramFrameworkMixin:
         message = messages.create_message(text, sender=client)
         chat = actions.send_message(chat, message)
         msg = f'Message "{text}" was not handled'
-        self.assertChatMessagesCount(chat, 2, msg)
+        self.assertTrue(len(chat.messages) > 1, msg)
         return chat
 
     def assertCallWasHandled(self, call_data, chat, client=None):
@@ -76,14 +76,17 @@ class TelegramFrameworkMixin:
         self.assertIsNotNone(message.keyboard)
 
     def assertKeyboardInChat(self, chat):
-        self.assertIsNotNone(chat.keyboard)
+        self.assertIsNotNone(chat.keyboard, 'Keyboard not in chat')
         return chat.keyboard
 
     def assertKeyboardNotInChat(self, chat):
         kayboard = chat.keyboard
         keyboard_is_none = kayboard is None
         keyboard_is_empty = isinstance(kayboard, keyboards.reply.EmptyKeyboard)
-        self.assertTrue(keyboard_is_none or keyboard_is_empty, f'Keyboard {chat.keyboard} in chat')
+        self.assertTrue(
+            keyboard_is_none or keyboard_is_empty,
+            f'Keyboard "{chat.keyboard}" in chat'
+        )
 
     def assertChatLastMessageKeyboardLen(self, chat, value):
         keyboard = self.assertKeyboardInChatLastMessage(chat)
@@ -93,4 +96,9 @@ class TelegramFrameworkMixin:
     def assertChatKeyboardLen(self, chat, value):
         keyboard = self.assertKeyboardInChat(chat)
         self.assertEqual(len(keyboard), value)
+        return keyboard
+
+    def assertChatKeyboardName(self, chat, name):
+        keyboard = self.assertKeyboardInChat(chat)
+        self.assertEqual(name, keyboard.name, 'Wrong keyboard name')
         return keyboard

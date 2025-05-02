@@ -12,6 +12,9 @@ class Keyboard:
     def __len__(self):
         return len(self.buttons)
 
+    def __str__(self):
+        return self.name
+
 
 def add_button(keyboard, button):
     new_buttons = keyboard.buttons + [button]

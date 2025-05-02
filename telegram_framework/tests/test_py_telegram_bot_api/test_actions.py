@@ -14,7 +14,14 @@ class MockTelebot:
     def reply_to(self, message, text):
         pass
 
-    def send_photo(self, chat_id, photo, caption, parse_mode):
+    def send_photo(
+            self,
+            chat_id,
+            photo,
+            caption,
+            parse_mode=None,
+            reply_markup=None
+    ):  # pylint:disable=too-many-arguments),too-many-positional-arguments
         pass
 
 

@@ -209,7 +209,8 @@ class TestCommands(SimpleTestCase):
             chat,
             'Пример сообщения с клавиатурой',
         )
-        keyboard = self.assertChatKeyboardLen(chat, 1)
+        self.assertChatKeyboardLen(chat, 1)
+        keyboard = self.assertChatKeyboardName(chat, 'Пример клавиатуры')
         self.assertEqual('Нажми меня 🔍', keyboard.buttons[0].text)
 
     def test_put_keyboard_handler(self):
@@ -223,3 +224,22 @@ class TestCommands(SimpleTestCase):
         )
         self.assertKeyboardNotInChat(chat)
     # END test_message_with_reply_keyboard_example
+
+
+    # START test_complex_message_example
+    def test_complex_message_example(self):
+        """
+        Test /complex_message
+        """
+        chat = self.assertCommandWasHandled('/complex_message', self.chat)
+        self.assertChatMessagesCount(chat, 3)
+        last_message = chats.get_last_message(chat)
+        self.assertIsInstance(last_message, messages.Image)
+        self.assertIn('logo_1280_640.png', str(last_message.file_path))
+        self.assertIsNotNone(last_message.caption)
+        self.assertEqual('Пример <b>комплексного</b> сообщения', last_message.caption.text)
+        self.assertChatKeyboardName(chat, 'Пример клавиатуры')
+        keyboard = self.assertChatKeyboardLen(chat, 1)
+        self.assertEqual('Нажми меня 🔍', keyboard.buttons[0].text)
+        self.assertChatLastMessageKeyboardLen(chat, 1)
+    # END test_complex_message_example

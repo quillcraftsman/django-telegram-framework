@@ -58,3 +58,6 @@ makemigrations:
 
 migrate:
 	python manage.py migrate
+
+test_complex:
+	python manage.py test demo.tests.test_commands.TestCommands.test_complex_message_example

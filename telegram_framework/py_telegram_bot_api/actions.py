@@ -19,20 +19,30 @@ def _get_parse_mode(message):
 
 def send_image(chat: chats.Chat, image: messages.Image):
     bot = image.sender
+    parse_mode = None
+    caption_text = None
+    if image.caption:
+        parse_mode = _get_parse_mode(image.caption)
+        caption_text = image.caption.text
+    reply_markup = _make_reply_markup(image)
     with open(image.file_path, "rb") as f:
-        parse_mode = None
-        caption_text = None
-        if image.caption:
-            parse_mode = _get_parse_mode(image.caption)
-            caption_text = image.caption.text
-        bot.send_photo(chat_id=chat.id, photo=f, caption=caption_text, parse_mode=parse_mode)
+        bot.send_photo(
+            chat_id=chat.id,
+            photo=f,
+            caption=caption_text,
+            parse_mode=parse_mode,
+            reply_markup=reply_markup,
+        )
     chat = chats.Chat(id=chat.id)
     return chats.add_message(chat, image)
 
 
-def _make_reply_markup(keyboard):
+def _make_reply_markup(message):
     markup = None
-    if isinstance(keyboard, keyboards.inline.Keyboard):
+    keyboard = message.keyboard
+    if not keyboard:
+        markup = None
+    elif isinstance(keyboard, keyboards.inline.Keyboard):
         markup = types.InlineKeyboardMarkup()
         for button in keyboard.buttons:
             markup.add(
@@ -51,7 +61,7 @@ def _make_reply_markup(keyboard):
 def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):
     bot = message.sender
     text = message.text
-    reply_markup = _make_reply_markup(message.keyboard) if message.keyboard else None
+    reply_markup = _make_reply_markup(message)
     bot.send_message(
         chat.id,
         text,

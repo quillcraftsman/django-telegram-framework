@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Any
 from telegram_framework.functions import update
 from telegram_framework import bots
-from telegram_framework import messages
+from telegram_framework import messages, keyboards
 
 
 @dataclass(frozen=True)
@@ -26,7 +26,9 @@ def add_bot(chat: Chat, bot: Any) -> Chat:
 
 
 def add_message(chat: Chat, message: Any) -> Chat:
-    chat = add_keyboard(chat, message.keyboard)
+    keyboard = message.keyboard
+    if message.keyboard and isinstance(keyboard, keyboards.reply.Keyboard):
+        chat = add_keyboard(chat, message.keyboard)
     chat_message = message
     if not messages.is_chat_message(chat_message):
         chat_message = messages.create_chat_message(chat_message, chat)

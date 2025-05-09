@@ -11,6 +11,10 @@ class DummyBot:
     message_handlers: List[handlers.Handler] = field(default_factory=list)
     call_handlers: Dict[str, handlers.Handler] = field(default_factory=dict)
 
+    @property
+    def id(self):
+        return self.token
+
 
 def register_command_handler(bot: DummyBot, handler: Callable, name: str):
     handler = handlers.create_handler(handler)

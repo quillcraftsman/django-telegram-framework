@@ -201,3 +201,15 @@ def complex_message_example(bot, message):
     image = messages.add_keyboard(image, keyboard)
     return actions.send_image(chat, image)
 # END complex_message_example
+
+
+# START get_user_id_example
+def get_user_id_example(bot, message):
+    user = message.sender
+    user_id = user.id
+    response_message = messages.create_message(
+        text=f'Ваш telegram id: {user_id}',
+        sender=bot,
+    )
+    return actions.send_message(message.chat, response_message)
+# END get_user_id_example

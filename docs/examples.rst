@@ -15,6 +15,9 @@
 - :ref:`send_picture_with_html_caption`
 - :ref:`message_with_inline_keyboard_example`
 - :ref:`message_with_reply_keyboard_example`
+- :ref:`get_user_id_example`
+- :ref:`complex_message_example`
+
 
 .. _links_py:
 Файл links.py. Связи обработчиков для всех примеров ниже
@@ -211,3 +214,39 @@
    :language: python
    :start-after: START test_message_with_reply_keyboard_example
    :end-before: END test_message_with_reply_keyboard_example
+
+
+.. _get_user_id_example:
+Получение id пользователя
+-------------------------
+
+.. literalinclude:: ../demo/actions.py
+   :language: python
+   :start-after: START get_user_id_example
+   :end-before: END get_user_id_example
+
+Пример теста
+~~~~~~~~~~~~
+
+.. literalinclude:: ../demo/tests/test_commands.py
+   :language: python
+   :start-after: START test_get_user_id_example
+   :end-before: END test_get_user_id_example
+
+
+.. _complex_message_example:
+Пример сложной логики
+---------------------
+
+.. literalinclude:: ../demo/actions.py
+   :language: python
+   :start-after: START complex_message_example
+   :end-before: END complex_message_example
+
+Пример теста
+~~~~~~~~~~~~
+
+.. literalinclude:: ../demo/tests/test_commands.py
+   :language: python
+   :start-after: START test_complex_message_example
+   :end-before: END test_complex_message_example

@@ -53,6 +53,11 @@ bot_links += [
         'message_with_reply_keyboard',
         'Сообщение с клавиатурой',
     ),
+    links.on_command(
+        actions.get_user_id_example,
+        'get_user_id',
+        'Получение telegram id пользователя',
+    ),
     links.on_text(actions.put_keyboard_handler, 'Нажми меня 🔍'),
     links.on_message(actions.echo_answer_example),
     links.on_call(actions.put_button_handler, 'put_on_me'),

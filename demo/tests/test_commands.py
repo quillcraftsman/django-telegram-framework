@@ -3,7 +3,7 @@ from telegram_framework import messages
 from telegram_framework.test import SimpleTestCase
 
 
-class TestCommands(SimpleTestCase):
+class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
     ROOT_BOT_LINKS = 'demo.links'
 
     def test_start(self):
@@ -243,3 +243,13 @@ class TestCommands(SimpleTestCase):
         self.assertEqual('Нажми меня 🔍', keyboard.buttons[0].text)
         self.assertChatLastMessageKeyboardLen(chat, 1)
     # END test_complex_message_example
+
+
+    # START test_get_user_id_example
+    def test_get_user_id_example(self):
+        """
+        Test /get_user_id
+        """
+        chat = self.assertCommandWasHandled('/get_user_id', self.chat)
+        self.assertChatLastMessageTextEqual(chat, f'Ваш telegram id: {self.client.id}')
+    # END test_get_user_id_example

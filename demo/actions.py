@@ -213,3 +213,14 @@ def get_user_id_example(bot, message):
     )
     return actions.send_message(message.chat, response_message)
 # END get_user_id_example
+
+
+# START send_param_text_message_example
+def send_param_text_message_example(bot, message, param):
+    text = f'Пример отправки обычного текстового сообщения с параметром "{param}"'
+    text_message = messages.create_message(
+        text=text,
+        sender=bot,
+    )
+    return actions.send_message(message.chat, text_message)
+# END send_param_text_message_example

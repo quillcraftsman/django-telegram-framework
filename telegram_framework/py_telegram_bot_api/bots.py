@@ -3,9 +3,9 @@ from telebot import TeleBot
 from . import adapters
 
 
-def register_command_handler(bot: TeleBot, handler: Callable, name: str):
+def register_command_handler(bot: TeleBot, handler: Callable, name: str, filter_function=None):
     handler = adapters.prepare_handler(handler, bot)
-    bot.register_message_handler(handler, commands=[name])
+    bot.register_message_handler(handler, commands=[name], func=filter_function)
     return bot
 
 

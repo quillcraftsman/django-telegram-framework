@@ -14,8 +14,8 @@ class Message(MessageDefault, MessageBase):
         return self.text
 
 
-def create_message(text, sender, format_type='text'):
-    return Message(text=text, sender=sender, format_type=format_type)
+def create_message(text, sender, format_type='text', message_id=None):
+    return Message(text=text, sender=sender, format_type=format_type, message_id=message_id)
 
 
 def create_template_message(sender, template, context=None, format_type='HTML'):

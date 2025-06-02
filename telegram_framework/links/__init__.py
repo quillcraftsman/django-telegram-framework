@@ -1,17 +1,22 @@
 from typing import Callable
 import importlib
 from telegram_framework import bots
-from .commands import description
+from telegram_framework.commands import description
+from . import params
 
 
-def on_command(handler: Callable, name: str, description_text=None):
+def on_command(handler: Callable, name: str, description_text=None, params_pattern=None):
 
     if description_text:
         handler = description(description_text)(handler)
 
+    params_pattern = params_pattern if params_pattern else name
+    handler = params.prepare_handler(handler, params_pattern)
+    filter_function = params.get_filter_function(params_pattern)
+
     def command_handler(bot):
 
-        return bots.register_command_handler(bot, handler, name)
+        return bots.register_command_handler(bot, handler, name, filter_function)
 
     return command_handler
 

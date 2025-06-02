@@ -48,6 +48,7 @@ class TestAdapters(unittest.TestCase):
                 self.from_user = MockUser()
                 self.reply_markup = 'HTML'
                 self.chat = 'some chat'
+                self.message_id = 640
 
         message = adapters.prepare_message(TelebotMockMessage())
         self.assertEqual(text, message.text)

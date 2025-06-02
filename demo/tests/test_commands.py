@@ -253,3 +253,16 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         chat = self.assertCommandWasHandled('/get_user_id', self.chat)
         self.assertChatLastMessageTextEqual(chat, f'Ваш telegram id: {self.client.id}')
     # END test_get_user_id_example
+
+
+    # START test_send_param_text_message_example
+    def test_send_param_text_message_example(self):
+        """
+        Test /param_text_message <str:param>: success
+        """
+        chat = self.assertCommandWasHandled('/param_text_message PARAM', self.chat)
+        self.assertChatLastMessageTextEqual(
+            chat,
+            'Пример отправки обычного текстового сообщения с параметром "PARAM"',
+        )
+    # END test_send_param_text_message_example

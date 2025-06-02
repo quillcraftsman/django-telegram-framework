@@ -10,6 +10,7 @@ def prepare_message(telebot_message: types.Message) -> messages.Message:
         telebot_message.text,
         sender=telebot_message.from_user,
         format_type=telebot_message.reply_markup,
+        message_id=telebot_message.message_id,
     )
     chat_message = messages.create_chat_message(pure_message, telebot_message.chat)
     return chat_message
@@ -17,9 +18,6 @@ def prepare_message(telebot_message: types.Message) -> messages.Message:
 
 def prepare_handler(handler_function, bot):
 
-    # @functools.wraps(handler_function)
-    # def inner(*args, **kwargs):
-    #     return handler_function(bot, *args, **kwargs)
     @functools.wraps(handler_function)
     def inner(message, *args, **kwargs):
         message = prepare_message(message)

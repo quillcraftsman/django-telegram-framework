@@ -31,17 +31,30 @@ def register_message_handler(
     message_handlers = bot.message_handlers + [handler]
     return functions.update(bot, message_handlers=message_handlers)
 
+
 def register_text_handler(bot: DummyBot, handler: Callable, text: str):
     return register_message_handler(bot, handler, lambda message: message.text == text)
 
-def register_call_handler(bot: DummyBot, handler: Callable, call_data):
-    handler = handlers.create_handler(handler)
+
+def register_call_handler(
+        bot: DummyBot,
+        handler: Callable,
+        call_data: str,
+        filter_function:
+        Callable=None
+    ):
+    handler = handlers.create_handler(handler, filter_function)
     call_handlers = bot.call_handlers | {call_data: handler}
     return functions.update(bot, call_handlers=call_handlers)
 
+
 def find_handler(bot: DummyBot, message):
     if isinstance(message, Call):
-        return bot.call_handlers.get(message.data, None)
+        # return bot.call_handlers.get(message.data, None)
+        for _, handler in bot.call_handlers.items():
+            filter_function = handler.filter
+            if filter_function(message):
+                return handler
     text = ''
     if isinstance(message, Message):
         text = message.text
@@ -61,6 +74,7 @@ def find_handler(bot: DummyBot, message):
         if filter_function(message):
             return handler
     return None
+
 
 def get_bot(token):
     return DummyBot(token=token)

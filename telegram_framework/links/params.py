@@ -1,13 +1,13 @@
 import functools
-from django.urls.resolvers import RoutePattern
+from . import call_params, command_params
 
 
-def prepare_handler(handler_function, pattern):
+def prepare_handler(handler_function, pattern, function_type):
 
     @functools.wraps(handler_function)
     def inner(bot, message, *args, **kwargs):
         _, _, params = '', (), {}
-        match_function = get_match_function(pattern)
+        match_function = get_match_function(pattern, function_type)
         _, _, params = match_function(message)
         kwargs = kwargs | params
         return handler_function(bot, message, *args, **kwargs)
@@ -15,13 +15,9 @@ def prepare_handler(handler_function, pattern):
     return inner
 
 
-def _match_function(message, pattern):
-    route_pattern = RoutePattern(f'/{pattern}')
-    return route_pattern.match(message.text)
-
-
-def _filter_function(message, pattern):
-    match_result = _match_function(message, pattern)
+def _filter_function(message, pattern, function_type):
+    match_function = get_match_function(pattern, function_type)
+    match_result = match_function(message)
     if match_result is None:
         return False
     text, _, _ = match_result
@@ -30,17 +26,22 @@ def _filter_function(message, pattern):
     return True
 
 
-def get_filter_function(pattern):
+def get_filter_function(pattern, function_type):
 
     def inner(message):
-        return _filter_function(message, pattern)
+        return _filter_function(message, pattern, function_type)
 
     return inner
 
 
-def get_match_function(pattern):
+def get_match_function(pattern, function_type):
 
     def inner(message):
-        return _match_function(message, pattern)
+        mapper = {
+            'command': command_params.get_match_function,
+            'call': call_params.get_match_function,
+        }
+        match_function = mapper[function_type](pattern)
+        return match_function(message)
 
     return inner

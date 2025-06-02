@@ -224,3 +224,25 @@ def send_param_text_message_example(bot, message, param):
     )
     return actions.send_message(message.chat, text_message)
 # END send_param_text_message_example
+
+
+# START param_call_buttons_example
+def param_call_buttons_example(bot, message):
+    keyboard = keyboards.inline.Keyboard(
+        buttons=[
+            keyboards.inline.Button('Параметр ONE', 'put_on_me_params ONE'),
+            keyboards.inline.Button('Параметр TWO', 'put_on_me_params TWO'),
+        ]
+    )
+    message_with_text = messages.create_message('Кнопки для обработчика с параметром', sender=bot)
+    message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+    return actions.send_message(message.chat, message_with_keyboard)
+
+
+def put_button_param_handler(bot, message, param):
+    reply_message = messages.create_message(
+        text=f'Реакция на параметр {param}',
+        sender=bot,
+    )
+    return actions.send_message(message.chat, reply_message)
+# END param_call_buttons_example

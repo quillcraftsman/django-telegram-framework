@@ -213,3 +213,36 @@ def get_user_id_example(bot, message):
     )
     return actions.send_message(message.chat, response_message)
 # END get_user_id_example
+
+
+# START send_param_text_message_example
+def send_param_text_message_example(bot, message, param):
+    text = f'Пример отправки обычного текстового сообщения с параметром "{param}"'
+    text_message = messages.create_message(
+        text=text,
+        sender=bot,
+    )
+    return actions.send_message(message.chat, text_message)
+# END send_param_text_message_example
+
+
+# START param_call_buttons_example
+def param_call_buttons_example(bot, message):
+    keyboard = keyboards.inline.Keyboard(
+        buttons=[
+            keyboards.inline.Button('Параметр ONE', 'put_on_me_params ONE'),
+            keyboards.inline.Button('Параметр TWO', 'put_on_me_params TWO'),
+        ]
+    )
+    message_with_text = messages.create_message('Кнопки для обработчика с параметром', sender=bot)
+    message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+    return actions.send_message(message.chat, message_with_keyboard)
+
+
+def put_button_param_handler(bot, message, param):
+    reply_message = messages.create_message(
+        text=f'Реакция на параметр {param}',
+        sender=bot,
+    )
+    return actions.send_message(message.chat, reply_message)
+# END param_call_buttons_example

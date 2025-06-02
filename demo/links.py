@@ -58,6 +58,21 @@ bot_links += [
         'get_user_id',
         'Получение telegram id пользователя',
     ),
+    links.on_command(
+        actions.send_param_text_message_example,
+        'param_text_message',
+        'Отправка текстового сообщения с параметром',
+        'param_text_message <str:param>',
+    ),
+    links.on_command(
+        actions.param_call_buttons_example,
+        'param_call_buttons',
+        'Кнопки для обработчиков с параметрами',
+    ),
+    links.on_call(actions.put_button_param_handler,
+                  'put_on_me_params',
+                  params_pattern='put_on_me_params <str:param>'
+                  ),
     links.on_text(actions.put_keyboard_handler, 'Нажми меня 🔍'),
     links.on_message(actions.echo_answer_example),
     links.on_call(actions.put_button_handler, 'put_on_me'),

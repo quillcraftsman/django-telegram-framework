@@ -253,3 +253,38 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         chat = self.assertCommandWasHandled('/get_user_id', self.chat)
         self.assertChatLastMessageTextEqual(chat, f'Ваш telegram id: {self.client.id}')
     # END test_get_user_id_example
+
+
+    # START test_send_param_text_message_example
+    def test_send_param_text_message_example(self):
+        """
+        Test /param_text_message <str:param>: success
+        """
+        chat = self.assertCommandWasHandled('/param_text_message PARAM', self.chat)
+        self.assertChatLastMessageTextEqual(
+            chat,
+            'Пример отправки обычного текстового сообщения с параметром "PARAM"',
+        )
+    # END test_send_param_text_message_example
+
+
+    # START test_param_call_buttons_example
+    def test_param_call_buttons_example(self):
+        """
+        Test /param_call_buttons: success
+        """
+        chat = self.assertCommandWasHandled('/param_call_buttons', self.chat)
+        self.assertChatLastMessageTextEqual(
+            chat,
+            'Кнопки для обработчика с параметром',
+        )
+        self.assertChatLastMessageKeyboardLen(chat, 2)
+
+
+    def test_put_button_param_handler(self):
+        """
+        Test button "put_on_me_params <str:param>": success
+        """
+        chat = self.assertCallWasHandled('put_on_me_params PARAMPAM', self.chat)
+        self.assertChatLastMessageTextEqual(chat, 'Реакция на параметр PARAMPAM')
+    # END test_param_call_buttons_example

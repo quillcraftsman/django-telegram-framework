@@ -16,6 +16,8 @@
 - :ref:`message_with_inline_keyboard_example`
 - :ref:`message_with_reply_keyboard_example`
 - :ref:`get_user_id_example`
+- :ref:`send_param_text_message_example`
+- :ref:`param_call_buttons_example`
 - :ref:`complex_message_example`
 
 
@@ -232,6 +234,40 @@
    :language: python
    :start-after: START test_get_user_id_example
    :end-before: END test_get_user_id_example
+
+.. _send_param_text_message_example:
+Пример команды с параметром
+---------------------------
+
+.. literalinclude:: ../demo/actions.py
+   :language: python
+   :start-after: START send_param_text_message_example
+   :end-before: END send_param_text_message_example
+
+Пример теста
+~~~~~~~~~~~~
+
+.. literalinclude:: ../demo/tests/test_commands.py
+   :language: python
+   :start-after: START test_send_param_text_message_example
+   :end-before: END test_send_param_text_message_example
+
+.. _param_call_buttons_example:
+Пример вызова (call) с параметром
+---------------------------------
+
+.. literalinclude:: ../demo/actions.py
+   :language: python
+   :start-after: START param_call_buttons_example
+   :end-before: END param_call_buttons_example
+
+Пример теста
+~~~~~~~~~~~~
+
+.. literalinclude:: ../demo/tests/test_commands.py
+   :language: python
+   :start-after: START test_param_call_buttons_example
+   :end-before: END test_param_call_buttons_example
 
 
 .. _complex_message_example:

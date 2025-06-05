@@ -32,11 +32,14 @@ bot_links += [
         'message_with_inline_keyboard', 'Сообщение с кнопкой'
     ),
     # FBV (use)
-    #links.on_command(actions.list_action_example, 'list_action', 'Пример FBA CRUD List'),
     links.on_command(actions.list_action_example, 'list_action', 'Пример FBA CRUD List'),
-    links.on_call(actions.list_action_example,
-                  'list_action',
-                  params_pattern='list_action <int:page>'
+    links.on_command(
+        actions.list_action_pagination_example,
+        'list_action_pagination',
+        'Пример FBA CRUD List с Pagination'),
+    links.on_call(actions.list_action_pagination_example,
+                  'list_action_pagination',
+                  params_pattern='list_action_pagination <int:page>'
                   ),
     links.on_command(
         actions.detail_action_example, 'detail_action',

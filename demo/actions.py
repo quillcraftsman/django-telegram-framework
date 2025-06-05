@@ -110,9 +110,17 @@ def send_picture_with_html_caption_example(bot, message):
 list_action_example = use.list_action(
     Faq,
     template_name='demo/bot/list.html',
-    # paginate_by=1,
 )
 # END list_action_example
+
+
+# START list_action_pagination_example
+list_action_pagination_example = use.list_action(
+    Faq,
+    template_name='demo/bot/list.html',
+    pagination=use.list.Pagination(1, call_data_pattern='list_action_pagination {page}')
+)
+# END list_action_pagination_example
 
 
 # START detail_action_example

@@ -43,11 +43,13 @@ def _make_reply_markup(message):
     if not keyboard:
         markup = None
     elif isinstance(keyboard, keyboards.inline.Keyboard):
-        markup = types.InlineKeyboardMarkup()
-        for button in keyboard.buttons:
-            markup.add(
-                types.InlineKeyboardButton(button.text, callback_data=button.data)
-            )
+        markup = types.InlineKeyboardMarkup(row_width=keyboard.layout.columns_count)
+        button_list = [
+            types.InlineKeyboardButton(button.text, callback_data=button.data)
+            for button in keyboard.buttons
+        ]
+        # Надо передавать кнопки все сразу, иначе не работает row_width в разметке
+        markup.add(*button_list)
     elif isinstance(keyboard, keyboards.reply.Keyboard):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         for button in keyboard.buttons:

@@ -2,6 +2,7 @@ from pathlib import Path
 from django.template.loader import render_to_string
 from django.conf import settings
 from telegram_framework import actions, messages, use, keyboards
+from telegram_framework.keyboards import layouts
 from demo.models import Faq
 
 
@@ -249,7 +250,8 @@ def param_call_buttons_example(bot, message):
         buttons=[
             keyboards.inline.Button('Параметр ONE', 'put_on_me_params ONE'),
             keyboards.inline.Button('Параметр TWO', 'put_on_me_params TWO'),
-        ]
+        ],
+        layout=layouts.Layout(columns_count=2)
     )
     message_with_text = messages.create_message('Кнопки для обработчика с параметром', sender=bot)
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)

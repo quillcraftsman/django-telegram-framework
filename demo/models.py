@@ -12,13 +12,10 @@ def create_info_text(command: str) -> str:
 #     answer = models.CharField(max_length=128)
 
 
-class Faq:
+class Queryset:
 
-    class Objects:
-
-        @staticmethod
-        def all():
-            queryset = [
+    def __init__(self):
+        self.data = [
                 {
                     'question': 'Как быстрее писать код для списка',
                     'answer': 'Использовать list_action'
@@ -28,6 +25,31 @@ class Faq:
                     'answer': 'Можно ускорить разработку CRUD операций'
                 }
             ]
+
+    def __getitem__(self, item):
+        return self.data[item]
+
+    def order_by(self, key):  # pylint: disable=unused-argument
+        return self.data
+
+
+class Faq:
+
+    class Objects:
+
+        @staticmethod
+        def all():
+            # queryset = [
+            #     {
+            #         'question': 'Как быстрее писать код для списка',
+            #         'answer': 'Использовать list_action'
+            #     },
+            #     {
+            #         'question': 'Что это дает',
+            #         'answer': 'Можно ускорить разработку CRUD операций'
+            #     }
+            # ]
+            queryset = Queryset()
             return queryset
 
         @staticmethod

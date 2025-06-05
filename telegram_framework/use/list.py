@@ -1,7 +1,5 @@
-from django.core.paginator import Paginator
 from telegram_framework import messages, actions
-from telegram_framework.keyboards import inline, layouts
-from .paginations import Pagination
+from .paginations import Pagination, paginate
 
 
 def list_action(
@@ -15,28 +13,7 @@ def list_action(
         queryset = model.objects.all()
         keyboard = None
         if pagination:
-            # queryset
-            paginator = Paginator(queryset, pagination.paginate_by)
-            current_page = paginator.page(page)
-            queryset = current_page.object_list
-
-            # buttons
-            buttons = []
-            if current_page.has_previous():
-                buttons.append(inline.Button(
-                    pagination.previous_button_name,
-                    pagination.call_data_pattern.format(page=current_page.previous_page_number())
-                ))
-
-            if current_page.has_next():
-                buttons.append(
-                    inline.Button(
-                        pagination.next_button_name,
-                        pagination.call_data_pattern.format(page=current_page.next_page_number())
-                    )
-                )
-
-            keyboard = inline.Keyboard(buttons=buttons, layout=layouts.Layout(2))
+            queryset, keyboard = paginate(pagination, queryset, page)
 
         context = {context_object_name: queryset}
         template_message = messages.create_template_message(

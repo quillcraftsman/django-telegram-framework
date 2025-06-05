@@ -34,6 +34,11 @@ bot_links += [
     # FBV (use)
     links.on_command(actions.list_action_example, 'list_action', 'Пример FBA CRUD List'),
     links.on_command(
+        actions.detail_action_example, 'detail_action',
+        description_text='Пример FBA CRUD Detail',
+        params_pattern='detail_action <int:pk>',
+    ),
+    links.on_command(
         actions.template_action_example,
         'template_action',
         'Пример FBA действия с шаблоном'

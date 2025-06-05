@@ -163,6 +163,18 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         self.assertIn('list_action', chats.get_last_message(chat).text)
     # END test_list_action_example
 
+    # START test_detail_action_example
+    def test_detail_action_example(self):
+        """
+        Test /detail_action/<int:pk>: success
+        """
+        # make FAQ
+        chat = self.assertCommandWasHandled('/detail_action 1', self.chat)
+        last_message = chats.get_last_message(chat)
+        self.assertIn('detail_action', last_message.text)
+        self.assertIn('Использовать detail_action', last_message.text)
+    # END test_detail_action_example
+
     # START test_template_action_example
     def test_template_action_example(self):
         """

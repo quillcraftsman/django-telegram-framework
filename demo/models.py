@@ -30,4 +30,11 @@ class Faq:
             ]
             return queryset
 
+        @staticmethod
+        def get(pk):  # pylint: disable=unused-argument
+            return {
+                'question': 'Как быстрее писать код для списка',
+                'answer': 'Использовать detail_action'
+            }
+
     objects = Objects()

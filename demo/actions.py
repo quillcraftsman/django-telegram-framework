@@ -114,6 +114,14 @@ list_action_example = use.list_action(
 # END list_action_example
 
 
+# START detail_action_example
+detail_action_example = use.detail_action(
+    Faq,
+    'demo/bot/detail.html',
+)
+# END detail_action_example
+
+
 # START template_action_example
 template_action_example = use.template_action(
     'demo/bot/reply.html',

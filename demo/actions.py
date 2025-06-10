@@ -289,7 +289,10 @@ def sequence_first_name_example(bot, message):
         return chat
 
     keyboard = keyboards.force.Keyboard()
-    message_with_text = messages.create_message('Неверно введено имя, пожалуйста введите снова:', sender=bot)
+    message_with_text = messages.create_message(
+        'Неверно введено имя, пожалуйста введите снова:',
+        sender=bot
+    )
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
     chat = actions.send_message(message.chat, message_with_keyboard)
     chat = bots.register_next_step_handler(bot, chat, sequence_first_name_example)
@@ -309,7 +312,10 @@ def sequence_last_name_example(bot, message):
         return chat
 
     keyboard = keyboards.force.Keyboard()
-    message_with_text = messages.create_message('Неверно введена фамилия, пожалуйста введите снова:', sender=bot)
+    message_with_text = messages.create_message(
+        'Неверно введена фамилия, пожалуйста введите снова:',
+        sender=bot
+    )
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
     chat = actions.send_message(message.chat, message_with_keyboard)
     chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)

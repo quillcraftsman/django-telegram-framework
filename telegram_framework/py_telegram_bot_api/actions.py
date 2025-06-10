@@ -56,6 +56,8 @@ def _make_reply_markup(message):
             markup.row(
                 types.KeyboardButton(button.text),
             )
+    elif isinstance(keyboard, keyboards.force.Keyboard):
+        markup = types.ForceReply(selective=keyboard.selective)
     elif isinstance(keyboard, keyboards.reply.EmptyKeyboard):
         markup = types.ReplyKeyboardRemove()
     return markup

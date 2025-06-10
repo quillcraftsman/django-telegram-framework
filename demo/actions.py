@@ -265,3 +265,12 @@ def put_button_param_handler(bot, message, param):
     )
     return actions.send_message(message.chat, reply_message)
 # END param_call_buttons_example
+
+
+# START sequence_example
+def sequence_keyboard_example(bot, message):
+    keyboard = keyboards.force.Keyboard()
+    message_with_text = messages.create_message('Введите ваше имя:', sender=bot)
+    message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+    return actions.send_message(message.chat, message_with_keyboard)
+# END param_call_buttons_example

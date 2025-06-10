@@ -45,7 +45,9 @@ class TelegramFrameworkMixin:
         self.assertEqual(chats.get_last_message(chat), message)
 
     def assertChatLastMessageTextEqual(self, chat: chats.Chat, text):
-        self.assertEqual(chats.get_last_message(chat).text, text)
+        last_message = chats.get_last_message(chat)
+        self.assertEqual(last_message.text, text)
+        return last_message
 
     def assertCommandWasHandled(self, command_text, chat, client=None):
         chat = self.assertTextMessageWasHandled(command_text, chat, client)
@@ -73,7 +75,9 @@ class TelegramFrameworkMixin:
         return last_message.keyboard
 
     def assertKeyboardInMessage(self, message):
+        keyboard = message.keyboard
         self.assertIsNotNone(message.keyboard)
+        return keyboard
 
     def assertKeyboardInChat(self, chat):
         self.assertIsNotNone(chat.keyboard, 'Keyboard not in chat')

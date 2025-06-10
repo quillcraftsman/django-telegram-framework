@@ -68,9 +68,24 @@ class TestActions(SimpleTestCase):
         last_message = chats.get_last_message(chat)
         self.assertEqual(message, last_message)
 
+    def test_send_message_force_reply_keyboard(self):
+        """
+        Test send_message with force.keyboard: success
+        """
+        chat = chats.Chat()
+        self.assertEqual(0, len(chat.messages))
+        message = messages.create_message('new message', sender=self.bot)
+        keyboard = keyboards.force.Keyboard()
+        message = messages.add_keyboard(message, keyboard)
+        chat = actions.send_message(chat, message)
+        self.assertEqual(1, len(chat.messages))
+        last_message = chats.get_last_message(chat)
+        self.assertEqual(message, last_message)
+        self.assertKeyboardInMessage(last_message)
+
     def test_send_message_with_reply_keyboard(self):
         """
-        Test send_message: success
+        Test send_message with reply.keyboard success
         """
         chat = chats.Chat()
         message = messages.create_message('new message', sender=self.bot)

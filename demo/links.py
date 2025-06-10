@@ -86,6 +86,11 @@ bot_links += [
                   'put_on_me_params',
                   params_pattern='put_on_me_params <str:param>'
                   ),
+    links.on_command(
+        actions.sequence_keyboard_example,
+        'sequence_example',
+        'Последовательность ввода данных',
+    ),
     links.on_text(actions.put_keyboard_handler, 'Нажми меня 🔍'),
     links.on_message(actions.echo_answer_example),
     links.on_call(actions.put_button_handler, 'put_on_me'),

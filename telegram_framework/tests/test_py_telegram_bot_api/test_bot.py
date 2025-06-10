@@ -46,6 +46,21 @@ class TestTeleBot(SimpleTestCase):
         bot = bots.register_call_handler(self.bot, self.some_handler, 'some_handler')
         self.assertEqual(1, len(bot.callback_query_handlers))
 
+    def test_register_next_step_handler(self):
+        """
+        Test register_next_step_handler: success
+        """
+        self.assertEqual(0, len(self.bot.next_step_backend.handlers))
+
+        class MockChat:
+
+            def __init__(self):
+                self.id = 1
+
+        chat = bots.register_next_step_handler(self.bot, MockChat(), self.some_handler)
+        self.assertEqual(1, chat.id)
+        self.assertEqual(1, len(self.bot.next_step_backend.handlers))
+
     def test_get_bot(self):
         """
         Test get_bot: success

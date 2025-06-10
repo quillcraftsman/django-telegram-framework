@@ -1,7 +1,7 @@
 from pathlib import Path
 from django.template.loader import render_to_string
 from django.conf import settings
-from telegram_framework import actions, messages, use, keyboards
+from telegram_framework import actions, messages, use, keyboards, bots
 from telegram_framework.keyboards import layouts
 from demo.models import Faq
 
@@ -268,9 +268,50 @@ def put_button_param_handler(bot, message, param):
 
 
 # START sequence_example
-def sequence_keyboard_example(bot, message):
+def start_sequence_example(bot, message):
     keyboard = keyboards.force.Keyboard()
     message_with_text = messages.create_message('Введите ваше имя:', sender=bot)
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
-    return actions.send_message(message.chat, message_with_keyboard)
+    chat = actions.send_message(message.chat, message_with_keyboard)
+    chat = bots.register_next_step_handler(bot, chat, sequence_first_name_example)
+    return chat
+
+
+def sequence_first_name_example(bot, message):
+    first_name = message.text
+    # if isinstance(first_name, str):
+    if first_name.startswith('Л'):
+        keyboard = keyboards.force.Keyboard()
+        message_with_text = messages.create_message('Введите вашу фамилию:', sender=bot)
+        message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+        chat = actions.send_message(message.chat, message_with_keyboard)
+        chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)
+        return chat
+
+    keyboard = keyboards.force.Keyboard()
+    message_with_text = messages.create_message('Неверно введено имя, пожалуйста введите снова:', sender=bot)
+    message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+    chat = actions.send_message(message.chat, message_with_keyboard)
+    chat = bots.register_next_step_handler(bot, chat, sequence_first_name_example)
+    return chat
+
+
+def sequence_last_name_example(bot, message):
+    last_name = message.text
+    # if isinstance(last_name, str):
+    if last_name.startswith('Л'):
+        # Event sourcing (надо как то найти правильные сообщения!)
+        # first_name = message.chat.messages[-2]
+        result_text = f'Спасибо {last_name} (извини, забыл имя, я глупый бот)'
+        message_with_text = messages.create_message(result_text, sender=bot)
+        chat = actions.send_message(message.chat, message_with_text)
+        chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)
+        return chat
+
+    keyboard = keyboards.force.Keyboard()
+    message_with_text = messages.create_message('Неверно введена фамилия, пожалуйста введите снова:', sender=bot)
+    message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+    chat = actions.send_message(message.chat, message_with_keyboard)
+    chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)
+    return chat
 # END param_call_buttons_example

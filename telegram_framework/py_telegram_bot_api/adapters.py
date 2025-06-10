@@ -19,6 +19,7 @@ def to_message(telebot_message: types.Message):
         format_type=telebot_message.reply_markup,
         message_id=telebot_message.message_id,
     )
+    # Тут похоже нужно еще как то восстановить чат
     chat_message = messages.create_chat_message(pure_message, telebot_message.chat)
     return chat_message
 

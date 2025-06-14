@@ -281,7 +281,10 @@ def sequence_first_name_example(bot, message):
     first_name = message.text
     if first_name.startswith('Л'):
         keyboard = keyboards.force.Keyboard()
-        message_with_text = messages.create_message('Какой бы была ваша фамилия на букву "Л"?:', sender=bot)
+        message_with_text = messages.create_message(
+            'Какой бы была ваша фамилия на букву "Л"?:',
+            sender=bot
+        )
         message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
         chat = actions.send_message(message.chat, message_with_keyboard)
         chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)
@@ -302,10 +305,11 @@ def sequence_last_name_example(bot, message):
     last_name = message.text
     if last_name.startswith('Л'):
         # Event sourcing
+        first_name = '?'
         for old_message in reversed(message.chat.messages[:-1]):
             if old_message.text.startswith('Л'):
+                first_name = old_message
                 break
-        first_name = old_message
         result_text = f'Привет, {first_name} {last_name}'
         message_with_text = messages.create_message(result_text, sender=bot)
         chat = actions.send_message(message.chat, message_with_text)

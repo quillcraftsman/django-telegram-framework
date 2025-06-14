@@ -27,7 +27,10 @@ def add_bot(chat: Chat, bot: Any) -> Chat:
 
 def save_message(chat: Chat, message: Any) -> Chat:
     keyboard = message.keyboard
-    if message.keyboard and isinstance(keyboard, keyboards.reply.Keyboard):
+    #if message.keyboard and isinstance(keyboard, keyboards.reply.Keyboard):
+    if message.keyboard and isinstance(
+            keyboard, (keyboards.reply.Keyboard, keyboards.reply.EmptyKeyboard)
+    ):
         chat = add_keyboard(chat, message.keyboard)
     chat_message = message
     if not messages.is_chat_message(chat_message):

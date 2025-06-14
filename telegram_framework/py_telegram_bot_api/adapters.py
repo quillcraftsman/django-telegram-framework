@@ -22,13 +22,12 @@ CHAT_STORE = {}
 
 def to_chat(telebot_chat: types.Chat):
     chat_id = telebot_chat.id
-    if chat_id in CHAT_STORE:
-        chat = CHAT_STORE[chat_id]
-    else:
-        chat = chats.Chat(
+    chat = CHAT_STORE.get(
+        chat_id,
+        chats.Chat(
             id=telebot_chat.id,
         )
-
+    )
     return chat
 
 

@@ -83,27 +83,27 @@ class TestActions(SimpleTestCase):
         self.assertEqual(message, last_message)
         self.assertKeyboardInMessage(last_message)
 
-    # def test_send_message_with_reply_keyboard(self):
-    #     """
-    #     Test send_message with reply.keyboard success
-    #     """
-    #     chat = chats.Chat()
-    #     message = messages.create_message('new message', sender=self.bot)
-    #     keyboard = keyboards.reply.Keyboard(
-    #         'Test keyboard',
-    #         buttons=[keyboards.reply.Button('Some button')],
-    #     )
-    #     message = messages.add_keyboard(message, keyboard)
-    #     self.assertKeyboardNotInChat(chat)
-    #     chat = actions.send_message(chat, message)
-    #     self.assertKeyboardInChat(chat)
-    #
-    #     message = messages.create_message('new message', sender=self.bot)
-    #     keyboard = keyboards.reply.EmptyKeyboard(
-    #     )
-    #     message = messages.add_keyboard(message, keyboard)
-    #     chat = actions.send_message(chat, message)
-    #     self.assertKeyboardNotInChat(chat)
+    def test_send_message_with_reply_keyboard(self):
+        """
+        Test send_message with reply.keyboard success
+        """
+        chat = chats.Chat()
+        message = messages.create_message('new message', sender=self.bot)
+        keyboard = keyboards.reply.Keyboard(
+            'Test keyboard',
+            buttons=[keyboards.reply.Button('Some button')],
+        )
+        message = messages.add_keyboard(message, keyboard)
+        self.assertKeyboardNotInChat(chat)
+        chat = actions.send_message(chat, message)
+        self.assertKeyboardInChat(chat)
+
+        message = messages.create_message('new message', sender=self.bot)
+        keyboard = keyboards.reply.EmptyKeyboard(
+        )
+        message = messages.add_keyboard(message, keyboard)
+        chat = actions.send_message(chat, message)
+        self.assertKeyboardNotInChat(chat)
 
     def test_send_reply(self):
         """

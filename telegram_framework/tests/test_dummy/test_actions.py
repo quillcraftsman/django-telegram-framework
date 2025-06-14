@@ -36,3 +36,20 @@ class TestActions(SimpleTestCase):
         #     chat=last_message.chat
         # )
         self.assertEqual(reply, last_reply)
+
+    # def test_wait_response(self):
+    #     """
+    #     Test wait_response: success
+    #     """
+    #     bot = bots.get_bot(0)
+    #     chat = chats.Chat()
+    #
+    #     def handler(bot, message):
+    #         return chat
+    #
+    #     new_chat = wait_response(
+    #         bot,
+    #         chat,
+    #         handler
+    #     )
+    #     self.assertEqual(new_chat, chat)

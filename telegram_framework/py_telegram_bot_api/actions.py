@@ -1,5 +1,5 @@
 from telebot import types
-from telegram_framework import chats, messages,  keyboards
+from telegram_framework import chats, messages, keyboards, bots
 
 
 def send_reply(reply: messages.Reply):
@@ -79,3 +79,8 @@ def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):
 def send_message(chat: chats.Chat, message: messages.Message):
     parse_mode = _get_parse_mode(message)
     return _send_message(chat, message, parse_mode)
+
+
+def wait_response(bot, chat, handler):  # pragma: no cover
+    chat = bots.register_next_step_handler(bot, chat, handler)
+    return chat

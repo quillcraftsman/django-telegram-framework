@@ -1,5 +1,6 @@
 # pylint: disable=duplicate-code
 from pathlib import Path
+
 from telegram_framework.test import SimpleTestCase
 from telegram_framework.py_telegram_bot_api import actions
 from telegram_framework import chats
@@ -7,6 +8,9 @@ from telegram_framework import messages, keyboards
 
 
 class MockTelebot:
+
+    def __init__(self, *args, **kwargs):
+        pass
 
     def send_message(self, chat_id, text, parse_mode=None, reply_markup=None):
         pass

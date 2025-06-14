@@ -317,8 +317,8 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         self.assertChatLastMessageTextEqual(chat, 'Реакция на параметр PARAMPAM')
     # END test_param_call_buttons_example
 
-    # START test_sequence_first_name_example
-    def test_sequence_first_name_example(self):
+    # START test_sequence_example
+    def test_sequence_example(self):
         """
         Test /sequence_example
         """
@@ -344,4 +344,4 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         chat = self.assertTextMessageWasHandled('Лось', chat)
         last_message = chats.get_last_message(chat)
         self.assertEqual('Привет, Лео Лось', last_message.text)
-    # END test_sequence_first_name_example
+    # END test_sequence_example

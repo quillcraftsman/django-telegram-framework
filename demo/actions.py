@@ -1,7 +1,7 @@
 from pathlib import Path
 from django.template.loader import render_to_string
 from django.conf import settings
-from telegram_framework import actions, messages, use, keyboards, bots
+from telegram_framework import actions, messages, use, keyboards
 from telegram_framework.keyboards import layouts
 from demo.models import Faq
 
@@ -273,7 +273,7 @@ def start_sequence_example(bot, message):
     message_with_text = messages.create_message('Как бы вас звали на букву "Л"?:', sender=bot)
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
     chat = actions.send_message(message.chat, message_with_keyboard)
-    chat = bots.register_next_step_handler(bot, chat, sequence_first_name_example)
+    chat = actions.wait_response(bot, chat, sequence_first_name_example)
     return chat
 
 
@@ -287,7 +287,7 @@ def sequence_first_name_example(bot, message):
         )
         message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
         chat = actions.send_message(message.chat, message_with_keyboard)
-        chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)
+        chat = actions.wait_response(bot, chat, sequence_last_name_example)
         return chat
 
     keyboard = keyboards.force.Keyboard()
@@ -297,7 +297,7 @@ def sequence_first_name_example(bot, message):
     )
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
     chat = actions.send_message(message.chat, message_with_keyboard)
-    chat = bots.register_next_step_handler(bot, chat, sequence_first_name_example)
+    chat = actions.wait_response(bot, chat, sequence_first_name_example)
     return chat
 
 
@@ -322,6 +322,6 @@ def sequence_last_name_example(bot, message):
     )
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
     chat = actions.send_message(message.chat, message_with_keyboard)
-    chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)
+    chat = actions.wait_response(bot, chat, sequence_last_name_example)
     return chat
-# END param_call_buttons_example
+# END sequence_example

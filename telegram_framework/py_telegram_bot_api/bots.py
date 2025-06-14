@@ -9,6 +9,12 @@ def register_command_handler(bot: TeleBot, handler: Callable, name: str, filter_
     return bot
 
 
+def register_next_step_handler(bot: TeleBot, chat, handler: Callable):
+    handler = adapters.prepare_handler(handler, bot)
+    bot.register_next_step_handler_by_chat_id(chat.id, handler)
+    return chat
+
+
 def register_message_handler(
         bot: TeleBot, handler: Callable,
         filter_function: Callable = lambda message: True

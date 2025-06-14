@@ -10,6 +10,7 @@ class DummyBot:
     command_handlers: Dict[str, handlers.Handler] = field(default_factory=dict)
     message_handlers: List[handlers.Handler] = field(default_factory=list)
     call_handlers: Dict[str, handlers.Handler] = field(default_factory=dict)
+    next_step_handler: Callable = None
 
     @property
     def id(self):
@@ -48,7 +49,32 @@ def register_call_handler(
     return functions.update(bot, call_handlers=call_handlers)
 
 
+def update_bot(chat, bot):
+    old_bots = chat.bots
+    new_bots = []
+    for current_bot in old_bots:
+        if current_bot.token == bot.token:
+            new_bots.append(bot)
+        else:
+            new_bots.append(current_bot)
+    return functions.update(chat, bots=new_bots)
+
+
+
+def register_next_step_handler(
+        bot: DummyBot,
+        chat,
+        handler: Callable
+):
+    handler = handlers.create_handler(handler)
+    bot = functions.update(bot, next_step_handler=handler)
+    chat = update_bot(chat, bot)
+    return chat
+
+
 def find_handler(bot: DummyBot, message):
+    if bot.next_step_handler:
+        return bot.next_step_handler
     if isinstance(message, Call):
         # return bot.call_handlers.get(message.data, None)
         for _, handler in bot.call_handlers.items():

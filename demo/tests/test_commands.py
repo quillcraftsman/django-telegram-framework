@@ -316,3 +316,32 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         chat = self.assertCallWasHandled('put_on_me_params PARAMPAM', self.chat)
         self.assertChatLastMessageTextEqual(chat, 'Реакция на параметр PARAMPAM')
     # END test_param_call_buttons_example
+
+    # START test_sequence_example
+    def test_sequence_example(self):
+        """
+        Test /sequence_example
+        """
+        chat = self.assertCommandWasHandled('/sequence_example', self.chat)
+        last_message = self.assertChatLastMessageTextEqual(
+            chat,
+            'Как бы вас звали на букву "Л"?:',
+        )
+        self.assertKeyboardInMessage(last_message)
+
+        chat = self.assertTextMessageWasHandled('Жук', chat)
+        last_message = chats.get_last_message(chat)
+        self.assertEqual('Неверно введено имя, пожалуйста введите снова:', last_message.text)
+
+        chat = self.assertTextMessageWasHandled('Лео', chat)
+        last_message = chats.get_last_message(chat)
+        self.assertEqual('Какой бы была ваша фамилия на букву "Л"?:', last_message.text)
+
+        chat = self.assertTextMessageWasHandled('Жук', chat)
+        last_message = chats.get_last_message(chat)
+        self.assertEqual('Неверно введена фамилия, пожалуйста введите снова:', last_message.text)
+
+        chat = self.assertTextMessageWasHandled('Лось', chat)
+        last_message = chats.get_last_message(chat)
+        self.assertEqual('Привет, Лео Лось', last_message.text)
+    # END test_sequence_example

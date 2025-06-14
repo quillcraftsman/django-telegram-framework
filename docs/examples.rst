@@ -18,7 +18,9 @@
 - :ref:`get_user_id_example`
 - :ref:`send_param_text_message_example`
 - :ref:`param_call_buttons_example`
+- :ref:`sequence_example`
 - :ref:`complex_message_example`
+
 
 
 .. _links_py:
@@ -268,6 +270,24 @@
    :language: python
    :start-after: START test_param_call_buttons_example
    :end-before: END test_param_call_buttons_example
+
+
+.. _sequence_example:
+Последовательный ввод данных
+----------------------------
+
+.. literalinclude:: ../demo/actions.py
+   :language: python
+   :start-after: START sequence_example
+   :end-before: END sequence_example
+
+Пример теста
+~~~~~~~~~~~~
+
+.. literalinclude:: ../demo/tests/test_commands.py
+   :language: python
+   :start-after: START test_sequence_example
+   :end-before: END test_sequence_example
 
 
 .. _complex_message_example:

@@ -265,3 +265,63 @@ def put_button_param_handler(bot, message, param):
     )
     return actions.send_message(message.chat, reply_message)
 # END param_call_buttons_example
+
+
+# START sequence_example
+def start_sequence_example(bot, message):
+    keyboard = keyboards.force.Keyboard()
+    message_with_text = messages.create_message('Как бы вас звали на букву "Л"?:', sender=bot)
+    message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+    chat = actions.send_message(message.chat, message_with_keyboard)
+    chat = actions.wait_response(bot, chat, sequence_first_name_example)
+    return chat
+
+
+def sequence_first_name_example(bot, message):
+    first_name = message.text
+    if first_name.startswith('Л'):
+        keyboard = keyboards.force.Keyboard()
+        message_with_text = messages.create_message(
+            'Какой бы была ваша фамилия на букву "Л"?:',
+            sender=bot
+        )
+        message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+        chat = actions.send_message(message.chat, message_with_keyboard)
+        chat = actions.wait_response(bot, chat, sequence_last_name_example)
+        return chat
+
+    keyboard = keyboards.force.Keyboard()
+    message_with_text = messages.create_message(
+        'Неверно введено имя, пожалуйста введите снова:',
+        sender=bot
+    )
+    message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+    chat = actions.send_message(message.chat, message_with_keyboard)
+    chat = actions.wait_response(bot, chat, sequence_first_name_example)
+    return chat
+
+
+def sequence_last_name_example(bot, message):
+    last_name = message.text
+    if last_name.startswith('Л'):
+        # Event sourcing
+        first_name = '?'
+        for old_message in reversed(message.chat.messages[:-1]):
+            if old_message.text.startswith('Л'):
+                first_name = old_message
+                break
+        result_text = f'Привет, {first_name} {last_name}'
+        message_with_text = messages.create_message(result_text, sender=bot)
+        chat = actions.send_message(message.chat, message_with_text)
+        return chat
+
+    keyboard = keyboards.force.Keyboard()
+    message_with_text = messages.create_message(
+        'Неверно введена фамилия, пожалуйста введите снова:',
+        sender=bot
+    )
+    message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
+    chat = actions.send_message(message.chat, message_with_keyboard)
+    chat = actions.wait_response(bot, chat, sequence_last_name_example)
+    return chat
+# END sequence_example

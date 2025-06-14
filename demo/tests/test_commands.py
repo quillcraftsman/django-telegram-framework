@@ -325,7 +325,7 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         chat = self.assertCommandWasHandled('/sequence_example', self.chat)
         last_message = self.assertChatLastMessageTextEqual(
             chat,
-            'Введите ваше имя:',
+            'Как бы вас звали на букву "Л"?:',
         )
         self.assertKeyboardInMessage(last_message)
 
@@ -335,7 +335,7 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
 
         chat = self.assertTextMessageWasHandled('Лео', chat)
         last_message = chats.get_last_message(chat)
-        self.assertEqual('Введите вашу фамилию:', last_message.text)
+        self.assertEqual('Какой бы была ваша фамилия на букву "Л"?:', last_message.text)
 
         chat = self.assertTextMessageWasHandled('Жук', chat)
         last_message = chats.get_last_message(chat)
@@ -343,5 +343,5 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
 
         chat = self.assertTextMessageWasHandled('Лось', chat)
         last_message = chats.get_last_message(chat)
-        self.assertEqual('Спасибо Лось (извини, забыл имя, я глупый бот)', last_message.text)
+        self.assertEqual('Привет, Лео Лось', last_message.text)
     # END test_sequence_first_name_example

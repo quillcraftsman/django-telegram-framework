@@ -72,7 +72,7 @@ def _send_message(chat: chats.Chat, message: messages.Message, parse_mode=None):
         parse_mode=parse_mode,
         reply_markup=reply_markup,
     )
-    chat = chats.Chat(id=chat.id)
+    # chat = chats.Chat(id=chat.id)
     return chats.add_message(chat, message)
 
 

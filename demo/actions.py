@@ -270,7 +270,7 @@ def put_button_param_handler(bot, message, param):
 # START sequence_example
 def start_sequence_example(bot, message):
     keyboard = keyboards.force.Keyboard()
-    message_with_text = messages.create_message('Введите ваше имя:', sender=bot)
+    message_with_text = messages.create_message('Как бы вас звали на букву "Л"?:', sender=bot)
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
     chat = actions.send_message(message.chat, message_with_keyboard)
     chat = bots.register_next_step_handler(bot, chat, sequence_first_name_example)
@@ -279,10 +279,9 @@ def start_sequence_example(bot, message):
 
 def sequence_first_name_example(bot, message):
     first_name = message.text
-    # if isinstance(first_name, str):
     if first_name.startswith('Л'):
         keyboard = keyboards.force.Keyboard()
-        message_with_text = messages.create_message('Введите вашу фамилию:', sender=bot)
+        message_with_text = messages.create_message('Какой бы была ваша фамилия на букву "Л"?:', sender=bot)
         message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
         chat = actions.send_message(message.chat, message_with_keyboard)
         chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)
@@ -301,14 +300,15 @@ def sequence_first_name_example(bot, message):
 
 def sequence_last_name_example(bot, message):
     last_name = message.text
-    # if isinstance(last_name, str):
     if last_name.startswith('Л'):
-        # Event sourcing (надо как то найти правильные сообщения!)
-        # first_name = message.chat.messages[-2]
-        result_text = f'Спасибо {last_name} (извини, забыл имя, я глупый бот)'
+        # Event sourcing
+        for old_message in reversed(message.chat.messages[:-1]):
+            if old_message.text.startswith('Л'):
+                break
+        first_name = old_message
+        result_text = f'Привет, {first_name} {last_name}'
         message_with_text = messages.create_message(result_text, sender=bot)
         chat = actions.send_message(message.chat, message_with_text)
-        chat = bots.register_next_step_handler(bot, chat, sequence_last_name_example)
         return chat
 
     keyboard = keyboards.force.Keyboard()

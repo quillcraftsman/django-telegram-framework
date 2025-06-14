@@ -1,5 +1,6 @@
 import unittest
 from telebot import types
+from telegram_framework import messages, chats
 from telegram_framework.py_telegram_bot_api import adapters, bots
 
 
@@ -10,17 +11,33 @@ class TestAdapters(unittest.TestCase):
 
     def test_prepare_handler(self):
 
+        current_chat = chats.Chat(id=0)
+
         def handler_function(bot, message):  # pylint: disable=unused-argument
-            return 'result'
+            return current_chat
 
         prepared_function = adapters.prepare_handler(handler_function, self.bot)
-        result = prepared_function('some message')
-        self.assertEqual('result', result)
+
+        message = messages.create_message(
+            'some message',
+            sender='bot',
+            message_id=1,
+        )
+
+        chat_message = messages.create_chat_message(
+            message,
+            current_chat
+        )
+
+        result = prepared_function(chat_message)
+        self.assertEqual(current_chat, result)
 
     def test_prepare_call_handler(self):
 
+        current_chat = chats.Chat(id=0)
+
         def handler_function(bot, call):  # pylint: disable=unused-argument
-            return 'result'
+            return current_chat
 
         prepared_function = adapters.prepare_call_handler(handler_function, self.bot)
 
@@ -31,7 +48,7 @@ class TestAdapters(unittest.TestCase):
 
         call = MockCall()
         result = prepared_function(call)
-        self.assertEqual('result', result)
+        self.assertEqual(current_chat, result)
 
     def test_prepare_message_mock(self):
 
@@ -61,7 +78,7 @@ class TestAdapters(unittest.TestCase):
             1,
             1,
             'date',
-            chat='chat',
+            chat=types.Chat(id=1, type=0),
             content_type=None,
             options=[],
             json_string='date',
@@ -85,14 +102,14 @@ class TestAdapters(unittest.TestCase):
                 self.text = 'telebot message'
                 self.from_user = MockUser()
                 self.reply_markup = 'HTML'
-                self.chat = 'some chat'
+                self.chat = chats.Chat(0)
                 self.message_id = 640
 
         telebot_message = types.CallbackQuery(
             1,
             1,
             'data',
-            'chat',
+            chats.Chat,
             'date',
             TelebotMockMessage(),
             None,

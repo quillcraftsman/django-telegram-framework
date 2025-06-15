@@ -1,7 +1,7 @@
 from pathlib import Path
 from django.template.loader import render_to_string
 from django.conf import settings
-from telegram_framework import actions, messages, use, keyboards
+from telegram_framework import actions, messages, use, keyboards, chats
 from telegram_framework.keyboards import layouts
 from demo.models import Faq
 
@@ -280,13 +280,14 @@ def start_sequence_example(bot, message):
 def sequence_first_name_example(bot, message):
     first_name = message.text
     if first_name.startswith('Л'):
+        chat = chats.add_note(message.chat, first_name=first_name)
         keyboard = keyboards.force.Keyboard()
         message_with_text = messages.create_message(
             'Какой бы была ваша фамилия на букву "Л"?:',
             sender=bot
         )
         message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
-        chat = actions.send_message(message.chat, message_with_keyboard)
+        chat = actions.send_message(chat, message_with_keyboard)
         chat = actions.wait_response(bot, chat, sequence_last_name_example)
         return chat
 
@@ -304,12 +305,7 @@ def sequence_first_name_example(bot, message):
 def sequence_last_name_example(bot, message):
     last_name = message.text
     if last_name.startswith('Л'):
-        # Event sourcing
-        first_name = '?'
-        for old_message in reversed(message.chat.messages[:-1]):
-            if old_message.text.startswith('Л'):
-                first_name = old_message
-                break
+        first_name = chats.get_note(message.chat, 'first_name', '?')
         result_text = f'Привет, {first_name} {last_name}'
         message_with_text = messages.create_message(result_text, sender=bot)
         chat = actions.send_message(message.chat, message_with_text)

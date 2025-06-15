@@ -69,7 +69,7 @@ setup(
     name=package_pypi_name,
     version=package_version,
     packages=find_packages(
-        include=[PACKAGE_NAME, f'{PACKAGE_NAME}.*']
+        include=[PACKAGE_NAME, f'{PACKAGE_NAME}.*'],
     ),
 
     include_package_data=True,

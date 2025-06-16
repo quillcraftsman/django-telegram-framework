@@ -70,6 +70,7 @@ setup(
     version=package_version,
     packages=find_packages(
         include=[PACKAGE_NAME, f'{PACKAGE_NAME}.*'],
+        exclude=["tests", "tests.*"],
     ),
 
     include_package_data=True,

@@ -1,8 +1,8 @@
-from telegram_framework.functions import update
+from dataclasses import replace
 
 
 def create_chat_message(message, chat):
-    return update(message, chat=chat)
+    return replace(message, chat=chat)
 
 
 def is_chat_message(message):

@@ -1,6 +1,5 @@
 from typing import List
-from dataclasses import dataclass, field
-from telegram_framework.functions import update
+from dataclasses import dataclass, field, replace
 from telegram_framework.keyboards import layouts
 
 
@@ -15,9 +14,9 @@ class Keyboard:
 
 def add_button(keyboard, button):
     new_buttons = keyboard.buttons + [button]
-    return update(keyboard, buttons=new_buttons)
+    return replace(keyboard, buttons=new_buttons)
 
 
 def add_buttons(keyboard, buttons):
     new_buttons = keyboard.buttons + buttons
-    return update(keyboard, buttons=new_buttons)
+    return replace(keyboard, buttons=new_buttons)

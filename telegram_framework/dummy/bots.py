@@ -1,6 +1,6 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import List, Dict, Callable
-from telegram_framework import functions, handlers
+from telegram_framework import handlers
 from telegram_framework.messages import Message, Image, Call
 
 
@@ -16,11 +16,14 @@ class DummyBot:
     def id(self):
         return self.token
 
+    def __eq__(self, other):
+        return self.id == other.id
+
 
 def register_command_handler(bot: DummyBot, handler: Callable, name: str, filter_function=None):
     handler = handlers.create_handler(handler, filter_function=filter_function)
     command_handlers = bot.command_handlers | {name: handler}
-    return functions.update(bot, command_handlers=command_handlers)
+    return replace(bot, command_handlers=command_handlers)
 
 
 def register_message_handler(
@@ -30,7 +33,7 @@ def register_message_handler(
     ):
     handler = handlers.create_handler(handler, filter_function)
     message_handlers = bot.message_handlers + [handler]
-    return functions.update(bot, message_handlers=message_handlers)
+    return replace(bot, message_handlers=message_handlers)
 
 
 def register_text_handler(bot: DummyBot, handler: Callable, text: str):
@@ -46,7 +49,7 @@ def register_call_handler(
     ):
     handler = handlers.create_handler(handler, filter_function)
     call_handlers = bot.call_handlers | {call_data: handler}
-    return functions.update(bot, call_handlers=call_handlers)
+    return replace(bot, call_handlers=call_handlers)
 
 
 def update_bot(chat, bot):
@@ -57,7 +60,7 @@ def update_bot(chat, bot):
             new_bots.append(bot)
         else:
             new_bots.append(current_bot)
-    return functions.update(chat, bots=new_bots)
+    return replace(chat, bots=new_bots)
 
 
 
@@ -67,7 +70,7 @@ def register_next_step_handler(
         handler: Callable
 ):
     handler = handlers.create_handler(handler)
-    bot = functions.update(bot, next_step_handler=handler)
+    bot = replace(bot, next_step_handler=handler)
     chat = update_bot(chat, bot)
     return chat
 
@@ -76,7 +79,6 @@ def find_handler(bot: DummyBot, message):
     if bot.next_step_handler:
         return bot.next_step_handler
     if isinstance(message, Call):
-        # return bot.call_handlers.get(message.data, None)
         for _, handler in bot.call_handlers.items():
             filter_function = handler.filter
             if filter_function(message):
@@ -87,9 +89,6 @@ def find_handler(bot: DummyBot, message):
     elif isinstance(message, Image) and message.caption is not None:
         text = message.caption.text
     if text.startswith('/'):
-        # this is command
-        # command_name = text.replace('/', '')
-        # return bot.command_handlers.get(command_name, None)
         for _, handler in bot.command_handlers.items():
             filter_function = handler.filter
             if filter_function(message):
@@ -114,10 +113,16 @@ def handle_message(bot, message):
     handler = find_handler(bot, message)
     if not handler:
         return message.chat
+    # remove next step handler
+    if handler == bot.next_step_handler:
+        # Какая-то дичь. Надо придумать что делать с комбинацией чата и бота
+        bot = replace(bot, next_step_handler=None)
+        chat = message.chat
+        chat = update_bot(chat, bot)
+        message = replace(message, chat=chat)
     return handler.function(bot, message)
 
 
 def get_commands_list(bot: DummyBot):
-    # commands = list(bot.command_handlers.items())
     commands = [(name, handler.function) for name, handler in bot.command_handlers.items()]
     return commands

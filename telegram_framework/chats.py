@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field, replace
 from typing import Any, Dict
-# from telegram_framework.functions import update
 import telegram_framework
 from telegram_framework import messages, keyboards
 

@@ -1,8 +1,8 @@
-from telegram_framework.functions import update
+from dataclasses import replace
 
 
 def add_keyboard(message, keyboard):
-    return update(message, keyboard=keyboard)
+    return replace(message, keyboard=keyboard)
 
 
 # def has_keyboard(message):

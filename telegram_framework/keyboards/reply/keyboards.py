@@ -1,6 +1,5 @@
 from typing import List
-from dataclasses import dataclass, field
-from telegram_framework.functions import update
+from dataclasses import dataclass, field, replace
 
 
 @dataclass(frozen=True)
@@ -18,7 +17,7 @@ class Keyboard:
 
 def add_button(keyboard, button):
     new_buttons = keyboard.buttons + [button]
-    return update(keyboard, buttons=new_buttons)
+    return replace(keyboard, buttons=new_buttons)
 
 
 @dataclass(frozen=True)
@@ -28,4 +27,4 @@ class EmptyKeyboard:
 
 def add_buttons(keyboard, buttons):
     new_buttons = keyboard.buttons + buttons
-    return update(keyboard, buttons=new_buttons)
+    return replace(keyboard, buttons=new_buttons)

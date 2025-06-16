@@ -56,17 +56,19 @@ class TelegramFrameworkMixin:
     def assertTextMessageWasHandled(self, text, chat, client=None):
         client = client if client else self.client
         message = messages.create_message(text, sender=client)
+        chat_messages_count = len(chat.messages)
         chat = actions.send_message(chat, message)
         msg = f'Message "{text}" was not handled'
-        self.assertTrue(len(chat.messages) > 1, msg)
+        self.assertTrue(len(chat.messages) - chat_messages_count > 1, msg)
         return chat
 
     def assertCallWasHandled(self, call_data, chat, client=None):
         client = client if client else self.client
         call = messages.create_call(sender=client, data=call_data)
+        chat_messages_count = len(chat.messages)
         chat = actions.send_message(chat, call)
         msg = f'Call "{call_data}" was not handled'
-        self.assertChatMessagesCount(chat, 2, msg)
+        self.assertTrue(len(chat.messages) - chat_messages_count > 1, msg)
         return chat
 
     def assertKeyboardInChatLastMessage(self, chat):

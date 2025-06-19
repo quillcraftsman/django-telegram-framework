@@ -7,5 +7,6 @@ disable=
     R0401, # complex cyclic import
     R0903, # too-few-public-methods
     R0801, # similar lines
+    E1101, # no-member
 
 ignore-paths=./telegram_framework/package.py,.*/migrations

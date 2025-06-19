@@ -7,6 +7,10 @@ bot_links = [
         examples.start_sequence_example,
         'sequence_example',
         'Последовательность ввода данных',
-        # next_steps=[actions.sequence_last_name_example]
+    ),
+    links.on_command(
+        examples.start_sequence_form_example,
+        'sequence_form_example',
+        'Последовательность ввода данных (Django Формы)',
     ),
 ]

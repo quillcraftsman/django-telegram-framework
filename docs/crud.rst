@@ -14,7 +14,7 @@ CRUD, FBA (FBV)
 Список элементов на основе шаблона
 ----------------------------------
 
-.. literalinclude:: ../demo/actions.py
+.. literalinclude:: ../demo/examples/fba/examples.py
    :language: python
    :start-after: START list_action_example
    :end-before: END list_action_example
@@ -22,7 +22,7 @@ CRUD, FBA (FBV)
 Пример теста
 ~~~~~~~~~~~~
 
-.. literalinclude:: ../demo/tests/test_commands.py
+.. literalinclude:: ../demo/tests/test_examples/test_fba/test_links.py
    :language: python
    :start-after: START test_list_action_example
    :end-before: END test_list_action_example
@@ -32,7 +32,7 @@ CRUD, FBA (FBV)
 Список элементов на основе шаблона с пагинацией
 -----------------------------------------------
 
-.. literalinclude:: ../demo/actions.py
+.. literalinclude:: ../demo/examples/fba/examples.py
    :language: python
    :start-after: START list_action_pagination_example
    :end-before: END list_action_pagination_example
@@ -40,7 +40,7 @@ CRUD, FBA (FBV)
 Пример теста
 ~~~~~~~~~~~~
 
-.. literalinclude:: ../demo/tests/test_commands.py
+.. literalinclude:: ../demo/tests/test_examples/test_fba/test_links.py
    :language: python
    :start-after: START test_list_action_pagination_example
    :end-before: END test_list_action_pagination_example
@@ -50,7 +50,7 @@ CRUD, FBA (FBV)
 Один элемент с pk на основе шаблона
 -----------------------------------
 
-.. literalinclude:: ../demo/actions.py
+.. literalinclude:: ../demo/examples/fba/examples.py
    :language: python
    :start-after: START detail_action_example
    :end-before: END detail_action_example
@@ -58,7 +58,7 @@ CRUD, FBA (FBV)
 Пример теста
 ~~~~~~~~~~~~
 
-.. literalinclude:: ../demo/tests/test_commands.py
+.. literalinclude:: ../demo/tests/test_examples/test_fba/test_links.py
    :language: python
    :start-after: START test_detail_action_example
    :end-before: END test_detail_action_example
@@ -68,7 +68,7 @@ CRUD, FBA (FBV)
 Сообщение на основе шаблона и контекста
 ---------------------------------------
 
-.. literalinclude:: ../demo/actions.py
+.. literalinclude:: ../demo/examples/fba/examples.py
    :language: python
    :start-after: START template_action
    :end-before: END template_action
@@ -76,7 +76,7 @@ CRUD, FBA (FBV)
 Пример теста
 ~~~~~~~~~~~~
 
-.. literalinclude:: ../demo/tests/test_commands.py
+.. literalinclude:: ../demo/tests/test_examples/test_fba/test_links.py
    :language: python
    :start-after: START test_template_action_example
    :end-before: END test_template_action_example

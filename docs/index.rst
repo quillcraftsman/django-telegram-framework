@@ -15,7 +15,7 @@
    install
    quickstart
    testing
-   examples
+   examples/index
    crud
    dev_documentation
    faq

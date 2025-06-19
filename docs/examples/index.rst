@@ -8,3 +8,4 @@
    keyboard_examples
    sequence_examples
    complex_examples
+   fba_examples

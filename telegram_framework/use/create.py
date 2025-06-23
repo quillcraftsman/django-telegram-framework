@@ -1,4 +1,3 @@
-import types
 from django.core.exceptions import ValidationError
 from telegram_framework import keyboards, messages, actions, chats
 
@@ -15,10 +14,16 @@ def field_input(bot, chat, input_text, next_action):
     return chat
 
 
-def validate_input(bot, message, form_cls, field_name, action_when_invalid, valid_callback):
-    first_name = message.text
+def validate_input(
+        bot,
+        message,
+        form_cls,
+        field_name,
+        action_when_invalid,
+        valid_callback
+    ):  # pylint:disable=too-many-arguments,too-many-positional-arguments
     try:
-        value = form_cls.base_fields[field_name].clean(first_name)
+        value = form_cls.base_fields[field_name].clean(message.text)
     except ValidationError as e:
         return field_input(
             bot,
@@ -51,15 +56,8 @@ def create_action(form_cls, result_callback):
                 )
             return validate_action_template
 
-        # next_action = types.FunctionType(
-        #     validate_action_template.__code__,
-        #     globals(),
-        #     name=f"validate_{key}_action",
-        #     closure=validate_action_template.__closure__,
-        # )
         next_action = make_validate_action(key, next_callback)
         next_action.__name__ = f"validate_{key}_action"
-
         def make_valid_callback(key, next_action):
             def valid_callback_template(bot, message, value):
 
@@ -76,12 +74,6 @@ def create_action(form_cls, result_callback):
                 )
             return valid_callback_template
 
-        # next_callback = types.FunctionType(
-        #     valid_callback_template.__code__,
-        #     globals(),
-        #     name=f"valid_{key}_callback",
-        #     closure=valid_callback_template.__closure__,
-        # )
         next_callback = make_valid_callback(key, next_action)
         next_callback.__name__=f"valid_{key}_callback"
 

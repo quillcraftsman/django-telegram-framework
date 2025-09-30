@@ -27,3 +27,8 @@ class NameForm(forms.Form):
         exception_text='Неверно введена фамилия, пожалуйста введите снова:',
         label='Какой бы была ваша фамилия на букву "Л"?:',
     )
+    middle_name = LCharField(
+        required=True,
+        exception_text='Неверно введено отчество, пожалуйста введите снова:',
+        label='Каким бы было ваше отчество на букву "Л"?:',
+    )

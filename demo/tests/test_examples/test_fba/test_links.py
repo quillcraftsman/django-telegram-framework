@@ -66,21 +66,29 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         )
         self.assertKeyboardInMessage(last_message)
 
-        chat = self.assertTextMessageWasHandled('Жора', chat)
+        chat = self.assertTextMessageWasHandled('Имя', chat)
         last_message = chats.get_last_message(chat)
         self.assertEqual('Неверно введено имя, пожалуйста введите снова:', last_message.text)
 
-        chat = self.assertTextMessageWasHandled('Лора', chat)
+        chat = self.assertTextMessageWasHandled('Лорное Имя', chat)
         last_message = chats.get_last_message(chat)
         self.assertEqual('Какой бы была ваша фамилия на букву "Л"?:', last_message.text)
 
-        chat = self.assertTextMessageWasHandled('Жора', chat)
+        chat = self.assertTextMessageWasHandled('Фамилия', chat)
         last_message = chats.get_last_message(chat)
         self.assertEqual('Неверно введена фамилия, пожалуйста введите снова:', last_message.text)
 
-        chat = self.assertTextMessageWasHandled('Ларин', chat)
+        chat = self.assertTextMessageWasHandled('Лорная Фамилия', chat)
         last_message = chats.get_last_message(chat)
-        self.assertEqual('Привет, Лора Ларин', last_message.text)
+        self.assertEqual('Каким бы было ваше отчество на букву "Л"?:', last_message.text)
+
+        chat = self.assertTextMessageWasHandled('Отчество', chat)
+        last_message = chats.get_last_message(chat)
+        self.assertEqual('Неверно введено отчество, пожалуйста введите снова:', last_message.text)
+
+        chat = self.assertTextMessageWasHandled('Лорное Отчество', chat)
+        last_message = chats.get_last_message(chat)
+        self.assertEqual('Привет, Лорное Имя Лорная Фамилия Лорное Отчество', last_message.text)
 
         chat = self.assertCommandWasHandled('/start', chat)
         last_message = chats.get_last_message(chat)

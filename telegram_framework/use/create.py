@@ -34,55 +34,68 @@ def validate_input(
     return valid_callback(bot, message, value)
 
 
+def make_validate_action(key, next_callback, form_cls):
+    def validate_action_template(bot, message):
+        return validate_input(
+            bot,
+            message,
+            form_cls,
+            key,
+            validate_action_template,
+            next_callback,
+        )
+
+    return validate_action_template
+
+
+def make_valid_callback(current_field_name, previous_field_name, next_action, form_cls):
+    def valid_callback_template(bot, message, value):
+        kwargs = {
+            previous_field_name: value
+        }
+        chat = chats.add_note(message.chat, **kwargs)
+        return field_input(
+            bot,
+            chat,
+            form_cls.base_fields[current_field_name].label,
+            next_action,
+        )
+
+    return valid_callback_template
+
+
 def create_action(form_cls, result_callback):
 
-    field_keys = list(form_cls.base_fields.keys())
-    first_field_key = field_keys[0]
-    next_callback = result_callback
-    next_action = None
+    form_fields = list(form_cls.base_fields.keys())
+    first_field = form_fields[0]
+    current_callback = result_callback
+    current_action = None
 
-    for key in reversed(field_keys):
+    # идем от последнего к 1-му
+    # for field_name in reversed(form_fields):
+    for i in range(len(form_fields) - 1, -1, -1):
 
-        def make_validate_action(key, next_callback):
-            def validate_action_template(bot, message):
+        field_name = form_fields[i]
+        previous_field_name = form_fields[i-1]
+        current_action = make_validate_action(field_name, current_callback, form_cls)
+        current_action.__name__ = f"validate_{field_name}_action"
 
-                return validate_input(
-                    bot,
-                    message,
-                    form_cls,
-                    key,
-                    validate_action_template,
-                    next_callback,
-                )
-            return validate_action_template
-
-        next_action = make_validate_action(key, next_callback)
-        next_action.__name__ = f"validate_{key}_action"
-        def make_valid_callback(key, next_action):
-            def valid_callback_template(bot, message, value):
-
-                kwargs = {
-                    key: value
-                }
-                chat = chats.add_note(message.chat, **kwargs)
-
-                return field_input(
-                    bot,
-                    chat,
-                    form_cls.base_fields[key].label,
-                    next_action,
-                )
-            return valid_callback_template
-
-        next_callback = make_valid_callback(key, next_action)
-        next_callback.__name__=f"valid_{key}_callback"
+        # callback становиться этим текущим действием
+        current_callback = make_valid_callback(
+            field_name,
+            previous_field_name,
+            current_action,
+            form_cls
+        )
+        current_callback.__name__=f"valid_{field_name}_callback"
 
     def start_sequence(bot, message):
+
         return field_input(
             bot,
             message.chat,
-            form_cls.base_fields[first_field_key].label,
-            next_action,
+            form_cls.base_fields[first_field].label,
+            current_action,
         )
 
     return start_sequence

@@ -41,10 +41,10 @@ template_action_example = use.template_action(
 
 
 # START create_action_example
-def result_callback(bot, message, value):
-    # тут пока ошибка, ключ должен быть first_name
-    first_name = chats.get_note(message.chat, 'last_name', '?')
-    result_text = f'Привет, {first_name} {value}'
+def result_callback(bot, message, middle_name):
+    first_name = chats.get_note(message.chat, 'first_name', '?')
+    last_name = chats.get_note(message.chat, 'last_name', '?')
+    result_text = f'Привет, {first_name} {last_name} {middle_name}'
     message_with_text = messages.create_message(result_text, sender=bot)
     chat = actions.send_message(message.chat, message_with_text)
     return chat

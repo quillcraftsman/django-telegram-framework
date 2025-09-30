@@ -8,6 +8,7 @@ CRUD, FBA (FBV)
 - :ref:`list_action_pagination`
 - :ref:`detail_action`
 - :ref:`template_action`
+- :ref:`create_action`
 
 
 .. _list_action:
@@ -80,3 +81,20 @@ CRUD, FBA (FBV)
    :language: python
    :start-after: START test_template_action_example
    :end-before: END test_template_action_example
+
+.. _create_action:
+Опрос на основе формы
+---------------------
+
+.. literalinclude:: ../../demo/examples/fba/examples.py
+   :language: python
+   :start-after: START create_action_example
+   :end-before: END create_action_example
+
+Пример теста
+~~~~~~~~~~~~
+
+.. literalinclude:: ../../demo/tests/test_examples/test_fba/test_links.py
+   :language: python
+   :start-after: START test_create_action_example
+   :end-before: END test_create_action_example

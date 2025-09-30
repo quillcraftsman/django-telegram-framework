@@ -1,5 +1,6 @@
-from telegram_framework import use
+from telegram_framework import use, messages, chats, actions
 from demo.models import Faq
+from .forms import NameForm
 
 
 # START list_action_example
@@ -37,3 +38,20 @@ template_action_example = use.template_action(
     }
 )
 # END template_action_example
+
+
+# START create_action_example
+def result_callback(bot, message, middle_name):
+    first_name = chats.get_note(message.chat, 'first_name', '?')
+    last_name = chats.get_note(message.chat, 'last_name', '?')
+    result_text = f'Привет, {first_name} {last_name} {middle_name}'
+    message_with_text = messages.create_message(result_text, sender=bot)
+    chat = actions.send_message(message.chat, message_with_text)
+    return chat
+
+
+create_action_example = use.create_action(
+    NameForm,
+    result_callback,
+)
+# END create_action_example

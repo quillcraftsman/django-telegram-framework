@@ -28,4 +28,9 @@ bot_links = [
         'template_action',
         'Пример FBA действия с шаблоном'
     ),
+    links.on_command(
+        examples.create_action_example,
+        'create_action',
+        'Пример FBA последовательность на основе формы'
+    ),
 ]

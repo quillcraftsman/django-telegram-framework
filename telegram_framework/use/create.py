@@ -37,6 +37,8 @@ def validate_field(form_cls, bot, message, field_name, repeat_function):
         field_name: value
     }
     chat = chats.add_note(chat, **kwargs)
+    form = form_cls(data=chat.notes)
+    chat = chats.add_note(chat, form=form)
     return valid, chat
 
 

@@ -42,9 +42,12 @@ template_action_example = use.template_action(
 
 # START create_action_example
 def result_callback(bot, message):
-    first_name = chats.get_note(message.chat, 'first_name', '?')
-    last_name = chats.get_note(message.chat, 'last_name', '?')
-    middle_name = chats.get_note(message.chat, 'middle_name', '?')
+    form = chats.get_note(message.chat, 'form')
+    form.is_valid()
+    data = form.cleaned_data
+    first_name = data['first_name']
+    last_name = data['last_name']
+    middle_name = data['middle_name']
     result_text = f'Привет, {first_name} {last_name} {middle_name}'
     message_with_text = messages.create_message(result_text, sender=bot)
     chat = actions.send_message(message.chat, message_with_text)

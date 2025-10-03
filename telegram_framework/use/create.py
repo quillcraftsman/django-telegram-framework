@@ -2,100 +2,69 @@ from django.core.exceptions import ValidationError
 from telegram_framework import keyboards, messages, actions, chats
 
 
-def field_input(bot, chat, input_text, next_action):
+def show_input(form_cls, bot, message, field_name, wait_response_in):
     keyboard = keyboards.force.Keyboard()
     message_with_text = messages.create_message(
-        input_text,
+        form_cls.base_fields[field_name].label,
         sender=bot
     )
     message_with_keyboard = messages.add_keyboard(message_with_text, keyboard)
-    chat = actions.send_message(chat, message_with_keyboard)
-    chat = actions.wait_response(bot, chat, next_action)
+    chat = actions.send_message(message.chat, message_with_keyboard)
+    chat = actions.wait_response(bot, chat, wait_response_in)
     return chat
 
 
-def validate_input(
-        bot,
-        message,
-        form_cls,
-        field_name,
-        action_when_invalid,
-        valid_callback
-    ):  # pylint:disable=too-many-arguments,too-many-positional-arguments
+def validate_field(form_cls, bot, message, field_name, repeat_function):
+    text = message.text
     try:
-        value = form_cls.base_fields[field_name].clean(message.text)
+        value = form_cls.base_fields[field_name].clean(text)
     except ValidationError as e:
-        return field_input(
-            bot,
-            message.chat,
+        valid = False
+        # красные может быть
+        # вывод ошибки
+        message_with_text = messages.create_message(
             e.message,
-            action_when_invalid,
+            sender=bot
         )
-    return valid_callback(bot, message, value)
+        chat = actions.send_message(message.chat, message_with_text)
+        message = chats.get_last_message(chat)
+        # return valid, show_input(bot, message, field_name, repeat_function)
+        return valid, repeat_function(bot, message)
+    valid = True
+    # делаем заметку
+    chat = message.chat
+    kwargs = {
+        field_name: value
+    }
+    chat = chats.add_note(chat, **kwargs)
+    return valid, chat
 
 
-def make_validate_action(key, next_callback, form_cls):
-    def validate_action_template(bot, message):
-        return validate_input(
-            bot,
-            message,
-            form_cls,
-            key,
-            validate_action_template,
-            next_callback,
-        )
+def make_field_functions(form_cls, field_name, next_step_function):
 
-    return validate_action_template
+    def validate_field_name(bot, message):
+        valid, chat = validate_field(form_cls, bot, message, field_name, enter_field_name)
+        if valid:
+            message = chats.get_last_message(chat)
+            return next_step_function(bot, message)
+        return chat
 
+    validate_field_name.__name__ = f'validate_{field_name}_function'
 
-def make_valid_callback(current_field_name, previous_field_name, next_action, form_cls):
-    def valid_callback_template(bot, message, value):
-        kwargs = {
-            previous_field_name: value
-        }
-        chat = chats.add_note(message.chat, **kwargs)
-        return field_input(
-            bot,
-            chat,
-            form_cls.base_fields[current_field_name].label,
-            next_action,
-        )
+    def enter_field_name(bot, message):
+        return show_input(form_cls, bot, message, field_name, validate_field_name)
 
-    return valid_callback_template
+    enter_field_name.__name__ = f'enter_{field_name}_function'
+    return enter_field_name
 
 
 def create_action(form_cls, result_callback):
+    form_field_names = list(form_cls.base_fields.keys())
 
-    form_fields = list(form_cls.base_fields.keys())
-    first_field = form_fields[0]
-    current_callback = result_callback
-    current_action = None
+    next_step_function = result_callback
+    enter_field_function = None
+    for field_name in reversed(form_field_names):
+        enter_field_function = make_field_functions(form_cls, field_name, next_step_function)
+        next_step_function = enter_field_function
 
-    # идем от последнего к 1-му
-    # for field_name in reversed(form_fields):
-    for i in range(len(form_fields) - 1, -1, -1):
-
-        field_name = form_fields[i]
-        previous_field_name = form_fields[i-1]
-        current_action = make_validate_action(field_name, current_callback, form_cls)
-        current_action.__name__ = f"validate_{field_name}_action"
-
-        # callback становиться этим текущим действием
-        current_callback = make_valid_callback(
-            field_name,
-            previous_field_name,
-            current_action,
-            form_cls
-        )
-        current_callback.__name__=f"valid_{field_name}_callback"
-
-    def start_sequence(bot, message):
-
-        return field_input(
-            bot,
-            message.chat,
-            form_cls.base_fields[first_field].label,
-            current_action,
-        )
-
-    return start_sequence
+    return enter_field_function

@@ -42,8 +42,8 @@ bot_links = [
         lambda message: 'Привет' in message.text
     ),
     links.on_command(
-        examples.get_user_id_example,
-        'get_user_id',
+        examples.get_user_data_example,
+        'get_user_data',
         'Получение telegram id пользователя',
     ),
     links.on_command(

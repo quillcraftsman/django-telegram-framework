@@ -74,9 +74,18 @@ class TestAdapters(unittest.TestCase):
         """
         Test prepare_message: success telebot.Message input
         """
+        class FromUser:
+
+            def __init__(self):
+                self.id = 1
+                self.first_name = 'test'
+                self.last_name = 'test'
+                self.username = 'test'
+
+
         telebot_message = types.Message(
             1,
-            1,
+            FromUser(),
             'date',
             chat=types.Chat(id=1, type=0),
             content_type=None,

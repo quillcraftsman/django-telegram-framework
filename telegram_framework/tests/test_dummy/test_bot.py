@@ -6,7 +6,7 @@ from telegram_framework import messages
 class TestDummyBot(SimpleTestCase):
 
     def setUp(self):
-        self.bot = bots.DummyBot(token='test_dummy')
+        self.bot = bots.get_bot(token='test_dummy')
 
         def some_handler():
             return 'data'

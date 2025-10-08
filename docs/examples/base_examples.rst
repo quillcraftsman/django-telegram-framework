@@ -11,7 +11,7 @@
 - :ref:`send_picture`
 - :ref:`send_picture_with_caption`
 - :ref:`send_picture_with_html_caption`
-- :ref:`get_user_id_example`
+- :ref:`get_user_data_example`
 - :ref:`send_param_text_message_example`
 - :ref:`param_call_buttons_example`
 
@@ -177,22 +177,22 @@
    :end-before: END test_send_picture_with_html_caption_example
 
 
-.. _get_user_id_example:
-Получение id пользователя
+.. _get_user_data_example:
+Получение данных пользователя
 -------------------------
 
 .. literalinclude:: ../../demo/examples/base/examples.py
    :language: python
-   :start-after: START get_user_id_example
-   :end-before: END get_user_id_example
+   :start-after: START get_user_data_example
+   :end-before: END get_user_data_example
 
 Пример теста
 ~~~~~~~~~~~~
 
 .. literalinclude:: ../../demo/tests/test_examples/test_base/test_links.py
    :language: python
-   :start-after: START test_get_user_id_example
-   :end-before: END test_get_user_id_example
+   :start-after: START test_get_user_data_example
+   :end-before: END test_get_user_data_example
 
 
 .. _send_param_text_message_example:

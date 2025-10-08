@@ -2,15 +2,18 @@ from dataclasses import dataclass, field, replace
 from typing import List, Dict, Callable
 from telegram_framework import handlers
 from telegram_framework.messages import Message, Image, Call
+from telegram_framework.user import UserData
 
 
 @dataclass(frozen=True)
 class DummyBot:
     token: str
+    user_data: UserData
     command_handlers: Dict[str, handlers.Handler] = field(default_factory=dict)
     message_handlers: List[handlers.Handler] = field(default_factory=list)
     call_handlers: Dict[str, handlers.Handler] = field(default_factory=dict)
     next_step_handler: Callable = None
+
 
     @property
     def id(self):
@@ -101,8 +104,9 @@ def find_handler(bot: DummyBot, message):
     return None
 
 
-def get_bot(token):
-    return DummyBot(token=token)
+def get_bot(token, user_data=None):
+    user_data = user_data if user_data else UserData(id=token)
+    return DummyBot(token=token, user_data=user_data)
 
 
 def start(bot: DummyBot):  # pylint: disable=unused-argument

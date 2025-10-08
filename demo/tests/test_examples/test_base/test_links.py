@@ -1,6 +1,9 @@
 from telegram_framework import chats
 from telegram_framework import messages
+from telegram_framework import bots
 from telegram_framework.test import SimpleTestCase
+from telegram_framework.user import UserData
+
 
 
 class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
@@ -114,14 +117,33 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         self.assertEqual('Это логотипы <b>DTF</b>', last_message.caption.text)
     # END test_send_picture_with_html_caption_example
 
-    # START test_get_user_id_example
-    def test_get_user_id_example(self):
+    # START test_get_user_data_example
+    def test_get_user_data_example(self):
         """
-        Test /get_user_id
+        Test /get_user_data: success
         """
-        chat = self.assertCommandWasHandled('/get_user_id', self.chat)
-        self.assertChatLastMessageTextEqual(chat, f'Ваш telegram id: {self.client.id}')
-    # END test_get_user_id_example
+        client_data = UserData(
+            123,
+            'Client',
+            'Test',
+            'client',
+        )
+        client = bots.get_bot(123, client_data)
+        chat = self.assertCommandWasHandled('/get_user_data', self.chat, client=client)
+        self.assertChatLastMessageTextEqual(chat, f'Ваш telegram id: {client_data.id}\n'
+                                                  f'Ваше имя: {client_data.first_name}\n'
+                                                  f'Ваша фамилия: {client_data.last_name}\n'
+                                                  f'Ваше имя пользователя {client_data.username}')
+
+    def test_get_user_data_not_full(self):
+        """
+        Test /get_user_data: success not full user data
+        """
+        chat = self.assertCommandWasHandled('/get_user_data', self.chat)
+        self.assertChatLastMessageTextEqual(chat, f'Ваш telegram id: {self.client.user_data.id}\n'
+                                                  f'Ваше имя: скрыто\nВаша фамилия: скрыта\n'
+                                                  f'Ваше имя пользователя скрыто')
+    # END test_get_user_data_example
 
     # START test_send_param_text_message_example
     def test_send_param_text_message_example(self):

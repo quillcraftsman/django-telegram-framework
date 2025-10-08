@@ -1,6 +1,16 @@
 import functools
 from telebot import types
-from telegram_framework import messages, chats
+from telegram_framework import messages, chats, user
+
+
+def to_user_data(from_user: types.User)->user.UserData:
+    user_data = user.UserData(
+        id = from_user.id,
+        first_name=from_user.first_name,
+        last_name=from_user.last_name,
+        username=from_user.username,
+    )
+    return user_data
 
 
 def to_call(callback_query: types.CallbackQuery):
@@ -32,9 +42,18 @@ def to_chat(telebot_chat: types.Chat):
 
 
 def to_message(telebot_message: types.Message):
+
+    # Это по идее должен быть интерфейс DummyBot
+    class Sender:
+        def __init__(self, user_data):
+            self.user_data = user_data
+
+    user_data = to_user_data(telebot_message.from_user)
+    sender = Sender(user_data)
     pure_message = messages.create_message(
         telebot_message.text,
-        sender=telebot_message.from_user,
+        # sender=telebot_message.from_user,
+        sender=sender,
         format_type=telebot_message.reply_markup,
         message_id=telebot_message.message_id,
     )

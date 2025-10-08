@@ -131,13 +131,19 @@ def put_button_param_handler(bot, message, param):
 # END param_call_buttons_example
 
 
-# START get_user_id_example
-def get_user_id_example(bot, message):
-    user = message.sender
-    user_id = user.id
+# START get_user_data_example
+def get_user_data_example(bot, message):
+    user_data = message.sender.user_data
+    user_id = user_data.id
+    first_name = user_data.first_name if user_data.first_name else 'скрыто'
+    last_name = user_data.last_name if user_data.last_name else 'скрыта'
+    username = user_data.username if user_data.username else 'скрыто'
     response_message = messages.create_message(
-        text=f'Ваш telegram id: {user_id}',
+        text=f'Ваш telegram id: {user_id}\n'
+             f'Ваше имя: {first_name}\n'
+             f'Ваша фамилия: {last_name}\n'
+             f'Ваше имя пользователя {username}',
         sender=bot,
     )
     return actions.send_message(message.chat, response_message)
-# END get_user_id_example
+# END get_user_data_example

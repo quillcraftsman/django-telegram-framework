@@ -1,5 +1,5 @@
+pylint==3.3.8
 yamllint
-pylint
 build
 coverage
 setuptools

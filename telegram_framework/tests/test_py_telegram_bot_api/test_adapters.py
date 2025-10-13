@@ -104,6 +104,9 @@ class TestAdapters(unittest.TestCase):
 
             def __init__(self):
                 self.id = '0'
+                self.first_name = 'test'
+                self.last_name = 'test'
+                self.username = 'test'
 
         class TelebotMockMessage(types.Message):
 
@@ -116,7 +119,7 @@ class TestAdapters(unittest.TestCase):
 
         telebot_message = types.CallbackQuery(
             1,
-            1,
+            MockUser(),
             'data',
             chats.Chat,
             'date',

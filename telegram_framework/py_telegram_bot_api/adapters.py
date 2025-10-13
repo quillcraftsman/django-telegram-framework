@@ -13,9 +13,20 @@ def to_user_data(from_user: types.User)->user.UserData:
     return user_data
 
 
+# Это по идее должен быть интерфейс DummyBot
+class Sender:
+    def __init__(self, user_data):
+        self.user_data = user_data
+
+
 def to_call(callback_query: types.CallbackQuery):
+
+    # Дублирование получения sender тут и в to_message
+    user_data = to_user_data(callback_query.from_user)
+    sender = Sender(user_data)
+
     pure_message = messages.create_call(
-        callback_query.from_user,
+        sender,
         data=callback_query.data
     )
     # Тут похоже нужно еще как то восстановить чат
@@ -42,12 +53,6 @@ def to_chat(telebot_chat: types.Chat):
 
 
 def to_message(telebot_message: types.Message):
-
-    # Это по идее должен быть интерфейс DummyBot
-    class Sender:
-        def __init__(self, user_data):
-            self.user_data = user_data
-
     user_data = to_user_data(telebot_message.from_user)
     sender = Sender(user_data)
     pure_message = messages.create_message(

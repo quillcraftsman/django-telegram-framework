@@ -48,7 +48,7 @@ run_demo_bot:
 	python manage.py run_bot --bot_links=demo.links --settings=settings.prod_settings
 
 run_quickstart_bot:
-	python manage.py run_bot --bot_links=quickstart.bot --settings=settings.prod_settings
+	python manage.py run_bot --bot_links=quickstart.bot --bot_token_settings_name=TELEGRAM_BOT_TOKEN --settings=settings.prod_settings
 
 server:
 	python manage.py runserver

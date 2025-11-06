@@ -95,10 +95,6 @@ def prepare_handler(handler_function, bot):
 
     @functools.wraps(handler_function)
     def inner(message, *args, **kwargs):
-        # message = prepare_message(message)
-        # result_chat = handler_function(bot, message, *args, **kwargs)
-        # CHAT_STORE[result_chat.id] = result_chat
-        # return result_chat
         return adapt_data(message, handler_function, bot, *args, **kwargs)
 
     return inner
@@ -108,10 +104,6 @@ def prepare_call_handler(handler_function, bot):
 
     @functools.wraps(handler_function)
     def inner(call):
-        # message = prepare_message(call)
-        # result_chat = handler_function(bot, message)
-        # CHAT_STORE[result_chat.id] = result_chat
-        # return result_chat
         return adapt_data(call, handler_function, bot)
 
     return inner

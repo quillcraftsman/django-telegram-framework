@@ -29,12 +29,9 @@ def to_call(callback_query: types.CallbackQuery):
         sender,
         data=callback_query.data
     )
-    # Тут похоже нужно еще как то восстановить чат
     chat = to_chat(callback_query.message.chat)
     chat = chats.save_message(chat, pure_message)
-    # chat_message = messages.create_chat_message(pure_message, chat)
     chat_message = chats.get_last_message(chat)
-    # chat_message = messages.create_chat_message(pure_message, callback_query.message.chat)
     return chat_message
 
 

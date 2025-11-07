@@ -1,4 +1,3 @@
-from telegram import ParseMode
 from telegram.ext.updater import Updater
 from telegram_framework import chats, messages
 

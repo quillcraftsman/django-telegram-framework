@@ -1,4 +1,3 @@
-import time
 import os
 from dotenv import load_dotenv
 from pyrogram import Client

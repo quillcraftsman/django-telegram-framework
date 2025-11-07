@@ -17,6 +17,7 @@ def on_command(handler: Callable, name: str, description_text=None, params_patte
     def command_handler(bot):
 
         return bots.register_command_handler(bot, handler, name, filter_function)
+        # return bots.register_command_handler(bot, handler, name, None)
 
     return command_handler
 

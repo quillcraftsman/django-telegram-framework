@@ -1,0 +1,3 @@
+pyrogram==2.0.106
+pytest==8.4.2
+python-dotenv==1.0.1

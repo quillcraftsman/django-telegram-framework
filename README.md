@@ -125,6 +125,7 @@
 - Функции автоматического тестирования бота
 - Совместимость с синхронным pyTelegramBotAPI
 - Совместимость с асинхронным pyTelegramBotAPI (В разработке)
+- Совместимость с синхронным python-telegram-bot v13.15
 - DummyBot для тестирования и работы без подключения к telegram
 - Функции телеграм бота (Будут добавляться по мере надобности, пожалуйста напишите, если вам нужна новая функция)
 - Совместимость с aiogram, python-telegram-bot, Telethone (На этапе планирования)
@@ -133,6 +134,10 @@
 
 - django > 5
 - pyTelegramBotAPi (Нужно установить отдельно)
+- Для python-telegram-bot==13.15 нужны дополнительно следующие зависимости:
+    - python-telegram-bot==13.15
+    - urllib3==1.26.15
+    - standard-imghdr==3.13.0
 - Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#requirements)
 
 ## Статус разработки

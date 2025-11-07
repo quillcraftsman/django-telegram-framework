@@ -29,12 +29,9 @@ def to_call(callback_query: types.CallbackQuery):
         sender,
         data=callback_query.data
     )
-    # Тут похоже нужно еще как то восстановить чат
     chat = to_chat(callback_query.message.chat)
     chat = chats.save_message(chat, pure_message)
-    # chat_message = messages.create_chat_message(pure_message, chat)
     chat_message = chats.get_last_message(chat)
-    # chat_message = messages.create_chat_message(pure_message, callback_query.message.chat)
     return chat_message
 
 
@@ -95,10 +92,6 @@ def prepare_handler(handler_function, bot):
 
     @functools.wraps(handler_function)
     def inner(message, *args, **kwargs):
-        # message = prepare_message(message)
-        # result_chat = handler_function(bot, message, *args, **kwargs)
-        # CHAT_STORE[result_chat.id] = result_chat
-        # return result_chat
         return adapt_data(message, handler_function, bot, *args, **kwargs)
 
     return inner
@@ -108,10 +101,6 @@ def prepare_call_handler(handler_function, bot):
 
     @functools.wraps(handler_function)
     def inner(call):
-        # message = prepare_message(call)
-        # result_chat = handler_function(bot, message)
-        # CHAT_STORE[result_chat.id] = result_chat
-        # return result_chat
         return adapt_data(call, handler_function, bot)
 
     return inner

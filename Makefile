@@ -47,6 +47,22 @@ run_bot:
 run_demo_bot:
 	python manage.py run_bot --bot_links=demo.links --settings=settings.prod_settings
 
+e2e_get_coverage:
+	coverage run --parallel-mode manage.py run_bot \
+	  --bot_links=demo.links \
+	  --settings=settings.prod_settings
+
+e2e_cov_combine:
+	coverage combine
+
+e2e_cov_report:
+	coverage report
+	coverage html -d e2e_htmlcov
+
+e2e_cov_report_combine:
+	make e2e_cov_combine
+	make e2e_cov_report
+
 run_quickstart_bot:
 	python manage.py run_bot --bot_links=quickstart.bot --bot_token_settings_name=TELEGRAM_BOT_TOKEN --settings=settings.prod_settings
 

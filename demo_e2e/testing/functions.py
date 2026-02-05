@@ -5,11 +5,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 bot_name = os.getenv('TELEGRAM_BOT_NAME')
+default_timeout = float(os.getenv('DEFAULT_TIMEOUT', "0.5"))
 
 def send_message(client, text):
     client.send_message(bot_name, text)
 
-def wait_response(client, timeout=0.3):
+def wait_response(client, timeout=default_timeout):
     time.sleep(timeout)
     history = client.get_chat_history(bot_name, limit=1)
     message = list(history)[0]

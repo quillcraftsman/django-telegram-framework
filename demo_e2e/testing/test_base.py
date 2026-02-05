@@ -7,7 +7,7 @@ def test_start_command(client):
     """
     with client:
         send_message(client, '/start')
-        _, text = wait_response(client, timeout=0.4)
+        _, text = wait_response(client)
         assert 'Я Demo Bot' in text
         assert '/commands' in text
 

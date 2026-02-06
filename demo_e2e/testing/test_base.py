@@ -53,3 +53,49 @@ def test_get_user_data_command(client):
         send_message(client, '/get_user_data')
         _, text = wait_response(client, timeout=1)
         assert 'Ваш telegram id:' in text
+
+
+def test_any_unknown_message_text(client):
+    """
+    Test any unknown text message: success
+    """
+    with client:
+        unknown_message = 'Unknown message'
+        send_message(client, unknown_message)
+        _, text = wait_response(client)
+        assert 'На любое неизвестное сообщение я умею присылать его в ответ:' in text
+        assert unknown_message
+
+
+def test_fixed_text_answer(client):
+    """
+    Test fixed text "Спасибо бот"
+    """
+    with client:
+        fixed_text = 'Спасибо бот'
+        send_message(client, fixed_text)
+        _, text = wait_response(client)
+        assert f'На сообщение {fixed_text}, я даю фиксированный ответ: Пожалуйста' == text
+
+
+def test_contains_text_answer(client):
+    """
+    Test when message contains "Привет"
+    """
+    with client:
+        message = 'Это сообщение содержит "Привет"'
+        send_message(client, message)
+        _, text = wait_response(client)
+        assert 'На сообщение содержащее "Привет", я говорю "И тебе привет"' == text
+
+
+def test_send_param_text_message(client):
+    """
+    Test command with param "/param_text_message <param>"
+    """
+    param = 'Test Parameter'
+    message = f'/param_text_message {param}'
+    with client:
+        send_message(client, message)
+        _, text = wait_response(client)
+        assert f'Пример отправки обычного текстового сообщения с параметром "{param}"' == text

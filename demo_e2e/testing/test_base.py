@@ -1,5 +1,10 @@
 # from pyrogram.types.messages_and_media.message import Message
-from .functions import wait_response,  send_message
+from .functions import (
+    wait_response,
+    send_message,
+    click_inline_button,
+)
+from . import asserts
 
 
 def test_start_command(client):
@@ -138,3 +143,42 @@ def test_send_picture_with_html_caption(client):
         assert text is None
         assert message.photo is not None
         assert message.caption.html == 'Это логотипы <b>DTF</b>'
+
+
+# def test_param_call_buttons(client):
+#     """
+#     Test /param_call_buttons command
+#     """
+#     command = '/param_call_buttons'
+#     with client:
+#         send_message(client, command)
+#         message, text = wait_response(client, 1)
+#         assert 'Кнопки для обработчика с параметром' == text
+#         asserts.assert_inline_buttons(
+#             message,
+#             [('Параметр ONE', 'put_on_me_params ONE'),
+#             ('Параметр TWO', 'put_on_me_params TWO')],
+#         )
+
+
+def test_put_button_param_handler(client):
+    """
+    Test /param_call_buttons command when put button
+    """
+    # Получаем кнопки
+    command = '/param_call_buttons'
+    with client:
+        send_message(client, command)
+        message, text = wait_response(client, 1)
+        assert 'Кнопки для обработчика с параметром' == text
+        asserts.assert_inline_buttons(
+            message,
+            [('Параметр ONE', 'put_on_me_params ONE'),
+            ('Параметр TWO', 'put_on_me_params TWO')],
+        )
+        # Берем какой-то из обработчиков
+        callback_data = 'put_on_me_params ONE'
+        # Нажимаем кнопку
+        click_inline_button(client, message, callback_data)
+        _, text = wait_response(client)
+        assert 'Реакция на параметр ONE' == text

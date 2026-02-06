@@ -1,3 +1,4 @@
+# from pyrogram.types.messages_and_media.message import Message
 from .functions import wait_response,  send_message
 
 
@@ -99,3 +100,41 @@ def test_send_param_text_message(client):
         send_message(client, message)
         _, text = wait_response(client)
         assert f'Пример отправки обычного текстового сообщения с параметром "{param}"' == text
+
+
+def test_send_picture(client):
+    """
+    Test /send_picture command
+    """
+    command = '/send_picture'
+    with client:
+        send_message(client, command)
+        message, text = wait_response(client, timeout=1)
+        assert text is None
+        assert message.photo is not None
+
+
+def test_send_picture_with_caption(client):
+    """
+    Test /send_picture_with_caption command
+    """
+    command = '/send_picture_with_caption'
+    with client:
+        send_message(client, command)
+        message, text = wait_response(client, timeout=1)
+        assert text is None
+        assert message.photo is not None
+        assert message.caption == 'Это логотипы DTF'
+
+
+def test_send_picture_with_html_caption(client):
+    """
+    Test /send_picture_with_html_caption command
+    """
+    command = '/send_picture_with_html_caption'
+    with client:
+        send_message(client, command)
+        message, text = wait_response(client, timeout=1)
+        assert text is None
+        assert message.photo is not None
+        assert message.caption.html == 'Это логотипы <b>DTF</b>'

@@ -1,5 +1,5 @@
-wheel
-Django>=5
+wheel==0.45.1
+Django==5.2.6
 pyTelegramBotAPI==4.26.0
 python-dotenv==1.0.1
 python-telegram-bot==13.15

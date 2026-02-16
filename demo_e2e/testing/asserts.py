@@ -1,4 +1,4 @@
-from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardMarkup, ReplyKeyboardMarkup
 
 
 def assert_inline_buttons(message, expected_tuples):
@@ -16,3 +16,21 @@ def assert_inline_buttons(message, expected_tuples):
 
     assert len(buttons) == len(expected_tuples)
     assert set(buttons) == set(expected_tuples)
+
+
+def assert_reply_buttons(message, expected_texts):
+    """
+    expected_texts - iterable с текстами кнопок
+    """
+
+    assert message.reply_markup is not None
+    assert isinstance(message.reply_markup, ReplyKeyboardMarkup)
+
+    buttons = [
+        button
+        for row in message.reply_markup.keyboard
+        for button in row
+    ]
+
+    assert len(buttons) == len(expected_texts)
+    assert set(buttons) == set(expected_texts)

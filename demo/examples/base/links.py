@@ -57,6 +57,11 @@ bot_links = [
         'param_call_buttons',
         'Кнопки для обработчиков с параметрами',
     ),
+    links.on_command(
+        examples.get_chat_data_example,
+        'chat_data_example',
+        description_text='Пример получения данных из чата',
+    ),
     links.on_call(
         examples.put_button_param_handler,
         'put_on_me_params',

@@ -108,13 +108,20 @@ class TestAdapters(unittest.TestCase):
                 self.last_name = 'test'
                 self.username = 'test'
 
+        class TelebotMockChat(types.Chat):
+
+            def  __init__(self):  # pylint: disable=(super-init-not-called
+                self.id = 0
+                self.type = 'private'
+
         class TelebotMockMessage(types.Message):
 
             def __init__(self):  # pylint: disable=(super-init-not-called
                 self.text = 'telebot message'
                 self.from_user = MockUser()
                 self.reply_markup = 'HTML'
-                self.chat = chats.Chat(0)
+                # self.chat = chats.Chat(0)
+                self.chat = TelebotMockChat()
                 self.message_id = 640
 
         telebot_message = types.CallbackQuery(

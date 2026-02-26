@@ -1,3 +1,4 @@
+from dataclasses import fields
 import functools
 from telebot import types
 from telegram_framework import messages, chats, user
@@ -38,13 +39,32 @@ def to_call(callback_query: types.CallbackQuery):
 CHAT_STORE = {}
 
 
+def to_chat_info(telebot_chat: types.Chat):
+    info_field_names = {f.name for f in fields(chats.Info)}
+    telebot_chat_dict = telebot_chat.__dict__
+
+    filtered_data = {
+        key: value
+        for key, value in telebot_chat_dict.items()
+        if key in info_field_names
+    }
+
+    return chats.Info(
+        _adapter_chat=telebot_chat,
+        **filtered_data,
+    )
+
+
 def to_chat(telebot_chat: types.Chat):
     chat_id = telebot_chat.id
+    new_chat_info = to_chat_info(telebot_chat)
+    new_chat = chats.Chat(
+            id=telebot_chat.id,
+            info=new_chat_info,
+        )
     chat = CHAT_STORE.get(
         chat_id,
-        chats.Chat(
-            id=telebot_chat.id,
-        )
+        new_chat,
     )
     return chat
 

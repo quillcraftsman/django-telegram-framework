@@ -147,3 +147,22 @@ def get_user_data_example(bot, message):
     )
     return actions.send_message(message.chat, response_message)
 # END get_user_data_example
+
+
+# START get_chat_data_example
+def get_chat_data_example(bot, message):
+    chat = message.chat
+    data = {
+        'Данные чата': '',
+        'id': chat.id,
+        'type': chat.info.type,
+        'title': chat.info.title,
+    }
+    data_list = [f'{k}: {v}' for k, v in data.items()]
+    response_message_text = '\n'.join(data_list)
+    response_message = messages.create_message(
+        response_message_text,
+        bot,
+    )
+    return actions.send_message(chat, response_message)
+# END get_chat_data_example

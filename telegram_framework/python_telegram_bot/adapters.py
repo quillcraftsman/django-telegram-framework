@@ -1,3 +1,4 @@
+from dataclasses import fields
 import functools
 from telegram.update import Update
 from telegram.user import User
@@ -22,12 +23,30 @@ class Sender:
         self.user_data = user_data
 
 
+def to_chat_info(ptb_chat: Chat) -> chats.Info:
+    info_field_names = {
+        f.name for f in fields(chats.Info)
+        if f.name != "_adapter_chat"
+    }
+
+    filtered_data = {
+        field_name: getattr(ptb_chat, field_name, None)
+        for field_name in info_field_names
+    }
+
+    return chats.Info(
+        _adapter_chat=ptb_chat,
+        **filtered_data,
+    )
+
+
 def to_chat(ptb_chat: Chat):
     chat_id = ptb_chat.id
     chat = CHAT_STORE.get(
         chat_id,
         chats.Chat(
             id=ptb_chat.id,
+            info=to_chat_info(ptb_chat),
         )
     )
     return chat

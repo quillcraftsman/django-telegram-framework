@@ -176,3 +176,16 @@ class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
         chat = self.assertCallWasHandled('put_on_me_params PARAMPAM', self.chat)
         self.assertChatLastMessageTextEqual(chat, 'Реакция на параметр PARAMPAM')
     # END test_param_call_buttons_example
+
+    # START test_get_chat_data_example
+    def test_get_chat_data_example(self):
+        """
+        Test /chat_data_example: success
+        """
+        chat = self.assertCommandWasHandled('/chat_data_example', self.chat)
+        expected_response_text = 'Данные чата: \nid: 0\ntype: dummy\ntitle: None'
+        self.assertChatLastMessageTextEqual(
+            chat,
+            expected_response_text,
+        )
+    # END test_get_chat_data_example

@@ -14,6 +14,7 @@
 - :ref:`get_user_data_example`
 - :ref:`send_param_text_message_example`
 - :ref:`param_call_buttons_example`
+- :ref:`get_chat_data_example`
 
 
 .. _links:
@@ -228,3 +229,21 @@
    :language: python
    :start-after: START test_param_call_buttons_example
    :end-before: END test_param_call_buttons_example
+
+
+.. _get_chat_data_example:
+Пример получения данных из чата с ботом
+---------------------------------
+
+.. literalinclude:: ../../demo/examples/base/examples.py
+   :language: python
+   :start-after: START get_chat_data_example
+   :end-before: END get_chat_data_example
+
+Пример теста
+~~~~~~~~~~~~
+
+.. literalinclude:: ../../demo/tests/test_examples/test_base/test_links.py
+   :language: python
+   :start-after: START test_get_chat_data_example
+   :end-before: END test_get_chat_data_example

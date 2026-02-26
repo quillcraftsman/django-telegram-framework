@@ -2,6 +2,7 @@ from dataclasses import dataclass, field, replace
 from typing import Any, Dict
 import telegram_framework
 from telegram_framework import messages, keyboards
+from .info import Info
 
 
 @dataclass(frozen=True)
@@ -11,6 +12,11 @@ class Chat:
     bots: list = field(default_factory=list)
     keyboard: Any = None
     notes: Dict[str, Any] = field(default_factory=dict)
+    info: Info = field(default=Info(
+        type='dummy',
+        _adapter_chat=None,
+    ))
+
 
     def __eq__(self, other):
         return self.id == other.id

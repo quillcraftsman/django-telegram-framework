@@ -2,6 +2,7 @@ from .functions import (
     wait_response,
     send_message,
 )
+from . import asserts
 
 
 def test_list_action(client):
@@ -20,13 +21,13 @@ def test_list_action_pagination(client):
     """
     with client:
         send_message(client, '/list_action_pagination')
-        _, text = wait_response(client)
+        message, text = wait_response(client)
         assert 'Создано с помощью  list_action' in text
         # Почему-то это работает на проде и не работает локально?
-        # asserts.assert_inline_buttons(
-        #     message,
-        #     [('>>', 'list_action_pagination_2')],
-        # )
+        asserts.assert_inline_buttons(
+            message,
+            [('>>', 'list_action_pagination 2')],
+        )
 
 
 def test_detail_action(client):

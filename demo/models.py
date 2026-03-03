@@ -39,16 +39,6 @@ class Faq:
 
         @staticmethod
         def all():
-            # queryset = [
-            #     {
-            #         'question': 'Как быстрее писать код для списка',
-            #         'answer': 'Использовать list_action'
-            #     },
-            #     {
-            #         'question': 'Что это дает',
-            #         'answer': 'Можно ускорить разработку CRUD операций'
-            #     }
-            # ]
             queryset = Queryset()
             return queryset
 

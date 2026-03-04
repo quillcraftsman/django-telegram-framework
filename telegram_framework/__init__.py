@@ -9,7 +9,7 @@ try:
 except (ImproperlyConfigured, AttributeError):  # pragma: no cover
     BOT_TYPE = 'Dummy'
 
-if BOT_TYPE == 'Dummy':
+if BOT_TYPE == 'Dummy':  # pragma: no cover
     from .dummy import bots
     from .dummy import actions
 elif BOT_TYPE == 'pyTelegramBotAPI':  # pragma: no cover

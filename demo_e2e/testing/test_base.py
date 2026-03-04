@@ -182,3 +182,14 @@ def test_put_button_param_handler(client):
         click_inline_button(client, message, callback_data)
         _, text = wait_response(client)
         assert 'Реакция на параметр ONE' == text
+
+
+def test_chat_data_example(client):
+    """
+    Test /chat_data_example: success
+    """
+    command = '/chat_data_example'
+    with client:
+        send_message(client, command)
+        _, text = wait_response(client, 1)
+        assert 'Данные чата:' in text

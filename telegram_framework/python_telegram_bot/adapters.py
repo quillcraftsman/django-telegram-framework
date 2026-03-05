@@ -92,7 +92,7 @@ def prepare_message(update: Update):
         return to_message(update)
     if update.callback_query:
         return to_call(update)
-    return update
+    return update  # pragma: no cover
 
 
 def adapt_data(update, handler_function, bot, *args, **kwargs):

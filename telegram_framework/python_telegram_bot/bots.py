@@ -69,7 +69,7 @@ def register_message_handler(
 
     class CurrentFilter(MessageFilter):
 
-        def filter(self, message: Message) -> Optional[Union[bool, DataDict]]:
+        def filter(self, message: Message) -> Optional[Union[bool, DataDict]]:  # pragma: no cover
             return filter_function(message)
 
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command & CurrentFilter(), handler))

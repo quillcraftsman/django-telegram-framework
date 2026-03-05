@@ -70,7 +70,7 @@ def test_any_unknown_message_text(client):
         send_message(client, unknown_message)
         _, text = wait_response(client)
         assert 'На любое неизвестное сообщение я умею присылать его в ответ:' in text
-        assert unknown_message
+        assert unknown_message in text
 
 
 def test_fixed_text_answer(client):
@@ -145,22 +145,6 @@ def test_send_picture_with_html_caption(client):
         assert message.caption.html == 'Это логотипы <b>DTF</b>'
 
 
-# def test_param_call_buttons(client):
-#     """
-#     Test /param_call_buttons command
-#     """
-#     command = '/param_call_buttons'
-#     with client:
-#         send_message(client, command)
-#         message, text = wait_response(client, 1)
-#         assert 'Кнопки для обработчика с параметром' == text
-#         asserts.assert_inline_buttons(
-#             message,
-#             [('Параметр ONE', 'put_on_me_params ONE'),
-#             ('Параметр TWO', 'put_on_me_params TWO')],
-#         )
-
-
 def test_put_button_param_handler(client):
     """
     Test /param_call_buttons command when put button
@@ -182,3 +166,14 @@ def test_put_button_param_handler(client):
         click_inline_button(client, message, callback_data)
         _, text = wait_response(client)
         assert 'Реакция на параметр ONE' == text
+
+
+def test_chat_data_example(client):
+    """
+    Test /chat_data_example: success
+    """
+    command = '/chat_data_example'
+    with client:
+        send_message(client, command)
+        _, text = wait_response(client, 1)
+        assert 'Данные чата:' in text

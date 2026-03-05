@@ -2,5 +2,5 @@
 Package info
 """
 name = 'django-telegram-framework'
-version = '5.2.0'
+version = '5.3.0'
 status = '3 - Alpha'

@@ -52,7 +52,7 @@ class TestPTB(SimpleTestCase):
         self.assertEqual(0, len(dispatcher.handlers))
         bot = bots.register_text_handler(self.bot, self.some_handler, 'some_handler')
         dispatcher = bot.dispatcher
-        self.assertEqual(0, len(dispatcher.handlers))
+        self.assertEqual(1, len(dispatcher.handlers))
 
     def test_register_call_handler(self):
         """
@@ -62,7 +62,7 @@ class TestPTB(SimpleTestCase):
         self.assertEqual(0, len(dispatcher.handlers))
         bot = bots.register_call_handler(self.bot, self.some_handler, 'some_handler')
         dispatcher = bot.dispatcher
-        self.assertEqual(0, len(dispatcher.handlers))
+        self.assertEqual(1, len(dispatcher.handlers))
 
     def test_register_message_handler(self):
         """
@@ -72,4 +72,4 @@ class TestPTB(SimpleTestCase):
         self.assertEqual(0, len(dispatcher.handlers))
         bot = bots.register_message_handler(self.bot, self.some_handler, 'some_handler')
         dispatcher = bot.dispatcher
-        self.assertEqual(0, len(dispatcher.handlers))
+        self.assertEqual(1, len(dispatcher.handlers))

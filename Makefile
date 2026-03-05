@@ -48,7 +48,7 @@ run_demo_bot:
 	python manage.py run_bot --bot_links=demo.links --settings=settings.prod_settings
 
 e2e_get_coverage:
-	coverage run --parallel-mode manage.py run_bot \
+	coverage run --rcfile=.coveragerc.e2e --parallel-mode manage.py run_bot \
 	  --bot_links=demo.links \
 	  --settings=settings.prod_settings
 

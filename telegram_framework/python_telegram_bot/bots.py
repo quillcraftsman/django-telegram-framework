@@ -47,11 +47,12 @@ def register_call_handler(
     :param filter_function: -> bool для фильтрации
     """
     handler = adapters.prepare_call_handler(handler, bot)
-    #if filter_function is None:
-    pattern = f'^{call_data}$'
+    if filter_function is None:
+        pattern = f'^{call_data}$'
+    # callback_handler = CallbackQueryHandler(handler, pattern=pattern)
+    else:
+        pattern = filter_function
     callback_handler = CallbackQueryHandler(handler, pattern=pattern)
-    # else:
-    #     callback_handler = CallbackQueryHandler(handler, pattern=filter_function)
 
     # Регистрируем handler
     bot.dispatcher.add_handler(callback_handler)

@@ -49,7 +49,6 @@ def register_call_handler(
     handler = adapters.prepare_call_handler(handler, bot)
     if filter_function is None:
         pattern = f'^{call_data}$'
-    # callback_handler = CallbackQueryHandler(handler, pattern=pattern)
     else:
         pattern = filter_function
     callback_handler = CallbackQueryHandler(handler, pattern=pattern)

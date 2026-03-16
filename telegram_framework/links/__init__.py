@@ -11,9 +11,7 @@ def on_command(handler: Callable, name: str, description_text=None, params_patte
 
     params_pattern = params_pattern if params_pattern else name
     params_pattern = f'/{params_pattern}'
-    match_function = params.get_command_match_function(params_pattern)
-    handler = params.prepare_command_handler(handler, match_function)
-    filter_function = params.get_filter_function(match_function)
+    handler, filter_function = params.get_param_command_handler(params_pattern, handler)
 
     def command_handler(bot):
 
@@ -40,10 +38,7 @@ def on_text(handler: Callable, text: str):
 
 def on_call(handler, call_data, params_pattern=None):
     params_pattern = params_pattern if params_pattern else call_data
-    match_function = params.get_call_match_function(params_pattern)
-    handler = params.prepare_call_handler(handler, match_function)
-    filter_function = params.get_filter_function(match_function)
-
+    handler, filter_function = params.get_param_call_handler(params_pattern, handler)
     def call_handler(bot):
         return bots.register_call_handler(
             bot,

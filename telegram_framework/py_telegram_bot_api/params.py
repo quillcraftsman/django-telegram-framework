@@ -7,7 +7,7 @@ def _match_function(pattern, message_data):
     return route_pattern.match(message_data)
 
 
-def prepare_command_handler(handler_function, match_function):
+def _prepare_command_handler(handler_function, match_function):
 
     @functools.wraps(handler_function)
     def inner(bot, message, *args, **kwargs):
@@ -19,12 +19,12 @@ def prepare_command_handler(handler_function, match_function):
     return inner
 
 
-def prepare_call_handler(handler_function, match_function):
-    # Для Telebot call и command одинаковые
-    return prepare_command_handler(handler_function, match_function)
+def _prepare_call_handler(handler_function, match_function):
+    # Для Dummy call и command одинаковые
+    return _prepare_command_handler(handler_function, match_function)
 
 
-def get_filter_function(match_function):
+def _get_filter_function(match_function):
 
     def inner(message):
         match_result = match_function(message)
@@ -38,7 +38,7 @@ def get_filter_function(match_function):
     return inner
 
 
-def get_call_match_function(pattern):
+def _get_call_match_function(pattern):
 
     def inner(message):
         message_data = message.data
@@ -47,10 +47,24 @@ def get_call_match_function(pattern):
     return inner
 
 
-def get_command_match_function(pattern):
+def _get_command_match_function(pattern):
 
     def inner(message):
         message_data = message.text
         return _match_function(pattern, message_data)
 
     return inner
+
+
+def get_param_call_handler(params_pattern, handler):
+    match_function = _get_call_match_function(params_pattern)
+    handler = _prepare_call_handler(handler, match_function)
+    filter_function = _get_filter_function(match_function)
+    return handler, filter_function
+
+
+def get_param_command_handler(params_pattern, handler):
+    match_function = _get_command_match_function(params_pattern)
+    handler = _prepare_command_handler(handler, match_function)
+    filter_function = _get_filter_function(match_function)
+    return handler, filter_function

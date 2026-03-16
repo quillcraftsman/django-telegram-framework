@@ -1,6 +1,6 @@
 from django.test import SimpleTestCase
 from telegram_framework import messages
-from telegram_framework.python_telegram_bot import params
+from telegram_framework.py_telegram_bot_api import params
 
 
 class TestParams(SimpleTestCase):
@@ -30,10 +30,17 @@ class TestParams(SimpleTestCase):
         self.assertEqual('done', result)
 
         # Вызываем filter_function
-        result = filter_function(message_text)
+        result = filter_function(message)
         self.assertTrue(result)
-        result = filter_function('/other_command')
+
+        other_message = messages.create_message(
+            '/other_command',
+            None,
+        )
+
+        result = filter_function(other_message)
         self.assertFalse(result)
+
 
     def test_get_param_command_handler_with_params(self):
         """
@@ -62,11 +69,17 @@ class TestParams(SimpleTestCase):
         self.assertEqual('done', result)
 
         # Вызываем filter_function
-        result = filter_function(message_text)
+        result = filter_function(message)
         self.assertTrue(result)
 
-        result = filter_function('/test_command two/error')
+        message = messages.create_message(
+            text='/test_command two/error',
+            sender=None,
+        )
+
+        result = filter_function(message)
         self.assertFalse(result)
+
 
     def test_get_param_call_handler(self):
         """
@@ -91,5 +104,5 @@ class TestParams(SimpleTestCase):
         self.assertEqual('done', result)
 
         # Вызываем filter_function
-        result = filter_function(call_data)
+        result = filter_function(call)
         self.assertTrue(result)

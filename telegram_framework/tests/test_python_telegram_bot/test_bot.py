@@ -64,6 +64,22 @@ class TestPTB(SimpleTestCase):
         dispatcher = bot.dispatcher
         self.assertEqual(1, len(dispatcher.handlers))
 
+    def test_register_call_handler_with_filter(self):
+        """
+        Test register_call_handler: success
+        with filter_function
+        """
+        dispatcher = self.bot.dispatcher
+        self.assertEqual(0, len(dispatcher.handlers))
+        bot = bots.register_call_handler(
+            self.bot,
+            self.some_handler,
+            'some_handler',
+            filter_function=lambda _: True,
+        )
+        dispatcher = bot.dispatcher
+        self.assertEqual(1, len(dispatcher.handlers))
+
     def test_register_message_handler(self):
         """
         Test register_message_handler: success

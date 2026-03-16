@@ -12,12 +12,15 @@ except (ImproperlyConfigured, AttributeError):  # pragma: no cover
 if BOT_TYPE == 'Dummy':  # pragma: no cover
     from .dummy import bots
     from .dummy import actions
+    from .dummy import params
 elif BOT_TYPE == 'pyTelegramBotAPI':  # pragma: no cover
     from .py_telegram_bot_api import bots
     from .py_telegram_bot_api import actions
+    from .py_telegram_bot_api import params
 elif BOT_TYPE == 'PYTHON_TELEGRAM_BOT':  # pragma: no cover
     from .python_telegram_bot import bots
     from .python_telegram_bot import actions
+    from .python_telegram_bot import params
 else:
     raise errors.BotTypeError(BOT_TYPE)  # pragma: no cover
 

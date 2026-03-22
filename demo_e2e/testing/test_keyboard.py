@@ -1,8 +1,9 @@
-# from pyrogram.types.messages_and_media.message import Message
+from pyrogram.types import Message
+from pyrogram.types.messages_and_media.message import Str
 from .functions import (
-    wait_response,
-    send_message,
+    get_last_response,
     click_inline_button,
+    check_response,
 )
 from . import asserts
 
@@ -14,8 +15,7 @@ def test_put_on_me_inline_handler(client):
     # Получаем сообщение с кнопкой
     command = '/message_with_inline_keyboard'
     with client:
-        send_message(client, command)
-        message, text = wait_response(client, 1)
+        message, text = get_last_response(client, command)
         assert 'Пример сообщения с кнопкой' == text
         asserts.assert_inline_buttons(
             message,
@@ -24,8 +24,11 @@ def test_put_on_me_inline_handler(client):
         callback_data = 'put_on_me'
         # Нажимаем кнопку
         click_inline_button(client, message, callback_data)
-        _, text = wait_response(client)
-        assert 'Вы нажали кнопку, а я обработал нажатие' == text
+
+        def assert_function(_: Message, text: Str)->None:
+            assert 'Вы нажали кнопку, а я обработал нажатие' == text
+
+        check_response(client, assert_function)
 
 
 def test_put_on_me_reply_handler(client):
@@ -36,15 +39,13 @@ def test_put_on_me_reply_handler(client):
     # Получаем сообщение с кнопкой
     command = '/message_with_reply_keyboard'
     with client:
-        send_message(client, command)
-        message, text = wait_response(client, 1)
+        message, text = get_last_response(client, command)
         assert 'Пример сообщения с клавиатурой' == text
         reply_button_text = 'Нажми меня 🔍'
         asserts.assert_reply_buttons(
             message,
             [reply_button_text],
         )
-        send_message(client, reply_button_text)
         # Отправляем текст в чат
-        _, text = wait_response(client, timeout=1)
+        _, text = get_last_response(client, reply_button_text)
         assert 'Вы нажали на клавиатуру, а я обработал нажатие и убрал клавиатуру' == text

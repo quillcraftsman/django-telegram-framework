@@ -1,6 +1,5 @@
 from .functions import (
-    wait_response,
-    send_message,
+    get_last_response
 )
 from . import asserts
 
@@ -11,8 +10,11 @@ def test_complex_message(client):
     """
     command = '/complex_message'
     with client:
-        send_message(client, command)
-        message, text = wait_response(client, 1)
+        message, text = get_last_response(
+            client,
+            command,
+            answers_count=2,
+        )
         assert text is None
         assert message.photo is not None
         assert message.caption == 'Пример комплексного сообщения'

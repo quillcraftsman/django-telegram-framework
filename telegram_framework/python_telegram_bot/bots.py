@@ -74,3 +74,21 @@ def register_message_handler(
 
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command & CurrentFilter(), handler))
     return bot
+
+
+def get_commands_list(bot: Updater) -> list:
+    dp = bot.dispatcher
+
+    commands = []
+
+    for group in dp.handlers.values():
+        for handler in group:
+
+            if isinstance(handler, CommandHandler):
+
+                for command in handler.command:
+                    commands.append(
+                        (command, handler.callback)
+                    )
+
+    return commands

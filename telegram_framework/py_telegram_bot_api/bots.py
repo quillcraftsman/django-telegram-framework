@@ -56,7 +56,7 @@ def find_handler(bot: TeleBot, message):  # pylint: disable=unused-argument
     return None
 
 
-def get_commands_list(bot: TeleBot):
+def get_commands_list(bot: TeleBot) -> list:
     handlers = bot.message_handlers
     commands = []
     for handler in handlers:

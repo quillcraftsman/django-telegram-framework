@@ -1,6 +1,6 @@
 import telegram
 from telegram.ext.updater import Updater
-from telegram_framework import chats, messages, keyboards
+from telegram_framework import chats, messages, keyboards, bots
 
 
 def send_image(chat: chats.Chat, image: messages.Image):
@@ -99,3 +99,10 @@ def _get_parse_mode(message):
 def send_message(chat: chats.Chat, message: messages.Message):
     parse_mode = _get_parse_mode(message)
     return _send_message(chat, message, parse_mode)
+
+
+def wait_response(bot, chat, handler):  # pragma: no cover
+    # Он такой же, как в Telebot, возможно это общий код
+    # и должен лежать в каком то одном месте
+    chat = bots.register_next_step_handler(bot, chat, handler)
+    return chat

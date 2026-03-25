@@ -1,4 +1,5 @@
 from typing import Callable, Optional, Union
+from telegram.ext.dispatcher import DispatcherHandlerStop
 
 from telegram import Message
 from telegram.ext import (
@@ -15,6 +16,15 @@ from . import adapters
 
 def get_bot(token):
     updater = Updater(token, use_context=True)
+
+    dp = updater.dispatcher
+
+    # Добавляем роутер для динамических next_step_handlers
+    dp.add_handler(
+        MessageHandler(Filters.text, _next_step_router),
+        group=-1,
+    )
+
     return updater
 
 
@@ -28,6 +38,25 @@ def register_command_handler(bot: Updater, handler: Callable, name: str, filter_
     handler = adapters.prepare_handler(handler, bot)
     dp.add_handler(CommandHandler(name, handler))
     return bot
+
+# Словарь для хранения следующих шагов
+_next_steps = {}
+
+def _next_step_router(update, context):
+    chat_id = update.effective_chat.id
+
+    if chat_id not in _next_steps:
+        return
+
+    handler = _next_steps.pop(chat_id)
+    handler(update, context)
+    raise DispatcherHandlerStop()
+
+
+def register_next_step_handler(bot: Updater, chat, handler: Callable):
+    handler = adapters.prepare_handler(handler, bot)
+    _next_steps[chat.id] = handler
+    return chat
 
 
 def register_text_handler(bot: Updater, handler: Callable, text: str):

@@ -3,6 +3,8 @@ from telegram_framework import (
     keyboards,
     messages,
     actions,
+    bots,
+    links,
 )
 
 
@@ -114,3 +116,15 @@ def assert_call_was_handled(call_data, chat, client):
     msg = f'Call "{call_data}" was not handled'
     assert len(chat.messages) - chat_messages_count > 1, msg
     return chat
+
+
+def prepare_bot_and_client(module_name):
+    chat = chats.Chat()
+    client = bots.get_bot('client')
+    chat = chats.add_bot(chat, client)
+    bot = bots.get_bot('bot')
+    bot_links = links.get_root_links(module_name)
+    bot = links.add_links(bot, bot_links)
+    chat = chats.add_bot(chat, bot)
+    assert_empty_chat(chat)
+    return client, chat

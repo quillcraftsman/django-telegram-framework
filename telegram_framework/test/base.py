@@ -1,8 +1,6 @@
 from django.conf import settings
 from telegram_framework import (
     chats,
-    bots,
-    links,
 )
 from . import asserts
 
@@ -10,21 +8,11 @@ from . import asserts
 # pylint: disable=invalid-name
 class TelegramFrameworkMixin:
 
-    def get_root_bot_links(self):
-        module_name = self.ROOT_BOT_LINKS \
-            if hasattr(self, 'ROOT_BOT_LINKS') \
-            else settings.ROOT_BOT_LINKS
-        return links.get_root_links(module_name)
-
     def prepare_bot_and_client(self):
-        chat = chats.Chat()
-        self.client = bots.get_bot('client')
-        chat = chats.add_bot(chat, self.client)
-        bot = bots.get_bot('bot')
-        bot_links = self.get_root_bot_links()
-        bot = links.add_links(bot, bot_links)
-        self.chat = chats.add_bot(chat, bot)
-        self.assertEmptyChat(self.chat)
+        links_module_name = self.ROOT_BOT_LINKS \
+        if hasattr(self, 'ROOT_BOT_LINKS') \
+        else settings.ROOT_BOT_LINKS
+        self.client, self.chat = asserts.prepare_bot_and_client(links_module_name)
 
     def _pre_setup(self):
         super()._pre_setup()

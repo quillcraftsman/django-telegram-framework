@@ -24,8 +24,8 @@ class TelegramFrameworkMixin:
     def assertNotEmptyChat(self, chat: chats.Chat):
         asserts.assert_not_empty_chat(chat)
 
-    def assertChatMessagesCount(self, chat: chats.Chat, count: int, msg=None):
-        asserts.assert_chat_messages_count(chat, count, msg)
+    # def assertChatMessagesCount(self, chat: chats.Chat, count: int, msg=None):
+    #     asserts.assert_chat_messages_count(chat, count, msg)
 
     def assertChatLastMessageEqual(self, chat: chats.Chat, message):
         asserts.assert_chat_last_message_equal(chat, message)

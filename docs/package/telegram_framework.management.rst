@@ -14,5 +14,5 @@ Module contents
 
 .. automodule:: telegram_framework.management
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

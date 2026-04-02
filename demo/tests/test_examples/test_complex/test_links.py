@@ -1,25 +1,28 @@
-from telegram_framework import chats
-from telegram_framework import messages
-from telegram_framework.test import SimpleTestCase
+from telegram_framework import (
+    chats,
+    messages,
+)
+from telegram_framework.test import asserts
 
 
-class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
-    ROOT_BOT_LINKS = 'demo.links'
-
-    # START test_complex_message_example
-    def test_complex_message_example(self):
-        """
-        Test /complex_message
-        """
-        chat = self.assertCommandWasHandled('/complex_message', self.chat)
-        self.assertChatMessagesCount(chat, 3)
-        last_message = chats.get_last_message(chat)
-        self.assertIsInstance(last_message, messages.Image)
-        self.assertIn('logo_1280_640.png', str(last_message.file_path))
-        self.assertIsNotNone(last_message.caption)
-        self.assertEqual('Пример <b>комплексного</b> сообщения', last_message.caption.text)
-        self.assertChatKeyboardName(chat, 'Пример клавиатуры')
-        keyboard = self.assertChatKeyboardLen(chat, 1)
-        self.assertEqual('Нажми меня 🔍', keyboard.buttons[0].text)
-        self.assertChatLastMessageKeyboardLen(chat, 1)
-    # END test_complex_message_example
+# START test_complex_message_example
+def test_complex_message_example(bot_client, chat):
+    """
+    Test /complex_message
+    """
+    chat = asserts.assert_command_was_handled(
+        '/complex_message',
+        chat,
+        bot_client,
+    )
+    asserts.assert_chat_messages_count(chat, 3)
+    last_message = chats.get_last_message(chat)
+    assert isinstance(last_message, messages.Image)
+    assert 'logo_1280_640.png' in str(last_message.file_path)
+    assert last_message.caption is not None
+    assert 'Пример <b>комплексного</b> сообщения' == last_message.caption.text
+    asserts.assert_chat_keyboard_name(chat, 'Пример клавиатуры')
+    keyboard = asserts.assert_chat_keyboard_len(chat, 1)
+    assert 'Нажми меня 🔍' == keyboard.buttons[0].text
+    asserts.assert_chat_last_message_keyboard_len(chat, 1)
+# END test_complex_message_example

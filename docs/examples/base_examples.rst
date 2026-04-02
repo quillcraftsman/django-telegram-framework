@@ -2,6 +2,7 @@
 ==================
 
 - :ref:`links`
+- :ref:`fixtures`
 - :ref:`text_message`
 - :ref:`html_message`
 - :ref:`render_template`
@@ -22,6 +23,13 @@
 --------------------------------------------------------
 
 .. literalinclude:: ../../demo/examples/base/links.py
+   :language: python
+
+.. _fixtures:
+Файл conftest.py. Настройка Fixtures для pytest
+--------------------------------------------------------
+
+.. literalinclude:: ../../demo/tests/conftest.py
    :language: python
 
 .. _text_message:

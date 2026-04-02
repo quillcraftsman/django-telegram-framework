@@ -1,8 +1,16 @@
-test:
+unittest:
 	python manage.py test
 
-coverage:
+test:
+	pytest
+
+unittest_coverage:
 	coverage run --source='.' manage.py test
+	coverage html
+	coverage report --fail-under=100
+
+coverage:
+	coverage run -m pytest
 	coverage html
 	coverage report --fail-under=100
 

@@ -4,6 +4,14 @@ telegram\_framework.test package
 Submodules
 ----------
 
+telegram\_framework.test.asserts module
+---------------------------------------
+
+.. automodule:: telegram_framework.test.asserts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 telegram\_framework.test.base module
 ------------------------------------
 

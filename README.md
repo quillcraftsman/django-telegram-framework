@@ -138,6 +138,8 @@
     - python-telegram-bot==13.15
     - urllib3==1.26.15
     - standard-imghdr==3.13.0
+- Для pyTelegramBotAPI (ASYNC) нужны дополнительно следующие зависимости:
+    - aiohttp
 - Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#requirements)
 
 ## Статус разработки

@@ -58,4 +58,4 @@ Django Telegram Framework
 
 - |development_status|
 
-`Проект в PyPi <https://pypi.org/project/pygenesis-django>`_
+`Проект в PyPi <https://pypi.org/project/django-telegram-framework/>`_

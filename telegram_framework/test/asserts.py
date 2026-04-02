@@ -118,13 +118,22 @@ def assert_call_was_handled(call_data, chat, client):
     return chat
 
 
-def prepare_bot_and_client(module_name):
+def prepare_client():
+    return bots.get_bot('client')
+
+
+def prepare_chat(client, links_module_name):
     chat = chats.Chat()
-    client = bots.get_bot('client')
     chat = chats.add_bot(chat, client)
     bot = bots.get_bot('bot')
-    bot_links = links.get_root_links(module_name)
+    bot_links = links.get_root_links(links_module_name)
     bot = links.add_links(bot, bot_links)
     chat = chats.add_bot(chat, bot)
     assert_empty_chat(chat)
+    return chat
+
+
+def prepare_bot_and_client(module_name):
+    client = prepare_client()
+    chat = prepare_chat(client, module_name)
     return client, chat

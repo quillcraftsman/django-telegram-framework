@@ -6,5 +6,5 @@ Module contents
 
 .. automodule:: telegram_framework.migrations
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

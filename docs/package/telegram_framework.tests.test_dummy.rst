@@ -9,21 +9,21 @@ telegram\_framework.tests.test\_dummy.test\_actions module
 
 .. automodule:: telegram_framework.tests.test_dummy.test_actions
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 telegram\_framework.tests.test\_dummy.test\_bot module
 ------------------------------------------------------
 
 .. automodule:: telegram_framework.tests.test_dummy.test_bot
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: telegram_framework.tests.test_dummy
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

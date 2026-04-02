@@ -1,77 +1,33 @@
 telegram\_framework.messages package
 ====================================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   telegram_framework.messages.call
+   telegram_framework.messages.core
+   telegram_framework.messages.media
+   telegram_framework.messages.reply
+   telegram_framework.messages.text_message
+
 Submodules
 ----------
-
-telegram\_framework.messages.chat\_message module
--------------------------------------------------
-
-.. automodule:: telegram_framework.messages.chat_message
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-telegram\_framework.messages.chat\_message\_base module
--------------------------------------------------------
-
-.. automodule:: telegram_framework.messages.chat_message_base
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 telegram\_framework.messages.errors module
 ------------------------------------------
 
 .. automodule:: telegram_framework.messages.errors
    :members:
-   :undoc-members:
    :show-inheritance:
-
-telegram\_framework.messages.message module
--------------------------------------------
-
-.. automodule:: telegram_framework.messages.message
-   :members:
    :undoc-members:
-   :show-inheritance:
-
-telegram\_framework.messages.message\_base module
--------------------------------------------------
-
-.. automodule:: telegram_framework.messages.message_base
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-telegram\_framework.messages.message\_default module
-----------------------------------------------------
-
-.. automodule:: telegram_framework.messages.message_default
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-telegram\_framework.messages.reply module
------------------------------------------
-
-.. automodule:: telegram_framework.messages.reply
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-telegram\_framework.messages.reply\_base module
------------------------------------------------
-
-.. automodule:: telegram_framework.messages.reply_base
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: telegram_framework.messages
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

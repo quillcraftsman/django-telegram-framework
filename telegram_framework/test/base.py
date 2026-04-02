@@ -48,8 +48,8 @@ class TelegramFrameworkMixin:
         client = client if client else self.client
         return asserts.assert_call_was_handled(call_data, chat, client)
 
-    def assertKeyboardInChatLastMessage(self, chat):
-        return asserts.assert_keyboard_in_chat_last_message(chat)
+    # def assertKeyboardInChatLastMessage(self, chat):
+    #     return asserts.assert_keyboard_in_chat_last_message(chat)
 
     def assertKeyboardInMessage(self, message):
         return asserts.assert_keyboard_in_message(message)
@@ -61,9 +61,7 @@ class TelegramFrameworkMixin:
         asserts.assert_keyboard_not_in_chat(chat)
 
     def assertChatLastMessageKeyboardLen(self, chat, value):
-        keyboard = self.assertKeyboardInChatLastMessage(chat)
-        self.assertEqual(len(keyboard), value)
-        return keyboard
+        return asserts.assert_chat_last_message_keyboard_len(chat, value)
 
     def assertChatKeyboardLen(self, chat, value):
         return asserts.assert_chat_keyboard_len(chat, value)

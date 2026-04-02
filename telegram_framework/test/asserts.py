@@ -118,6 +118,12 @@ def assert_call_was_handled(call_data, chat, client):
     return chat
 
 
+def assert_chat_last_message_keyboard_len(chat, value):
+    keyboard = assert_keyboard_in_chat_last_message(chat)
+    assert len(keyboard) == value
+    return keyboard
+
+
 def prepare_client():
     return bots.get_bot('client')
 

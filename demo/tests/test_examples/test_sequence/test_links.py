@@ -1,72 +1,65 @@
+import pytest
 from telegram_framework import chats
-from telegram_framework.test import SimpleTestCase
+from telegram_framework.test import asserts
 
 
-class TestCommands(SimpleTestCase):  # pylint: disable=too-many-public-methods
-    ROOT_BOT_LINKS = 'demo.links'
+# START test_sequence_example
+@pytest.mark.parametrize('command', [
+    '/sequence_example',
+    '/sequence_form_example',
+])
+def test_sequence_example(bot_client, chat, command):
+    """
+    Test /sequence_example
+    """
+    chat = asserts.assert_command_was_handled(
+        command,
+        chat,
+        bot_client,
+    )
+    last_message = asserts.assert_chat_last_message_text_equal(
+        chat,
+        'Как бы вас звали на букву "Л"?:',
+    )
+    asserts.assert_keyboard_in_message(last_message)
 
-    # START test_sequence_example
-    def test_sequence_example(self):
-        """
-        Test /sequence_example
-        """
-        chat = self.assertCommandWasHandled('/sequence_example', self.chat)
-        last_message = self.assertChatLastMessageTextEqual(
-            chat,
-            'Как бы вас звали на букву "Л"?:',
-        )
-        self.assertKeyboardInMessage(last_message)
+    chat = asserts.assert_text_message_was_handled(
+        'Жук',
+        chat,
+        bot_client,
+    )
+    last_message = chats.get_last_message(chat)
+    assert 'Неверно введено имя, пожалуйста введите снова:' == last_message.text
 
-        chat = self.assertTextMessageWasHandled('Жук', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertEqual('Неверно введено имя, пожалуйста введите снова:', last_message.text)
+    chat = asserts.assert_text_message_was_handled(
+        'Лео',
+        chat,
+        bot_client,
+    )
+    last_message = chats.get_last_message(chat)
+    assert 'Какой бы была ваша фамилия на букву "Л"?:' == last_message.text
 
-        chat = self.assertTextMessageWasHandled('Лео', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertEqual('Какой бы была ваша фамилия на букву "Л"?:', last_message.text)
+    chat = asserts.assert_text_message_was_handled(
+        'Жук',
+        chat,
+        bot_client,
+    )
+    last_message = chats.get_last_message(chat)
+    assert 'Неверно введена фамилия, пожалуйста введите снова:' == last_message.text
 
-        chat = self.assertTextMessageWasHandled('Жук', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertEqual('Неверно введена фамилия, пожалуйста введите снова:', last_message.text)
+    chat = asserts.assert_text_message_was_handled(
+        'Лось',
+        chat,
+        bot_client,
+    )
+    last_message = chats.get_last_message(chat)
+    assert 'Привет, Лео Лось' == last_message.text
 
-        chat = self.assertTextMessageWasHandled('Лось', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertEqual('Привет, Лео Лось', last_message.text)
-
-        chat = self.assertCommandWasHandled('/start', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertIn('Привет, Я Demo Bot', last_message.text)
-    # END test_sequence_example
-
-    # START test_sequence_form_example
-    def test_sequence_form_example(self):
-        """
-        Test /sequence_form_example
-        """
-        chat = self.assertCommandWasHandled('/sequence_form_example', self.chat)
-        last_message = self.assertChatLastMessageTextEqual(
-            chat,
-            'Как бы вас звали на букву "Л"?:',
-        )
-        self.assertKeyboardInMessage(last_message)
-
-        chat = self.assertTextMessageWasHandled('Жора', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertEqual('Неверно введено имя, пожалуйста введите снова:', last_message.text)
-
-        chat = self.assertTextMessageWasHandled('Лора', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertEqual('Какой бы была ваша фамилия на букву "Л"?:', last_message.text)
-
-        chat = self.assertTextMessageWasHandled('Жора', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertEqual('Неверно введена фамилия, пожалуйста введите снова:', last_message.text)
-
-        chat = self.assertTextMessageWasHandled('Ларин', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertEqual('Привет, Лора Ларин', last_message.text)
-
-        chat = self.assertCommandWasHandled('/start', chat)
-        last_message = chats.get_last_message(chat)
-        self.assertIn('Привет, Я Demo Bot', last_message.text)
-    # END test_sequence_form_example
+    chat = asserts.assert_command_was_handled(
+        '/start',
+        chat,
+        bot_client,
+    )
+    last_message = chats.get_last_message(chat)
+    assert 'Привет, Я Demo Bot' in  last_message.text
+# END test_sequence_example

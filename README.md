@@ -301,10 +301,10 @@ def test_any_text_message(bot_client, chat):
     )
 ```
 
-3. Запустить django тесты
+3. Запустить тесты
 
 ```commandline
-python manage.py test
+pytest
 ```
 
 ## Внести свой вклад в проект

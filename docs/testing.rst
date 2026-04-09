@@ -16,8 +16,8 @@ Django Telegram Framework позволяет удобно тестировать
 .. literalinclude:: ../quickstart/tests.py
    :language: python
 
-3. Запустить django тесты
+3. Запустить тесты
 
 .. code-block:: bash
 
-    python manage.py test
+    pytest

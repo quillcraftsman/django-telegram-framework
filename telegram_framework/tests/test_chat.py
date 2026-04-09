@@ -1,8 +1,10 @@
+# pylint: disable=redefined-outer-name
 """
 Tests
 """
 from dataclasses import dataclass
-from telegram_framework.test import SimpleTestCase
+import pytest
+from telegram_framework.test import asserts
 from telegram_framework import chats, messages
 
 
@@ -14,62 +16,65 @@ class EmptyBot:
         return self.id == other.id
 
 
-class TestChat(SimpleTestCase):
+@pytest.fixture
+def current_chat():
+    return chats.Chat()
+
+
+def test_add_bot(current_chat):
     """
-    TestInfo TestCase
+    Test add_bot: success
     """
-    def setUp(self):
-        """
-        setUp test data
-        """
-        self.chat = chats.Chat()
+    chat = current_chat
+    bot = EmptyBot()
+    assert 0 == len(chat.bots)
+    chat = chats.add_bot(chat, bot)
+    assert 1, len(chat.bots)
+    chat_bot = chat.bots[0]
+    assert bot == chat_bot
 
 
-    def test_add_bot(self):
-        """
-        Test add_bot: success
-        """
-        bot = EmptyBot()
-        self.assertEqual(0, len(self.chat.bots))
-        chat = chats.add_bot(self.chat, bot)
-        self.assertEqual(1, len(chat.bots))
-        chat_bot = chat.bots[0]
-        self.assertEqual(bot, chat_bot)
+def test_add_message(current_chat):
+    """
+    Test add_message: success
+    """
+    chat = current_chat
+    asserts.assert_empty_chat(chat)
+    message = messages.Message(text='some text', sender='some sender')
+    chat = chats.add_message(chat, message)
+    asserts.assert_not_empty_chat(chat)
 
-    def test_add_message(self):
-        """
-        Test add_message: success
-        """
-        self.assertEmptyChat(self.chat)
-        message = messages.Message(text='some text', sender='some sender')
-        chat = chats.add_message(self.chat, message)
-        self.assertNotEmptyChat(chat)
 
-    def test_add_message_in_chat(self):
-        """
-        Test add_message: success: Message.chat is not None
-        """
-        message = messages.Message(text='some text', sender='some sender')
-        chat = chats.add_message(self.chat, message)
-        chat_message = chats.get_last_message(chat)
-        self.assertChatLastMessageEqual(chat, chat_message)
-        self.assertEqual(chat, chat_message.chat)
+def test_add_message_in_chat(current_chat):
+    """
+    Test add_message: success: Message.chat is not None
+    """
+    chat = current_chat
+    message = messages.Message(text='some text', sender='some sender')
+    chat = chats.add_message(chat, message)
+    chat_message = chats.get_last_message(chat)
+    asserts.assert_chat_last_message_equal(chat, chat_message)
+    assert chat == chat_message.chat
 
-    def test_get_last_message_empty(self):
-        """
-        Test get_last_message: success: from empty chat
-        """
-        message = chats.get_last_message(self.chat)
-        self.assertIsNone(message)
 
-    def test_get_last_message(self):
-        """
-        Test get_last_message: success
-        """
-        message = messages.Message(text='some text', sender='some sender')
-        chat = chats.add_message(self.chat, message)
-        self.assertEqual(1, len(chat.messages))
-        last_message = chats.get_last_message(chat)
-        self.assertEqual(message, last_message)
-        self.assertEqual(last_message.chat, chat)
-        self.assertEqual(len(last_message.chat.messages), len(chat.messages))
+def test_get_last_message_empty(current_chat):
+    """
+    Test get_last_message: success: from empty chat
+    """
+    chat = current_chat
+    message = chats.get_last_message(chat)
+    assert message is None
+
+
+def test_get_last_message(current_chat):
+    """
+    Test get_last_message: success
+    """
+    chat = current_chat
+    message = messages.Message(text='some text', sender='some sender')
+    chat = chats.add_message(chat, message)
+    assert 1 == len(chat.messages)
+    last_message = chats.get_last_message(chat)
+    assert message == last_message
+    assert last_message.chat == chat
+    assert len(last_message.chat.messages) == len(chat.messages)

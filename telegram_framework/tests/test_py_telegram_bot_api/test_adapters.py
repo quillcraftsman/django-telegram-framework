@@ -1,138 +1,146 @@
-import unittest
+# pylint: disable=redefined-outer-name
+import pytest
 from telebot import types
 from telegram_framework import messages, chats
 from telegram_framework.py_telegram_bot_api import adapters, bots
 
 
-class TestAdapters(unittest.TestCase):
-
-    def setUp(self):
-        self.bot = bots.get_bot('7777777777:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-
-    def test_prepare_handler(self):
-
-        current_chat = chats.Chat(id=0)
-
-        def handler_function(bot, message):  # pylint: disable=unused-argument
-            return current_chat
-
-        prepared_function = adapters.prepare_handler(handler_function, self.bot)
-
-        message = messages.create_message(
-            'some message',
-            sender='bot',
-            message_id=1,
-        )
-
-        chat_message = messages.create_chat_message(
-            message,
-            current_chat
-        )
-
-        result = prepared_function(chat_message)
-        self.assertEqual(current_chat, result)
-
-    def test_prepare_call_handler(self):
-
-        current_chat = chats.Chat(id=0)
-
-        def handler_function(bot, call):  # pylint: disable=unused-argument
-            return current_chat
-
-        prepared_function = adapters.prepare_call_handler(handler_function, self.bot)
-
-        class MockCall:
-
-            def __init__(self):
-                self.message = None
-
-        call = MockCall()
-        result = prepared_function(call)
-        self.assertEqual(current_chat, result)
-
-    def test_prepare_message_mock(self):
-
-        class MockUser:
-
-            def __init__(self):
-                self.id = '0'
-
-        text =  'telebot message'
-        class TelebotMockMessage(types.Message):
-
-            def __init__(self):  # pylint: disable=(super-init-not-called
-                self.text = 'telebot message'
-                self.from_user = MockUser()
-                self.reply_markup = 'HTML'
-                self.chat = 'some chat'
-                self.message_id = 640
-
-        message = adapters.prepare_message(TelebotMockMessage())
-        self.assertEqual(text, message.text)
-
-    def test_prepare_message_message(self):
-        """
-        Test prepare_message: success telebot.Message input
-        """
-        class FromUser:
-
-            def __init__(self):
-                self.id = 1
-                self.first_name = 'test'
-                self.last_name = 'test'
-                self.username = 'test'
+@pytest.fixture
+def bot():
+    return bots.get_bot('7777777777:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 
 
-        telebot_message = types.Message(
-            1,
-            FromUser(),
-            'date',
-            chat=types.Chat(id=1, type=0),
-            content_type=None,
-            options=[],
-            json_string='date',
-        )
-        message = adapters.prepare_message(telebot_message)
-        self.assertEqual(None, message.text)
+def test_prepare_handler(bot):
 
-    def test_prepare_message_call(self):
-        """
-        Test prepare_message: success telebot.CallbackQuery input
-        """
+    current_chat = chats.Chat(id=0)
 
-        class MockUser:
+    def handler_function(bot, message):  # pylint: disable=unused-argument
+        return current_chat
 
-            def __init__(self):
-                self.id = '0'
-                self.first_name = 'test'
-                self.last_name = 'test'
-                self.username = 'test'
+    prepared_function = adapters.prepare_handler(handler_function, bot)
 
-        class TelebotMockChat(types.Chat):
+    message = messages.create_message(
+        'some message',
+        sender='bot',
+        message_id=1,
+    )
 
-            def  __init__(self):  # pylint: disable=(super-init-not-called
-                self.id = 0
-                self.type = 'private'
+    chat_message = messages.create_chat_message(
+        message,
+        current_chat
+    )
 
-        class TelebotMockMessage(types.Message):
+    result = prepared_function(chat_message)
+    assert current_chat == result
 
-            def __init__(self):  # pylint: disable=(super-init-not-called
-                self.text = 'telebot message'
-                self.from_user = MockUser()
-                self.reply_markup = 'HTML'
-                # self.chat = chats.Chat(0)
-                self.chat = TelebotMockChat()
-                self.message_id = 640
 
-        telebot_message = types.CallbackQuery(
-            1,
-            MockUser(),
-            'data',
-            chats.Chat,
-            'date',
-            TelebotMockMessage(),
-            None,
-            None,
-        )
-        message = adapters.prepare_message(telebot_message)
-        self.assertEqual('data', message.data)
+def test_prepare_call_handler(bot):
+
+    current_chat = chats.Chat(id=0)
+
+    def handler_function(bot, call):  # pylint: disable=unused-argument
+        return current_chat
+
+    prepared_function = adapters.prepare_call_handler(
+        handler_function,
+        bot
+    )
+
+    class MockCall:
+
+        def __init__(self):
+            self.message = None
+
+    call = MockCall()
+    result = prepared_function(call)
+    assert current_chat == result
+
+
+def test_prepare_message_mock():
+
+    class MockUser:
+
+        def __init__(self):
+            self.id = '0'
+
+    text =  'telebot message'
+    class TelebotMockMessage(types.Message):
+
+        def __init__(self):  # pylint: disable=(super-init-not-called
+            self.text = 'telebot message'
+            self.from_user = MockUser()
+            self.reply_markup = 'HTML'
+            self.chat = 'some chat'
+            self.message_id = 640
+
+    message = adapters.prepare_message(TelebotMockMessage())
+    assert text == message.text
+
+
+def test_prepare_message_message():
+    """
+    Test prepare_message: success telebot.Message input
+    """
+    class FromUser:
+
+        def __init__(self):
+            self.id = 1
+            self.first_name = 'test'
+            self.last_name = 'test'
+            self.username = 'test'
+
+
+    telebot_message = types.Message(
+        1,
+        FromUser(),
+        'date',
+        chat=types.Chat(id=1, type=0),
+        content_type=None,
+        options=[],
+        json_string='date',
+    )
+    message = adapters.prepare_message(telebot_message)
+    assert message.text is None
+
+
+def test_prepare_message_call():
+    """
+    Test prepare_message: success telebot.CallbackQuery input
+    """
+
+    class MockUser:
+
+        def __init__(self):
+            self.id = '0'
+            self.first_name = 'test'
+            self.last_name = 'test'
+            self.username = 'test'
+
+    class TelebotMockChat(types.Chat):
+
+        def  __init__(self):  # pylint: disable=(super-init-not-called
+            self.id = 0
+            self.type = 'private'
+
+    class TelebotMockMessage(types.Message):
+
+        def __init__(self):  # pylint: disable=(super-init-not-called
+            self.text = 'telebot message'
+            self.from_user = MockUser()
+            self.reply_markup = 'HTML'
+            # self.chat = chats.Chat(0)
+            self.chat = TelebotMockChat()
+            self.message_id = 640
+
+    telebot_message = types.CallbackQuery(
+        1,
+        MockUser(),
+        'data',
+        chats.Chat,
+        'date',
+        TelebotMockMessage(),
+        None,
+        None,
+    )
+    message = adapters.prepare_message(telebot_message)
+    assert  'data'== message.data

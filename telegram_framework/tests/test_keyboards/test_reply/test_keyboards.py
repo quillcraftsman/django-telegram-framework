@@ -1,28 +1,32 @@
-from unittest import TestCase
+# pylint: disable=redefined-outer-name
+import pytest
 from telegram_framework.keyboards.reply import keyboards, buttons
 
 
-class TestInline(TestCase):
+@pytest.fixture
+def test_keyboard():
+    return keyboards.Keyboard('Test keyboard')
 
-    def setUp(self):
-        self.test_keyboard = keyboards.Keyboard('Test keyboard')
 
-    def test_add_button(self):
-        one_button = buttons.Button('One')
-        test_keyboard = keyboards.add_button(self.test_keyboard, buttons.Button('One'))
-        self.assertEqual(1, len(test_keyboard.buttons))
-        self.assertEqual(one_button, test_keyboard.buttons[0])
+def test_add_button(test_keyboard):
+    one_button = buttons.Button('One')
+    test_keyboard = keyboards.add_button(test_keyboard, buttons.Button('One'))
+    assert 1 == len(test_keyboard.buttons)
+    assert one_button == test_keyboard.buttons[0]
 
-    def test_add_buttons(self):
-        button_list = [
-            buttons.Button('One'),
-            buttons.Button('Two')
-        ]
-        test_keyboard = keyboards.add_buttons(self.test_keyboard, button_list)
-        self.assertEqual(2, len(test_keyboard.buttons))
 
-    def test_len(self):
-        self.assertEqual(0 , len(self.test_keyboard))
+def test_add_buttons(test_keyboard):
+    button_list = [
+        buttons.Button('One'),
+        buttons.Button('Two')
+    ]
+    test_keyboard = keyboards.add_buttons(test_keyboard, button_list)
+    assert 2== len(test_keyboard.buttons)
 
-    def test_str(self):
-        self.assertEqual(self.test_keyboard.name, str(self.test_keyboard))
+
+def test_len(test_keyboard):
+    assert 0 == len(test_keyboard)
+
+
+def test_str(test_keyboard):
+    assert test_keyboard.name == str(test_keyboard)

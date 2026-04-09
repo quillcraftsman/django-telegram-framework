@@ -137,9 +137,3 @@ def prepare_chat(client, links_module_name):
     chat = chats.add_bot(chat, bot)
     assert_empty_chat(chat)
     return chat
-
-
-def prepare_bot_and_client(module_name):
-    client = prepare_client()
-    chat = prepare_chat(client, module_name)
-    return client, chat

@@ -1,91 +1,96 @@
-import unittest
+# pylint: disable=redefined-outer-name
+import pytest
 from telegram_framework import chats
 from telegram_framework.python_telegram_bot import adapters, bots
 
 
-class TestAdapters(unittest.TestCase):
+@pytest.fixture
+def bot():
+    return bots.get_bot('7777777777:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 
-    def setUp(self):
-        self.bot = bots.get_bot('7777777777:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 
-    def test_prepare_handler(self):
+def test_prepare_handler(bot):
 
-        current_chat = chats.Chat(id=0)
+    current_chat = chats.Chat(id=0)
 
-        def handler_function(bot, message):  # pylint: disable=unused-argument
-            return current_chat
+    def handler_function(current_bot, message):  # pylint: disable=unused-argument
+        return current_chat
 
-        prepared_function = adapters.prepare_handler(handler_function, self.bot)
+    prepared_function = adapters.prepare_handler(handler_function, bot)
 
-        class MockUser:
+    class MockUser:
 
-            def __init__(self):
-                self.id = '123456'
-                self.first_name = 'Mock'
-                self.last_name = 'Mock'
-                self.username = 'Mock'
+        def __init__(self):
+            self.id = '123456'
+            self.first_name = 'Mock'
+            self.last_name = 'Mock'
+            self.username = 'Mock'
 
-        class MockChat:
+    class MockChat:
 
-            def __init__(self):
-                self.id = 0
+        def __init__(self):
+            self.id = 0
 
-        class MockMessage:
+    class MockMessage:
 
-            def __init__(self):
-                self.from_user = MockUser()
-                self.text = 'mock text'
-                self.reply_markup = None
-                self.message_id = 0
-                self.chat = MockChat()
+        def __init__(self):
+            self.from_user = MockUser()
+            self.text = 'mock text'
+            self.reply_markup = None
+            self.message_id = 0
+            self.chat = MockChat()
 
-        class MockUpdate:
+    class MockUpdate:
 
-            def __init__(self):
-                self.message = MockMessage()
+        def __init__(self):
+            self.message = MockMessage()
 
-        prepared_function(MockUpdate(), None)
+    assert prepared_function(MockUpdate(), None) == current_chat
 
-    def test_prepare_call_handler(self):
 
-        current_chat = chats.Chat(id=0)
+def test_prepare_call_handler(bot):
 
-        def handler_function(bot, context):  # pylint: disable=unused-argument
-            return current_chat
+    current_chat = chats.Chat(id=0)
 
-        prepared_function = adapters.prepare_call_handler(handler_function, self.bot)
+    def handler_function(current_bot, context):  # pylint: disable=unused-argument
+        return current_chat
 
-        class MockUser:
+    prepared_function = adapters.prepare_call_handler(
+        handler_function,
+        bot,
+    )
 
-            def __init__(self):
-                self.id = 'test user'
-                self.first_name = 'test name'
-                self.last_name = 'test name'
-                self.username = 'testname'
+    class MockUser:
 
-        class MockChat:
+        def __init__(self):
+            self.id = 'test user'
+            self.first_name = 'test name'
+            self.last_name = 'test name'
+            self.username = 'testname'
 
-            def __init__(self):
-                self.id = '0'
+    class MockChat:
 
-        class MockMessage:
+        def __init__(self):
+            self.id = '0'
 
-            def __init__(self):
-                self.chat = MockChat()
+    class MockMessage:
 
-        class MockCallbackQuery:
+        def __init__(self):
+            self.chat = MockChat()
 
-            def __init__(self):
-                self.from_user = MockUser()
-                self.data = 'call data'
-                self.message = MockMessage()
+    class MockCallbackQuery:
 
-        class MockUpdate:
+        def __init__(self):
+            self.from_user = MockUser()
+            self.data = 'call data'
+            self.message = MockMessage()
 
-            def __init__(self):
-                self.message = None
-                self.callback_query = MockCallbackQuery()
+    class MockUpdate:
 
-        update = MockUpdate()
-        result = prepared_function(update, None)
-        self.assertEqual(current_chat, result)
+        def __init__(self):
+            self.message = None
+            self.callback_query = MockCallbackQuery()
+
+    update = MockUpdate()
+    result = prepared_function(update, None)
+    assert current_chat == result

@@ -1,10 +1,13 @@
 # Django Telegram Framework
 
-Библиотека (Framework) для быстрого создания **Telegram** ботов и интеграции с django
+Библиотека (Framework) для быстрого создания **Telegram** ботов 
+и интеграции с django
 
 <img src="logo_2_1_1280_640.png" alt="Django Telegram Framework logo" width="50%">
 
 [Тут][documentation_path] можно найти **Полную документацию проекта** 
+
+[Примеры использования][examples_path]
 
 <hr>
 
@@ -84,7 +87,7 @@
 Создать удобный и надежный framework для быстрого и удобного создания telegram ботов который:
 
 - Имеет чёткую структуру модулей
-- Может использовать разные библиотеки для взаимодействия с telegram (pyTelegramBotAPI, Telethone, python-telegram-bot, aiogram и другие)
+- Может использовать разные библиотеки для взаимодействия с telegram (pyTelegramBotAPI, python-telegram-bot и другие)
 - Позволяет быстро реализовать start-up проект одному разработчику или в небольшой команде
 - Имеет интеграцию с django для создания web страниц и использования django admin
 - Быстро подключается к базе данных с помощью Django ORM
@@ -101,8 +104,10 @@
 очень приветствуются
 
 ## Отличие от других Telegram проектов
-В отличие от библиотек для создания telegram ботов, таких как pyTelegramBotAPI, aiogram, python-telegram-bot и других,
-этот проект (Framework) имеет чёткую структуру, похожую на структуру django проектов. Framework содержит следующие элементы:
+В отличие от библиотек для создания telegram ботов, таких как 
+pyTelegramBotAPI, aiogram, python-telegram-bot и других,
+этот проект (Framework) имеет чёткую структуру, похожую на структуру django проектов. 
+Framework содержит следующие элементы:
 
 - models - модели данных связанные с базой данных с помощью Django ORM
 - actions - обработчики событий telegram bot-а (аналогия с django views)
@@ -110,13 +115,16 @@
 - settings - настройки для всего проекта - django settings
 - tests - тесты логики бота с использованием специального Dummy Bot
 
-Под капотом Framework может использовать разные библиотеки в синхронном и асинхронном исполнении. Можно переключать одни библиотеки на другие.
-Без соединения с telegram (например в DEV) режиме, можно использовать Dummy Bot для разработки и тестирования.
+Под капотом Framework может использовать разные библиотеки в синхронном исполнении. 
+Можно переключать одни библиотеки на другие.
+Без соединения с telegram (например в DEV) режиме, можно использовать Dummy Bot 
+для разработки и тестирования.
 
 Интеграция с django позволяет:
 - Добавить web site
 - Использовать django админку
 - Использовать django ORM
+- Использовать link по аналогии с urls в Django
 
 ## Функции библиотеки
 
@@ -124,11 +132,9 @@
 - Понятная структура и интерфейсы для разработки бота
 - Функции автоматического тестирования бота
 - Совместимость с синхронным pyTelegramBotAPI
-- Совместимость с асинхронным pyTelegramBotAPI (В разработке)
 - Совместимость с синхронным python-telegram-bot v13.15
 - DummyBot для тестирования и работы без подключения к telegram
 - Функции телеграм бота (Будут добавляться по мере надобности, пожалуйста напишите, если вам нужна новая функция)
-- Совместимость с aiogram, python-telegram-bot, Telethone (На этапе планирования)
 
 ## Зависимости
 
@@ -138,13 +144,11 @@
     - python-telegram-bot==13.15
     - urllib3==1.26.15
     - standard-imghdr==3.13.0
-- Для pyTelegramBotAPI (ASYNC) нужны дополнительно следующие зависимости:
-    - aiohttp
 - Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#requirements)
 
 ## Статус разработки
 
-Написана и проверена 2-ая сырая версия библиотеки с небольшим набором функций
+Написана и проверена Beta версия библиотеки с основным набором функций
 
 - Пакет уже доступен в [PyPi](https://pypi.org/project/django-telegram-framework/)
 - Подробности в [Полной документации](https://quillcraftsman.github.io/django-telegram-framework/about.html#development-status)
@@ -319,3 +323,4 @@ pytest
 - [Файлом поддержки](SUPPORT.md)
 
 [documentation_path]: https://quillcraftsman.github.io/django-telegram-framework
+[examples_path]: https://quillcraftsman.github.io/django-telegram-framework/examples/index.html

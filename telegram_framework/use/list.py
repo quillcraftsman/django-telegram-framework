@@ -3,17 +3,17 @@ from .paginations import Pagination, paginate
 
 
 def list_action(
-        model,
+        queryset,
         template_name,
         context_object_name='objects_list',
         pagination: Pagination = None,
         ):
 
     def list_action_result(bot, message, page=1):
-        queryset = model.objects.all()
+        inner_queryset = queryset
         keyboard = None
         if pagination:
-            queryset, keyboard = paginate(pagination, queryset, page)
+            inner_queryset, keyboard = paginate(pagination, inner_queryset, page)
 
         context = {context_object_name: queryset}
         template_message = messages.create_template_message(

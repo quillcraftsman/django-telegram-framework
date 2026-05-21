@@ -5,7 +5,7 @@ from .forms import NameForm
 
 # START list_action_example
 list_action_example = use.list_action(
-    Faq,
+    Faq.objects.all(),
     template_name='demo/bot/list.html',
 )
 # END list_action_example
@@ -13,7 +13,7 @@ list_action_example = use.list_action(
 
 # START list_action_pagination_example
 list_action_pagination_example = use.list_action(
-    Faq,
+    Faq.objects.all(),
     template_name='demo/bot/list.html',
     pagination=use.list.Pagination(1, call_data_pattern='list_action_pagination {page}')
 )

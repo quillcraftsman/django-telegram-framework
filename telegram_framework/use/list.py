@@ -15,7 +15,7 @@ def list_action(
         if pagination:
             inner_queryset, keyboard = paginate(pagination, inner_queryset, page)
 
-        context = {context_object_name: queryset}
+        context = {context_object_name: inner_queryset}
         template_message = messages.create_template_message(
             sender=bot,
             template=template_name,
